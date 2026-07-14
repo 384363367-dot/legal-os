@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal OS Data Verification"
+  short_description: "Source-locked amount and data verification workflow"
+  default_prompt: "Use $legal-os-data-verification to build a source-locked amount and data verification ledger."

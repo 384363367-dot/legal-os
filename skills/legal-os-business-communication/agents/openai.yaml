@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal OS Business Communication"
+  short_description: "Draft and check business communication safely"
+  default_prompt: "Use $legal-os-business-communication to route and draft this business communication."

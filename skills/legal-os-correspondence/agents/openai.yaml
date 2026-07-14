@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal OS Correspondence"
+  short_description: "Source-locked formal letter workflow"
+  default_prompt: "Use $legal-os-correspondence to draft a source-locked Chinese formal letter with deadline, evidence, authority, and external-action gates."

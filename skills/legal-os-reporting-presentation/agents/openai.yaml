@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal OS Reporting & Presentation"
+  short_description: "Source-locked status reports and editable leadership PPTs"
+  default_prompt: "Use $legal-os-reporting-presentation to build a source-locked status report or editable PPT output."

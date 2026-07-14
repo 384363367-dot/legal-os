@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal OS Matter Memory"
+  short_description: "Lean, source-locked matter memory and review workflow"
+  default_prompt: "Use $legal-os-matter-memory to classify, verify, and manage matter memory without polluting global rules."

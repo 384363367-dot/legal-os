@@ -1,0 +1,4 @@
+interface:
+  display_name: "Legal OS File Delivery"
+  short_description: "Convert, package and archive legal files safely"
+  default_prompt: "Use $legal-os-file-delivery to convert, package, or archive these legal files."

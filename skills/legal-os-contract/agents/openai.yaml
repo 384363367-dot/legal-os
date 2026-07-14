@@ -1,0 +1,7 @@
+interface:
+  display_name: "Legal OS Contract Workspace"
+  short_description: "Review contracts and produce granular DOCX redlines"
+  default_prompt: "Use $legal-os-contract to review this contract from my side and produce a granular redline and clean version."
+
+policy:
+  allow_implicit_invocation: true
