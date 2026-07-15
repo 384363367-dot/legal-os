@@ -1,7 +1,6 @@
 <p align="center">
   <img src="./legal-os-banner.svg" alt="Legal OS 像素风页首" width="100%">
 </p>
-# Legal OS
 
 ## 中文介绍
 
