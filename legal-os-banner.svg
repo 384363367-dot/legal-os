@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="500" viewBox="0 0 1600 500" role="img" aria-labelledby="title desc">
+  <title id="title">Legal OS</title>
+  <desc id="desc">面向中国法律工作的 AI 协作工作流</desc>
+  <rect width="1600" height="500" fill="#061426"/>
+  <rect width="1600" height="500" fill="#081b32"/>
+  <g shape-rendering="crispEdges" opacity=".45" stroke="#1e3c5e" stroke-width="1">
+    <path d="M1050 30h500M1050 60h500M1050 90h500M1050 120h500M1050 150h500M1050 180h500M1050 210h500M1050 240h500M1050 270h500M1050 300h500M1050 330h500M1050 360h500M1050 390h500M1050 420h500M1050 450h500"/>
+    <path d="M1080 0v500M1110 0v500M1140 0v500M1170 0v500M1200 0v500M1230 0v500M1260 0v500M1290 0v500M1320 0v500M1350 0v500M1380 0v500M1410 0v500M1440 0v500M1470 0v500M1500 0v500M1530 0v500"/>
+  </g>
+  <g fill="#d89542" opacity=".8"><rect x="1470" y="42" width="5" height="5"/><rect x="1530" y="72" width="5" height="5"/><rect x="1410" y="132" width="5" height="5"/><rect x="1500" y="192" width="5" height="5"/><rect x="1350" y="402" width="5" height="5"/><rect x="1440" y="432" width="5" height="5"/></g>
+  <g transform="translate(105 110)" fill="#d89542"><rect x="0" y="0" width="18" height="18"/><rect x="30" y="0" width="18" height="18"/><rect x="60" y="0" width="18" height="18"/><rect x="0" y="30" width="18" height="18"/><rect x="60" y="30" width="18" height="18"/><rect x="0" y="60" width="18" height="18"/><rect x="30" y="60" width="18" height="18"/><rect x="60" y="60" width="18" height="18"/></g>
+  <text x="105" y="285" fill="#f7f1e7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="92" font-weight="700" letter-spacing="3">Legal OS</text>
+  <rect x="108" y="323" width="130" height="7" fill="#d89542"/>
+  <text x="105" y="380" fill="#e3ae68" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="34" font-weight="600">面向中国法律工作的 AI 协作工作流</text>
+  <g transform="translate(955 78)" shape-rendering="crispEdges" stroke="#d89542" stroke-width="5">
+    <path d="M90 145H245V55H90zM90 145H245M205 55h40v90" fill="#132b46"/>
+    <path d="M110 85h95M110 110h72M110 135h55" stroke="#87a3bc" stroke-width="7"/>
+    <path d="M175 100h250v205H175z" fill="#f3eee4"/>
+    <path d="M350 100h75v70h-75z" fill="#d89542" stroke="none"/>
+    <path d="M350 100h75v70l-37-22-38 22z" fill="#b8782e" stroke="none"/>
+    <path d="M200 135h150M200 165h180M200 195h130M200 225h175" stroke="#667789" stroke-width="7"/>
+    <path d="M55 190h220v175H55z" fill="#102a45" stroke="#42627e"/>
+    <path d="M80 225h120M80 255h145M80 285h100M80 315h135" stroke="#7895ae" stroke-width="7"/>
+    <path d="M280 275h190v145H280z" fill="#0d2138"/>
+    <path d="M305 305h140M305 335h140M305 365h140M305 395h140M350 290v120M395 290v120"/>
+    <path d="M55 275H0V130h90M275 255h90V100h-40M275 335h80v75h-55" fill="none"/>
+    <g fill="#102a45"><rect x="-55" y="100" width="58" height="58"/><rect x="-60" y="245" width="58" height="58"/><rect x="455" y="90" width="70" height="70"/><rect x="455" y="225" width="70" height="70"/><rect x="455" y="360" width="70" height="70"/></g>
+    <g fill="none" stroke="#f3c06c"><path d="M-40 130h28M-26 116v28M-44 274l12 12 28-35M475 125h30M490 110v30M475 245h30v30h-30zM490 245v30M475 260h30M475 380h30v35h-30zM475 380l15 12 15-12"/></g>
+  </g>
+  <g font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, sans-serif" font-size="25" font-weight="600" fill="#f3eee4"><text x="1495" y="190">质量检查</text><text x="1495" y="325">结构化</text><text x="1495" y="460">合规与审慎</text></g>
+</svg>
