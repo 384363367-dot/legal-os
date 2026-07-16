@@ -1,4 +1,4 @@
-# Legal OS v1.8｜Unified Matter Intake and Routing
+# Unified Matter Intake and Routing
 
 The unified intake layer is the public-safe entry point for the Legal OS workflow family. It identifies the task, role, risk, materials, output audience, and gaps before loading one primary workflow.
 
@@ -22,3 +22,5 @@ The public copy contains only generic routing logic. It does not contain client 
 ## Runtime rule
 
 Load `Kernel + one primary workflow + necessary auxiliaries + the matching quality gate`. The router does not replace specialist legal workflows, evidence checks, current-law research, or human authorization for sending, filing, signing, settling, waiving, terminating, publishing, or pushing changes.
+
+In the v0.1.0 public package, evidence mapping is a phase in `legal-os-litigation`, while current-law verification requires an available authoritative research capability selected for the jurisdiction. These are declared boundaries, not missing bundled Skills. See [capability-matrix.md](capability-matrix.md).

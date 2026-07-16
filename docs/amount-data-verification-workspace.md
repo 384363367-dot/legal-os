@@ -1,6 +1,6 @@
-# Legal OS v1.7｜Amount and Data Verification Workspace
+# Amount and Data Verification Workspace
 
-Legal OS v1.7 is a generic, source-locked verification layer for amount reconciliation, payment records, calendar date nodes, and source conflicts or missing evidence.
+This is a generic, source-locked verification layer for amount reconciliation, payment records, calendar date nodes, and source conflicts or missing evidence.
 
 ## What it contains
 
@@ -16,7 +16,7 @@ The repository copy contains only the generic workflow and public-safe field rul
 
 ## Use with other modules
 
-Use the data-verification Skill for arithmetic and source-gap control. Route contract meaning and redlines to the contract workflow, procedure and strategy to the litigation workflow, proof mapping to the evidence workflow, and current Chinese law to the law-research workflow. Run the formal legal quality gate before any external document or action.
+Use the data-verification Skill for arithmetic and source-gap control. Route contract meaning and redlines to the contract workflow, procedure, strategy, and evidence mapping to the litigation workflow, and current Chinese law to an available authoritative research capability. Run the responsible substantive workflow's quality gate before any external document or action.
 
 ## Safety boundary
 
