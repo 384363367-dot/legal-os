@@ -18,6 +18,7 @@
 
 ### 安全与发布治理
 
+- 将 `lxml` 升级到 `6.1.0`，修复默认 `iterparse()` 和 `ETCompatXMLParser()` 配置可能读取本地文件的高危 XXE 问题（CVE-2026-41066）。
 - 固定第三方 GitHub Actions 的提交 SHA，并关闭 checkout 凭据持久化。
 - 增加对缺失本地资源、未打包具名 Skill 依赖、不完整 Agent 元数据和内部 Agent 指令的自动拦截。
 
