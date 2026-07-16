@@ -26,5 +26,7 @@ jobs:
         run: python -m pip check
       - name: Validate repository structure
         run: python scripts/validate_repo.py
+      - name: Validate Unified Intake scenarios
+        run: python scripts/validate_routing_scenarios.py
       - name: Run synthetic tests
         run: python -m unittest discover -s tests -v

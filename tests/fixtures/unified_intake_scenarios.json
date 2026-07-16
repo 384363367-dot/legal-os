@@ -1,0 +1,77 @@
+[
+  {
+    "id": "contract-direct",
+    "intake": {"task_types": ["contract"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-01", "auxiliary_routes": [], "risk": "R1", "gap": "G0", "status": "ready"}
+  },
+  {
+    "id": "contract-with-data-check",
+    "intake": {"task_types": ["contract", "data-verification"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-01", "auxiliary_routes": ["T-08"], "risk": "R2", "gap": "G1", "status": "ready"}
+  },
+  {
+    "id": "contract-with-current-law",
+    "intake": {"task_types": ["contract", "current-law-research"], "flags": ["high-impact"]},
+    "expected_decision": {"mode": "route-only", "primary_route": "T-01", "auxiliary_routes": ["T-05"], "risk": "R2", "gap": "G2", "status": "routed"}
+  },
+  {
+    "id": "pleading-draft",
+    "intake": {"task_types": ["pleading"], "flags": ["high-impact"]},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-02", "auxiliary_routes": [], "risk": "R2", "gap": "G1", "status": "ready"}
+  },
+  {
+    "id": "evidence-map",
+    "intake": {"task_types": ["evidence-map"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-03", "auxiliary_routes": [], "risk": "R1", "gap": "G1", "status": "ready"}
+  },
+  {
+    "id": "litigation-strategy",
+    "intake": {"task_types": ["litigation-strategy"], "flags": ["high-impact"]},
+    "expected_decision": {"mode": "route-only", "primary_route": "T-04", "auxiliary_routes": [], "risk": "R3", "gap": "G2", "status": "routed"}
+  },
+  {
+    "id": "current-law-research",
+    "intake": {"task_types": ["current-law-research"], "flags": []},
+    "expected_decision": {"mode": "route-only", "primary_route": "T-05", "auxiliary_routes": [], "risk": "R1", "gap": "G2", "status": "routed"}
+  },
+  {
+    "id": "formal-letter-send-request",
+    "intake": {"task_types": ["formal-correspondence"], "flags": ["external-action-requested", "high-impact"]},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-06", "auxiliary_routes": [], "risk": "R2", "gap": "G0", "status": "awaiting-authorization"}
+  },
+  {
+    "id": "business-message",
+    "intake": {"task_types": ["business-communication"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-07", "auxiliary_routes": [], "risk": "R0", "gap": "G0", "status": "ready"}
+  },
+  {
+    "id": "payment-reconciliation",
+    "intake": {"task_types": ["data-verification"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-08", "auxiliary_routes": [], "risk": "R1", "gap": "G1", "status": "ready"}
+  },
+  {
+    "id": "file-package",
+    "intake": {"task_types": ["file-delivery"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-09", "auxiliary_routes": [], "risk": "R1", "gap": "G0", "status": "ready"}
+  },
+  {
+    "id": "leadership-report",
+    "intake": {"task_types": ["reporting-presentation", "data-verification"], "flags": []},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-10", "auxiliary_routes": ["T-08"], "risk": "R1", "gap": "G1", "status": "ready"}
+  },
+  {
+    "id": "matter-memory-route-only",
+    "intake": {"task_types": ["matter-memory"], "flags": []},
+    "expected_decision": {"mode": "route-only", "primary_route": "T-11", "auxiliary_routes": [], "risk": "R1", "gap": "G1", "status": "routed"}
+  },
+  {
+    "id": "system-correction-candidate",
+    "intake": {"task_types": ["system-correction"], "flags": []},
+    "expected_decision": {"mode": "route-only", "primary_route": "T-12", "auxiliary_routes": [], "risk": "R1", "gap": "G0", "status": "routed"}
+  },
+  {
+    "id": "conflicting-contract-identity",
+    "intake": {"task_types": ["contract"], "flags": ["core-conflict", "high-impact"]},
+    "expected_decision": {"mode": "route-and-run", "primary_route": "T-01", "auxiliary_routes": [], "risk": "R2", "gap": "G3", "status": "stopped"}
+  }
+]

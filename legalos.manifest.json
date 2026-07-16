@@ -1,0 +1,78 @@
+{
+  "$schema": "./schemas/legalos-manifest.schema.json",
+  "schema_version": "1.0.0",
+  "product": {
+    "name": "Legal OS",
+    "public_version": "0.2.0",
+    "release_status": "candidate",
+    "version_namespace": "public-semver"
+  },
+  "authority": {
+    "manifest": "legalos.manifest.json",
+    "human_entry": "README.md",
+    "architecture": "docs/architecture.md",
+    "router": "legal-os-unified-intake",
+    "rule": "The manifest is authoritative for the public package inventory and routing contract; documentation explains it but must not contradict it."
+  },
+  "profiles": [
+    {
+      "id": "public-generic",
+      "distributed": true,
+      "default": true,
+      "private_overlay": false,
+      "external_actions": "separate-authorization"
+    },
+    {
+      "id": "private-controlled",
+      "distributed": false,
+      "default": false,
+      "private_overlay": true,
+      "external_actions": "organization-policy-and-separate-authorization"
+    }
+  ],
+  "execution_modes": {
+    "route-only": "Return the routing decision and next action without loading or executing the primary workflow.",
+    "route-and-run": "Continue into the selected primary workflow only when no stop or authorization gate applies."
+  },
+  "skills": [
+    {"name": "legal-os-unified-intake", "role": "router", "maturity": "candidate"},
+    {"name": "legal-os-contract", "role": "primary-workflow", "maturity": "stable"},
+    {"name": "legal-os-litigation", "role": "primary-workflow", "maturity": "stable"},
+    {"name": "legal-os-correspondence", "role": "primary-workflow", "maturity": "stable"},
+    {"name": "legal-os-business-communication", "role": "primary-workflow", "maturity": "stable"},
+    {"name": "legal-os-data-verification", "role": "primary-or-auxiliary", "maturity": "stable"},
+    {"name": "legal-os-file-delivery", "role": "primary-or-auxiliary", "maturity": "stable"},
+    {"name": "legal-os-reporting-presentation", "role": "primary-workflow", "maturity": "stable"},
+    {"name": "legal-os-matter-memory", "role": "primary-or-auxiliary", "maturity": "stable"}
+  ],
+  "routes": [
+    {"id": "T-01", "intake_types": ["contract"], "executor": {"kind": "bundled-skill", "skill": "legal-os-contract"}},
+    {"id": "T-02", "intake_types": ["pleading"], "executor": {"kind": "bundled-skill", "skill": "legal-os-litigation"}},
+    {"id": "T-03", "intake_types": ["evidence-map"], "executor": {"kind": "bundled-phase", "skill": "legal-os-litigation"}},
+    {"id": "T-04", "intake_types": ["litigation-strategy"], "executor": {"kind": "bundled-skill", "skill": "legal-os-litigation"}},
+    {"id": "T-05", "intake_types": ["current-law-research"], "executor": {"kind": "external-required", "skill": null}, "external_dependency": "authoritative-jurisdictional-research"},
+    {"id": "T-06", "intake_types": ["formal-correspondence"], "executor": {"kind": "bundled-skill", "skill": "legal-os-correspondence"}},
+    {"id": "T-07", "intake_types": ["business-communication"], "executor": {"kind": "bundled-skill", "skill": "legal-os-business-communication"}},
+    {"id": "T-08", "intake_types": ["data-verification"], "executor": {"kind": "bundled-skill", "skill": "legal-os-data-verification"}},
+    {"id": "T-09", "intake_types": ["file-delivery"], "executor": {"kind": "bundled-skill", "skill": "legal-os-file-delivery"}},
+    {"id": "T-10", "intake_types": ["reporting-presentation"], "executor": {"kind": "bundled-skill", "skill": "legal-os-reporting-presentation"}},
+    {"id": "T-11", "intake_types": ["matter-memory"], "executor": {"kind": "bundled-skill", "skill": "legal-os-matter-memory"}},
+    {"id": "T-12", "intake_types": ["system-correction"], "executor": {"kind": "bundled-skill", "skill": "legal-os-matter-memory"}}
+  ],
+  "invocation_policy": {
+    "legal-os-unified-intake": {"allow_implicit_invocation": true, "scope": "ambiguous, mixed, unknown, conflicting, or high-impact tasks"},
+    "legal-os-contract": {"allow_implicit_invocation": true, "scope": "direct single-domain contract requests with no unresolved routing conflict"},
+    "legal-os-litigation": {"allow_implicit_invocation": true, "scope": "direct single-domain litigation requests with no unresolved routing conflict"},
+    "legal-os-correspondence": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
+    "legal-os-business-communication": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
+    "legal-os-data-verification": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
+    "legal-os-file-delivery": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
+    "legal-os-reporting-presentation": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
+    "legal-os-matter-memory": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"}
+  },
+  "quality_gates": [
+    {"id": "manifest-consistency", "validator": "scripts/validate_repo.py"},
+    {"id": "routing-contract", "validator": "scripts/validate_routing_scenarios.py"},
+    {"id": "synthetic-tests", "validator": "python -m unittest discover -s tests -v"}
+  ]
+}

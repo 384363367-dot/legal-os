@@ -23,4 +23,6 @@ The public copy contains only generic routing logic. It does not contain client 
 
 Load `Kernel + one primary workflow + necessary auxiliaries + the matching quality gate`. The router does not replace specialist legal workflows, evidence checks, current-law research, or human authorization for sending, filing, signing, settling, waiving, terminating, publishing, or pushing changes.
 
-In the v0.1.1 public package, evidence mapping is a phase in `legal-os-litigation`, while current-law verification requires an available authoritative research capability selected for the jurisdiction. These are declared boundaries, not missing bundled Skills. See [capability-matrix.md](capability-matrix.md).
+Use `route-only` to return classification and next action without execution. Use `route-and-run` only when one primary route is clear and all stop and authorization gates pass. Every outcome has exactly one primary route; secondary capabilities remain auxiliary.
+
+In the v0.2.0 candidate, evidence mapping is a phase in `legal-os-litigation`, while current-law verification requires an available authoritative research capability selected for the jurisdiction. These are declared boundaries, not missing bundled Skills. The machine-readable contract is [legalos.manifest.json](../legalos.manifest.json); see also [capability-matrix.md](capability-matrix.md).

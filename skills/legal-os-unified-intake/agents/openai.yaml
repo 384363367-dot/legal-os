@@ -2,3 +2,6 @@ interface:
   display_name: "Legal OS Unified Intake"
   short_description: "Source-locked task intake and workflow routing"
   default_prompt: "Use $legal-os-unified-intake to classify a legal task and load the minimum required workflow."
+
+policy:
+  allow_implicit_invocation: true
