@@ -14,7 +14,7 @@ Build a traceable verification ledger that keeps source values, derived calculat
 ### 1. Route the task
 
 - Use this skill for numerical, date-node, reconciliation, and source-gap work.
-- Pair with `legal-os-contract` for contract interpretation/redline work, `legal-os-litigation` for procedure/strategy, the evidence workflow for proof mapping, `cn-law-hub` for current Chinese law, and `legal-quality-gate` before a formal external deliverable.
+- Pair with `legal-os-contract` for contract interpretation/redline work and `legal-os-litigation` for procedure, strategy, and evidence mapping. Current Chinese law requires an available authoritative research capability, and formal external delivery requires the responsible organization's legal quality gate and approval process; neither dependency is bundled in this public package.
 - If the user provides a workbook, inspect the existing workbook before changing it; preserve its structure unless a targeted change is requested.
 
 ### 2. Lock the source layer

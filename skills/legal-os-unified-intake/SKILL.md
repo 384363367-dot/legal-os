@@ -20,17 +20,17 @@ Identify the user's real task, role, risk, materials, output audience, and missi
 
 ## Route map
 
-- `T-01` contract review/redline → `legal-os-contract`; add evidence/data/Word QA only as needed.
-- `T-02` pleadings and `T-04` litigation strategy → litigation workflow; add evidence and current-law research as needed.
-- `T-03` evidence register/proof mapping → evidence workflow; route procedure questions separately.
-- `T-05` current laws, regulations, cases → legal research workflow; do not use memory or third-party summaries as authority.
-- `T-06` lawyer letters, payment/performance notices, replies, situation statements → formal correspondence workflow.
-- `T-07` business chat, email, oral or leadership wording → communication workflow; check audience and commitment boundaries.
+- `T-01` contract review/redline → `legal-os-contract`; add data and document QA only as needed.
+- `T-02` pleadings and `T-04` litigation strategy → `legal-os-litigation`; use its evidence-mapping and legal-research phases as needed.
+- `T-03` evidence register/proof mapping → the evidence-mapping phase in `legal-os-litigation`; do not infer authenticity, admissibility, or weight.
+- `T-05` current laws, regulations, cases → keep the substantive primary Skill and use an available authoritative research capability; do not use memory or third-party summaries as authority.
+- `T-06` lawyer letters, payment/performance notices, replies, situation statements → `legal-os-correspondence`.
+- `T-07` business chat, email, oral or leadership wording → `legal-os-business-communication`; check audience and commitment boundaries.
 - `T-08` amounts, payments, interest, formulas, dates and data conflicts → `legal-os-data-verification`; keep raw and derived values separate.
-- `T-09` Word/PDF conversion, packaging and archive → document/file-delivery workflow; verify version and privacy boundary.
-- `T-10` reports, summaries and presentations → reporting workflow; verify facts and metrics before polishing.
-- `T-11` named matter/project background → load only the relevant private case memory as a lead; current facts still require current-material verification.
-- `T-12` user correction or system failure → classify as Router, Workflow, Rule, Memory, QC or Tool before changing long-term behaviour.
+- `T-09` Word/PDF conversion, packaging and archive → `legal-os-file-delivery`; verify version and privacy boundary.
+- `T-10` reports, summaries and presentations → `legal-os-reporting-presentation`; verify facts and metrics before polishing.
+- `T-11` named matter/project background → `legal-os-matter-memory`; treat private memory as a lead and re-verify current facts.
+- `T-12` user correction or system failure → classify the observation here, then use `legal-os-matter-memory` to record a candidate without automatically changing global behavior.
 
 ## Hard stops
 
