@@ -1,13 +1,13 @@
 # Public capability matrix
 
-Legal OS v0.1.0 publishes nine installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory.
+Legal OS v0.1.1 publishes nine installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|
 | T-01 | Contract review and redline | `legal-os-contract` | Current-law research and organization release approval remain separate. |
 | T-02 / T-04 | Pleadings, litigation analysis and strategy | `legal-os-litigation` | Filing, service and signing require separate authorization. |
 | T-03 | Evidence register and proof mapping | Evidence-mapping phase in `legal-os-litigation`; see `docs/evidence-workspace.md` | It does not determine authenticity, admissibility or weight. |
-| T-05 | Current law, regulation and case research | Use the substantive primary Skill plus an available authoritative research capability | v0.1.0 does not bundle a jurisdictional source connector or a standalone research Skill. |
+| T-05 | Current law, regulation and case research | Use the substantive primary Skill plus an available authoritative research capability | v0.1.1 does not bundle a jurisdictional source connector or a standalone research Skill. |
 | T-06 | Formal correspondence | `legal-os-correspondence` | Drafting does not authorize sending or service. |
 | T-07 | Business communication | `legal-os-business-communication` | Formal notices route to T-06. |
 | T-08 | Amount, payment, date and data verification | `legal-os-data-verification` | Arithmetic status is not a legal conclusion. |
