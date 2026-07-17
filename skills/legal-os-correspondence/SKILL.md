@@ -12,9 +12,9 @@ Route formal correspondence through a source-locked workflow. Keep the public Sk
 1. **Identify purpose and audience** — determine the sender, recipient, role, procedural or commercial context, purpose, desired response, deadline, delivery method, and whether the text is internal or external.
 2. **Collect source material** — read the relevant contract, notices, correspondence, delivery/payment/acceptance records, evidence register, litigation analysis, and current legal research. Do not infer missing facts.
 3. **Build the fact and deadline ledger** — record each material fact, amount, date, obligation, breach/status, deadline, calculation basis, and source location. Distinguish confirmed, user-stated, document-stated, inferred, and unresolved items.
-4. **Choose the document type** — lawyer letter, payment/performance notice, reply letter, or situation statement. Use the approved blank template and keep its structure stable.
-5. **Draft the external text** — include only necessary, supportable facts; state the requested action or response precisely; identify the deadline and delivery channel; preserve rights without unnecessary admission, waiver, settlement, termination, or strategy disclosure.
-6. **Run the quality gate** — verify facts, evidence, current law when cited, recipient and service information, deadline computation, attachments, expression boundaries, formatting, and authorization states.
+4. **Choose the document type and template** — identify lawyer letter, payment/performance notice, reply letter, or situation statement. Use `legal-os-template-runtime` to resolve and hash-check one approved template. Stop with `TEMPLATE_REQUIRED` rather than inventing a layout.
+5. **Draft the external text** — preserve the fixed visual shell, but expand the body to match the actual chronology, breach, demand, response options, contractual remedies, verified legal consequences, dispute route, costs, preservation measures and rights reservation. Include only necessary, supportable material; do not turn possible or discretionary consequences into certain threats.
+6. **Run the quality gate** — verify facts, evidence, current law when cited, recipient and service information, deadline computation, attachments, expression boundaries, template fidelity, formatting, and authorization states.
 7. **Release by authorization** — label draft, internal review, or external clean version. Drafting does not authorize sending, service, filing, signing, or contacting a counterparty.
 
 ## Stop conditions
@@ -27,6 +27,7 @@ Stop for review when sender, recipient, contract/project, amount, date, obligati
 - Map each material assertion and demand to supplied material; legal propositions must cite current verified authority when used.
 - Treat deadline, delivery, attachment, and recipient details as substantive controls, not formatting details.
 - Do not use a template or old memory to fill a factual or legal gap.
+- Treat template wording as a minimum functional example, not a content ceiling. Add numbered subparts, risk warnings, calculations and attachments when the matter requires them.
 - Run DOCX structural and accessibility audits, then inspect through the operating system's native preview. Use WPS or another approved native application only for targeted Chinese-font, pagination, table or print-layout concerns. Do not substitute another renderer without explicit user authorization.
 
 ## References

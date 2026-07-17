@@ -4,7 +4,7 @@
   "title": "Legal OS public manifest",
   "type": "object",
   "additionalProperties": false,
-  "required": ["$schema", "schema_version", "product", "authority", "profiles", "execution_modes", "skills", "routes", "invocation_policy", "quality_gates"],
+  "required": ["$schema", "schema_version", "product", "authority", "profiles", "execution_modes", "skills", "routes", "invocation_policy", "template_runtime", "quality_gates"],
   "properties": {
     "$schema": {"const": "./schemas/legalos-manifest.schema.json"},
     "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
@@ -30,6 +30,18 @@
     "skills": {"type": "array", "minItems": 1, "items": {"type": "object"}},
     "routes": {"type": "array", "minItems": 12, "items": {"type": "object"}},
     "invocation_policy": {"type": "object"},
+    "template_runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["catalog", "resolver", "content_model", "private_overlay", "no_template_status"],
+      "properties": {
+        "catalog": {"type": "string"},
+        "resolver": {"type": "string"},
+        "content_model": {"const": "fixed-shell-flexible-body"},
+        "private_overlay": {"const": "supported-not-distributed"},
+        "no_template_status": {"const": "TEMPLATE_REQUIRED"}
+      }
+    },
     "quality_gates": {"type": "array", "minItems": 1, "items": {"type": "object"}}
   }
 }

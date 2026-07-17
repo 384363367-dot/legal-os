@@ -30,6 +30,7 @@ Use L1-L3 only when the item is stable and reusable. Keep L4 in the relevant mat
 6. Choose `Keep`, `Merge`, `Downgrade`, `Convert`, `Archive`, or `Skip`.
 7. Generate a candidate diff and obtain user confirmation before changing long-term rules, matter memory, Skills, templates, or automations. Preserve old Frozen versions and a rollback path.
 8. Review for stale, duplicate, unsupported or over-broad content and produce a slimming list.
+9. When producing a standard DOCX matter card, dynamic-fact record or candidate-diff artifact, use `legal-os-template-runtime` to resolve and hash-check the registered template. Preserve the fixed shell, add rows or sections as needed, and keep case-specific content in the private workspace.
 
 ## Retrieval rules
 

@@ -43,7 +43,8 @@
     {"name": "legal-os-data-verification", "role": "primary-or-auxiliary", "maturity": "stable"},
     {"name": "legal-os-file-delivery", "role": "primary-or-auxiliary", "maturity": "stable"},
     {"name": "legal-os-reporting-presentation", "role": "primary-workflow", "maturity": "stable"},
-    {"name": "legal-os-matter-memory", "role": "primary-or-auxiliary", "maturity": "stable"}
+    {"name": "legal-os-matter-memory", "role": "primary-or-auxiliary", "maturity": "stable"},
+    {"name": "legal-os-template-runtime", "role": "cross-cutting-quality-control", "maturity": "candidate"}
   ],
   "routes": [
     {"id": "T-01", "intake_types": ["contract"], "executor": {"kind": "bundled-skill", "skill": "legal-os-contract"}},
@@ -68,12 +69,21 @@
     "legal-os-data-verification": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
     "legal-os-file-delivery": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
     "legal-os-reporting-presentation": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-matter-memory": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"}
+    "legal-os-matter-memory": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
+    "legal-os-template-runtime": {"allow_implicit_invocation": false, "scope": "auxiliary for any formal templated artifact"}
+  },
+  "template_runtime": {
+    "catalog": "skills/legal-os-template-runtime/references/template-catalog.json",
+    "resolver": "skills/legal-os-template-runtime/scripts/template_runtime.py",
+    "content_model": "fixed-shell-flexible-body",
+    "private_overlay": "supported-not-distributed",
+    "no_template_status": "TEMPLATE_REQUIRED"
   },
   "quality_gates": [
     {"id": "manifest-consistency", "validator": "scripts/validate_repo.py"},
     {"id": "routing-contract", "validator": "scripts/validate_routing_scenarios.py"},
     {"id": "native-office-policy", "validator": "python -m unittest tests.test_native_office_policy"},
+    {"id": "template-runtime", "validator": "python -m unittest tests.test_template_runtime"},
     {"id": "synthetic-tests", "validator": "python -m unittest discover -s tests -v"}
   ]
 }

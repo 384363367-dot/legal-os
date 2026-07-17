@@ -1,0 +1,4 @@
+interface:
+  display_name: "LegalOS Template Runtime"
+  short_description: "Resolve and verify approved LegalOS document templates"
+  default_prompt: "Use $legal-os-template-runtime to resolve and verify the approved template before creating a formal document."

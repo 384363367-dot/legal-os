@@ -1,6 +1,6 @@
 # Public capability matrix
 
-Legal OS v0.2.0 candidate contains nine installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
+Legal OS v0.2.0 candidate contains ten installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|
@@ -27,5 +27,6 @@ Legal OS v0.2.0 candidate contains nine installable Skills. The T-routes describ
 - `legal-os-file-delivery`
 - `legal-os-reporting-presentation`
 - `legal-os-matter-memory`
+- `legal-os-template-runtime` (cross-cutting auxiliary; explicit invocation only)
 
-This matrix is the authority for the public package boundary. Documentation must not imply that an unbundled connector, quality gate, template, or script is locally executable. Every named Legal OS Skill dependency must appear in the installable list; external dependencies must be described generically and identified as unbundled.
+This matrix is the authority for the public package boundary. Bundled templates and their executable resolver are documented in `docs/template-runtime.md`; unbundled connectors or quality gates must not be described as locally executable. Every named Legal OS Skill dependency must appear in the installable list; external dependencies must be described generically and identified as unbundled.

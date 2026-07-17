@@ -42,7 +42,7 @@ def validate_manifest(root: Path, manifest: dict[str, Any] | None = None) -> lis
 
     required = {
         "$schema", "schema_version", "product", "authority", "profiles",
-        "execution_modes", "skills", "routes", "invocation_policy", "quality_gates",
+        "execution_modes", "skills", "routes", "invocation_policy", "template_runtime", "quality_gates",
     }
     missing = sorted(required - set(manifest))
     if missing:
@@ -127,6 +127,21 @@ def validate_manifest(root: Path, manifest: dict[str, Any] | None = None) -> lis
         for projection in projections:
             if projection.is_file() and f"v{public_version}" not in projection.read_text(encoding="utf-8"):
                 errors.append(f"{projection}: does not project manifest version v{public_version}")
+
+    template_runtime = manifest.get("template_runtime", {})
+    if not isinstance(template_runtime, dict):
+        errors.append(f"{manifest_path}: template_runtime must be an object")
+    else:
+        for key in ("catalog", "resolver"):
+            value = template_runtime.get(key)
+            if not isinstance(value, str) or not (root / value).is_file():
+                errors.append(f"{manifest_path}: template_runtime.{key} must reference an existing file")
+        if template_runtime.get("content_model") != "fixed-shell-flexible-body":
+            errors.append(f"{manifest_path}: template_runtime.content_model is invalid")
+        if template_runtime.get("private_overlay") != "supported-not-distributed":
+            errors.append(f"{manifest_path}: private template overlays must remain undistributed")
+        if template_runtime.get("no_template_status") != "TEMPLATE_REQUIRED":
+            errors.append(f"{manifest_path}: no-template status must be TEMPLATE_REQUIRED")
 
     try:
         schema = load_json(schema_path)

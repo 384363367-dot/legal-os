@@ -13,8 +13,8 @@ Route a Chinese litigation matter through the private Legal OS workspaces in a f
 2. **Litigation analysis** — build the issues, claims/defences, elements, disputed facts, procedural risks, and decision points. Separate facts from hypotheses and strategy.
 3. **Evidence mapping** — map each material fact or proposition to an evidence item, source location, authentication/availability note, and gap status. Mark contradictions and missing originals.
 4. **Legal research** — verify current law and authority from the appropriate source. Record jurisdiction, effective status, article/paragraph, source URL or document identifier, and the proposition supported. Do not use a remembered rule as a citation.
-5. **Pleading assembly** — populate only from user-confirmed facts, evidence mapping, and verified research. Use the approved blank template for the document type. Keep internal analysis out of the external version.
-6. **Quality gate** — check fact–evidence–authority–relief/defence alignment, party identity, jurisdiction, amount, dates, case number, procedural posture, numbering, A4 layout, page numbers, and evidence-table headers.
+5. **Pleading assembly** — use `legal-os-template-runtime` to resolve and hash-check the exact pleading or evidence-catalog template before creating a DOCX. Preserve the fixed visual shell, but expand facts, claims/defences, legal grounds, calculations, evidence references and subsections to the depth required by the matter. Keep internal analysis out of the external version.
+6. **Quality gate** — check fact–evidence–authority–relief/defence alignment, party identity, jurisdiction, amount, dates, case number, procedural posture, numbering, A4 layout, page numbers, evidence-table headers and template fidelity.
 7. **Release boundary** — label outputs as draft, internal review, or final clean version. Filing, service, sending, signing, or other external action requires separate user authorization.
 
 ## Stop conditions
@@ -24,6 +24,8 @@ Stop and surface a review item when any material party identity, amount, date, c
 ## Document controls
 
 - Support civil complaints, civil defences, arbitration applications, arbitration defences, and evidence catalogues.
+- Treat template sections as minimum functions, not a content ceiling. Never compress a complex pleading into sample placeholder prose merely to preserve the original paragraph count.
+- Stop with `TEMPLATE_REQUIRED` if `legal-os-template-runtime` cannot select exactly one approved template; do not design a replacement from a blank document.
 - Preserve traceability from each material statement to supplied material and, for legal propositions, to verified authority.
 - Keep internal strategy and risk ratings in the internal package; remove them from any external-facing document.
 - Use minimal, granular edits when editing an existing document; preserve wording unless the material is unsupported or a necessary protection is missing.

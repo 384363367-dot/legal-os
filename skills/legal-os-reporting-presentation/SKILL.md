@@ -26,8 +26,9 @@ Use a plan or tracker as the baseline when available. Treat old reports and memo
 4. Apply Green/Amber/Red with a reason. Amber requires a return-to-green action; Red requires escalation and remediation.
 5. Draft the correct audience structure: internal weekly exception report, client/monthly managed-confidence report, ad hoc decision brief, or leadership summary.
 6. Make every action dated and assign an owner. Keep facts, judgments, risks and recommendations visibly separate.
-7. For a PPT, make the conclusion lead, use one message per page, preserve source and data notes, and provide an editable PPTX plus PNG preview and speaker notes when requested. Use `ppt-master` for the technical pipeline and inspect every exported page.
-8. Run the T-10 quality gate before calling anything final.
+7. For a standard DOCX report or leadership/PPT outline, use `legal-os-template-runtime` to resolve and hash-check the registered template. Preserve the fixed shell while expanding workstreams, risks, decisions and actions to the actual reporting scope.
+8. For a PPT, make the conclusion lead, use one message per page, preserve source and data notes, and provide an editable PPTX plus PNG preview and speaker notes when requested. Use `ppt-master` for the technical pipeline and inspect every exported page.
+9. Run the T-10 quality gate and template-fidelity gate before calling anything final.
 
 ## Audience boundaries
 

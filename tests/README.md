@@ -11,3 +11,6 @@ Initial test categories:
 - duplicate authority and dependency checks;
 - represented-side switching;
 - missing, conflict, permission and abnormal scenarios.
+- template catalog completeness and SHA-256 binding;
+- deterministic public/private template priority, missing-template and hash-mismatch stops;
+- draft-versus-final placeholder policy and fixed-shell DOCX fidelity checks.

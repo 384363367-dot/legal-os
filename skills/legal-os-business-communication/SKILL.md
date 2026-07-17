@@ -46,6 +46,7 @@ Add only necessary auxiliaries:
 5. Scan for admissions, concessions, new prices, fixed deadlines, liability, settlement, waiver, release, termination, or unauthorized external commitments.
 6. Match the channel: short and copyable for WeChat; subject/paragraph/action structure for email; opening goal, known facts, safe confirmations, and hold points for calls; issue/impact/options/recommendation/owner for internal notes.
 7. Preserve a version and evidence/attachment trail when the communication matters.
+8. When the requested deliverable is a standard DOCX communication artifact rather than copyable plain text, use `legal-os-template-runtime` to resolve and hash-check the channel template. Preserve its fixed shell while expanding the body for the actual audience and issue; stop with `TEMPLATE_REQUIRED` instead of creating an unrelated layout.
 
 ## Hard stops
 

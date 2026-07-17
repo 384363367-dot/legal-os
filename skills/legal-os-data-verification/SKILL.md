@@ -62,7 +62,7 @@ If any blocking condition remains, return `暂停交付` or `需复核`, state t
 
 When creating or editing `.xlsx`/`.csv` artifacts, use the `spreadsheets` skill and its bundled `@oai/artifact-tool` runtime. Keep an editable raw-input sheet, formula-driven calculation sheet, date-node sheet, conflict/gap ledger, and visible quality gate. Render every sheet, inspect key values and formulas, scan for `#REF!`, `#DIV/0!`, `#VALUE!`, `#NAME?`, and `#N/A`, then export one final workbook. Do not use `openpyxl`, `pandas.ExcelWriter`, or alternate workbook authoring libraries unless the user explicitly requests them.
 
-For a blank reusable template, use clearly labelled synthetic demo rows only when they help prove formulas; mark them as demo data and remove them before real case entry. Keep the workbook source-locked and user-editable.
+For a new standard workbook, use `legal-os-template-runtime` to resolve and hash-check the registered amount/date-node workbook before entering data. Use clearly labelled synthetic demo rows only when they help prove formulas; mark them as demo data and remove them before real case entry. Keep the workbook source-locked and user-editable. Stop with `TEMPLATE_REQUIRED` instead of silently building a different workbook layout when the registered template is unavailable.
 
 ## Boundaries
 

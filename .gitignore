@@ -14,3 +14,7 @@ matter-files/
 *.pdf
 *.xlsx
 !tests/fixtures/public-*.*
+!skills/*/assets/
+!skills/*/assets/templates/
+!skills/*/assets/templates/*.docx
+!skills/*/assets/templates/*.xlsx
