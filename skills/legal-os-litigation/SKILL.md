@@ -27,7 +27,7 @@ Stop and surface a review item when any material party identity, amount, date, c
 - Preserve traceability from each material statement to supplied material and, for legal propositions, to verified authority.
 - Keep internal strategy and risk ratings in the internal package; remove them from any external-facing document.
 - Use minimal, granular edits when editing an existing document; preserve wording unless the material is unsupported or a necessary protection is missing.
-- Render and inspect DOCX outputs before delivery; run the document accessibility audit and record material findings.
+- Run structured DOCX and accessibility checks, then inspect through the operating system's native preview. Use WPS or another approved native application only for targeted Chinese-font, pagination, table or print-layout concerns, and record material findings. Do not substitute another renderer without explicit user authorization.
 
 ## References
 

@@ -2,6 +2,21 @@
 
 本文件记录 Legal OS 公开预发布版本的主要变化。
 
+## [v0.2.0] - Unreleased
+
+### 新增
+
+- 增加 `legalos.manifest.json` 及其 Schema，统一公开版本、profiles、Skills、T-routes、调用策略和质量门清单。
+- 为统一入口增加 `route-only` / `route-and-run` 执行契约。
+- 增加 15 个合成路由场景以及 G3、外部动作授权、混合任务覆盖测试。
+
+### 治理
+
+- 明确 `public-generic` 与未公开的 `private-controlled` overlay 边界。
+- 由验证器检查 manifest、仓库 Skill 清单、Agent 调用元数据及文档版本投影的一致性。
+- 统一 Office 文件质量门：结构化检查优先，macOS Quick Look 原生预览，WPS/经批准的原生应用仅作中文字体、分页、表格、修订显示和打印版式的定向抽检；未经用户明确授权不得切换其他渲染器。
+- 增加原生 Office 质量门回归测试，阻止已停用的渲染路径和笼统旧式渲染指令重新进入公开规则或 Skills。
+
 ## [v0.1.1] - 2026-07-16
 
 ### 修复
@@ -27,4 +42,5 @@
 - 首次公开预发布，提供 Legal OS 通用法律工作流、质量控制规则和公私边界说明。
 
 [v0.1.1]: https://github.com/384363367-dot/legal-os/compare/v0.1.0...v0.1.1
+[v0.2.0]: https://github.com/384363367-dot/legal-os/compare/v0.1.1...HEAD
 [v0.1.0]: https://github.com/384363367-dot/legal-os/releases/tag/v0.1.0

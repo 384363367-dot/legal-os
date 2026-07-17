@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/384363367-dot/legal-os/schemas/legalos-manifest.schema.json",
+  "title": "Legal OS public manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "product", "authority", "profiles", "execution_modes", "skills", "routes", "invocation_policy", "quality_gates"],
+  "properties": {
+    "$schema": {"const": "./schemas/legalos-manifest.schema.json"},
+    "schema_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "public_version", "release_status", "version_namespace"],
+      "properties": {
+        "name": {"const": "Legal OS"},
+        "public_version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+        "release_status": {"enum": ["candidate", "released", "superseded"]},
+        "version_namespace": {"const": "public-semver"}
+      }
+    },
+    "authority": {"type": "object"},
+    "profiles": {"type": "array", "minItems": 2, "items": {"type": "object"}},
+    "execution_modes": {
+      "type": "object",
+      "required": ["route-only", "route-and-run"],
+      "additionalProperties": false,
+      "properties": {"route-only": {"type": "string"}, "route-and-run": {"type": "string"}}
+    },
+    "skills": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+    "routes": {"type": "array", "minItems": 12, "items": {"type": "object"}},
+    "invocation_policy": {"type": "object"},
+    "quality_gates": {"type": "array", "minItems": 1, "items": {"type": "object"}}
+  }
+}

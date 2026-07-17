@@ -14,9 +14,18 @@ Identify the user's real task, role, risk, materials, output audience, and missi
 1. Read the user request and every attached file that is in scope. Do not ask the user to repeat information already present in the files.
 2. Record the minimum intake: matter name/identifier, user and counterparty roles, objective, files/versions/attachments, key dates, expected output, audience, internal/external boundary, and known conflicts or gaps.
 3. Classify risk: R0 ordinary, R1 professional, R2 formal legal, R3 major/high-impact. Raise the level when the output may affect payment, liability, admission, waiver, settlement, termination, filing, qualification, or external rights.
-4. Select exactly one primary route. Load only the necessary secondary routes and output quality gate.
+4. Select exactly one primary route. Load only the necessary auxiliary routes and output quality gate.
 5. Check subject, date, amount, legal relationship, evidence, file version and authority conflicts. Mark G1 minor gap, G2 important gap, or G3 core gap.
-6. If the route is clear and no G3 stop applies, continue into the selected workflow. If not, return the minimum focused questions or a clearly labelled pending-verification version.
+6. Select an execution mode. Use `route-only` when the user asks only for classification, the next workflow requires a missing external capability, or execution authority is not yet established. Use `route-and-run` when the route is clear and the selected workflow may proceed in the same task.
+7. If the route is clear and no G3 or authorization stop applies, continue only when the mode is `route-and-run`. Otherwise return the routing decision, the minimum focused questions, or a clearly labelled pending-verification version.
+
+## Execution contract
+
+- `route-only`: return the complete routing decision and next action; do not load or execute the primary workflow.
+- `route-and-run`: return the routing decision, then load the primary workflow only if all stop and authorization gates pass.
+- Every decision must contain exactly one `primary_route`. Additional capabilities are `auxiliary_routes`; they never become competing primary routes.
+- A route identifies the workstream. It does not guarantee that every required connector, source, renderer, or external service is bundled.
+- `G3` always returns `stopped`. Sending, filing, signing, publishing, pushing, settling, waiving, releasing, terminating, or making another external commitment returns `awaiting-authorization` until separately authorized.
 
 ## Route map
 
@@ -48,9 +57,11 @@ Do not resolve a core conflict by guessing, silently selecting one version, or t
 
 Run `Kernel + one primary workflow + necessary auxiliaries + the corresponding deliverable QC`. The intake skill is a router, not a substitute for the selected legal workflow. Do not load all modules just because they exist.
 
+The public Kernel inventory, route definitions, profiles, and invocation policy are declared in `legalos.manifest.json`. If explanatory documentation conflicts with that manifest, stop and report a repository-consistency issue instead of silently choosing one version.
+
 ## Output contract
 
-Report the selected primary route, any auxiliary routes, risk level, confirmed facts, missing facts, stop/continue status, expected deliverable, and the next action. Keep internal reasoning and strategy out of formal external text. External sending, filing, signing, publishing, repository pushing and other state-changing actions require separate authorization.
+Report the execution mode, selected primary route, any auxiliary routes, risk level, gap level, confirmed facts, missing facts, `routed` / `ready` / `stopped` / `awaiting-authorization` status, expected deliverable, and the next action. Keep internal reasoning and strategy out of formal external text. External sending, filing, signing, publishing, repository pushing and other state-changing actions require separate authorization.
 
 ## Public/private boundary
 

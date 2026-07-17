@@ -27,7 +27,7 @@ Stop for review when sender, recipient, contract/project, amount, date, obligati
 - Map each material assertion and demand to supplied material; legal propositions must cite current verified authority when used.
 - Treat deadline, delivery, attachment, and recipient details as substantive controls, not formatting details.
 - Do not use a template or old memory to fill a factual or legal gap.
-- Render and inspect every DOCX before delivery; run accessibility and structural audits.
+- Run DOCX structural and accessibility audits, then inspect through the operating system's native preview. Use WPS or another approved native application only for targeted Chinese-font, pagination, table or print-layout concerns. Do not substitute another renderer without explicit user authorization.
 
 ## References
 

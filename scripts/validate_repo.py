@@ -9,6 +9,11 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote
 
+try:
+    from scripts.validate_manifest import validate_manifest
+except ModuleNotFoundError:  # Support direct execution as scripts/validate_repo.py.
+    from validate_manifest import validate_manifest
+
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 FRONTMATTER_RE = re.compile(r"\A---\s*\n(?P<data>.*?)\n---\s*(?:\n|\Z)", re.DOTALL)
@@ -57,6 +62,8 @@ def validate_repository(root: Path) -> list[str]:
     if not skill_dirs:
         errors.append(f"{skills_root}: no Skill directories found")
     published_skills = {path.name for path in skill_dirs}
+
+    errors.extend(validate_manifest(root))
 
     for skill_dir in skill_dirs:
         skill_file = skill_dir / "SKILL.md"

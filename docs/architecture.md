@@ -3,7 +3,9 @@
 ```text
 User request and materials
         ↓
-Task router
+Public Kernel manifest
+        ↓
+Unified Intake (`route-only` or `route-and-run`)
         ↓
 One primary workspace
         ↓
@@ -24,3 +26,4 @@ Learning observation and controlled upgrade
 - Preserve one current authority for each scope and keep version history.
 - Detect issues automatically, but govern changes to authoritative rules.
 - Keep the public runtime generic; place organization-specific behaviour in private configuration.
+- Treat `legalos.manifest.json` as the public machine authority for version, profiles, Skills, routes, invocation policy and gates.
