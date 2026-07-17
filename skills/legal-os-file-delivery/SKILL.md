@@ -24,10 +24,10 @@ Do not ask the user to repeat information already present in the files.
 3. Choose the smallest action: convert, merge, split, print, clean metadata, redact a public copy, index or archive.
 4. Preserve text, numbering, tables, headers/footers, page order, images, comments and tracked changes unless an authorized task explicitly changes them.
 5. Mark file status: `SOURCE`, `WORKING`, `DERIVED`, `CLEAN`, `SUBMISSION`, or `ARCHIVED`.
-6. Render and inspect every page; compare page count, layout, tables, fonts, images, headers/footers and blank pages against the source where relevant.
+6. Run structural checks first, then inspect through the operating system's native preview. Use WPS or another approved native application only as a targeted spot check for Chinese fonts, pagination, tables, tracked changes, images or print layout. If native inspection cannot be completed, keep the package at Draft/Hold; do not switch renderers without explicit user authorization.
 7. Generate a manifest with filenames, source relationships, processing notes, hashes when available, QC status and archive boundary.
 
-Use the bundled document/PDF/spreadsheet helpers as technical auxiliaries, not as authority for legal content.
+Use bundled structured document/PDF/spreadsheet helpers as technical auxiliaries, not as authority for legal content. A helper's default rendering instruction never overrides the user's approved native-office inspection policy.
 
 ## Route boundaries
 

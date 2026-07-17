@@ -14,6 +14,8 @@
 
 - 明确 `public-generic` 与未公开的 `private-controlled` overlay 边界。
 - 由验证器检查 manifest、仓库 Skill 清单、Agent 调用元数据及文档版本投影的一致性。
+- 统一 Office 文件质量门：结构化检查优先，macOS Quick Look 原生预览，WPS/经批准的原生应用仅作中文字体、分页、表格、修订显示和打印版式的定向抽检；未经用户明确授权不得切换其他渲染器。
+- 增加原生 Office 质量门回归测试，阻止已停用的渲染路径和笼统旧式渲染指令重新进入公开规则或 Skills。
 
 ## [v0.1.1] - 2026-07-16
 

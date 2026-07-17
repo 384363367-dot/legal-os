@@ -73,6 +73,7 @@
   "quality_gates": [
     {"id": "manifest-consistency", "validator": "scripts/validate_repo.py"},
     {"id": "routing-contract", "validator": "scripts/validate_routing_scenarios.py"},
+    {"id": "native-office-policy", "validator": "python -m unittest tests.test_native_office_policy"},
     {"id": "synthetic-tests", "validator": "python -m unittest discover -s tests -v"}
   ]
 }
