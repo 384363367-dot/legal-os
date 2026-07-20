@@ -16,7 +16,9 @@ The resolver selects one asset deterministically:
 2. an approved private organization-specific overlay;
 3. the approved public generic template.
 
-Higher priority wins within the same document type and scope. Equal-priority matches are ambiguous and stop. A missing template returns `TEMPLATE_REQUIRED`; a hash mismatch returns `TEMPLATE_HASH_MISMATCH`. Formal output must not silently fall back to a newly designed blank document.
+Higher priority wins within the same document type and scope. Equal-priority matches are ambiguous and stop. A missing template returns `TEMPLATE_REQUIRED`; a hash mismatch returns `TEMPLATE_INTEGRITY_FAIL`. Formal output must not silently fall back to a newly designed blank document.
+
+For a complaint, application or answer, resolution is bundled: the result includes the selected pleading template and the paired evidence-catalog template, with both IDs, paths and SHA-256 values. Failure to resolve or integrity-check either asset blocks formal DOCX generation.
 
 ## Verification
 

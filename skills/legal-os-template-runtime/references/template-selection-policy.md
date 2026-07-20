@@ -11,6 +11,8 @@ Resolve one template in this order:
 
 Verify the selected file against its registered SHA-256 before use. Copy it to the matter workspace and preserve the source as read-only. Record the template ID, scope, source, hash, selection reason and output hash in the matter manifest.
 
+For any complaint, application or answer, the selected catalog entry must declare `paired_document_type=evidence-catalog`. The resolver must return and integrity-check both templates. Absence, ambiguity or hash failure of the paired template blocks the pleading output.
+
 ## Fixed shell, flexible body
 
 The template controls visual identity, minimum functional sections and placement of formal elements. Preserve page geometry, orientation, styles, heading hierarchy, letterhead, headers/footers, drawings, tables, signature blocks and imprint lines unless the selected template expressly permits a variant.
@@ -37,3 +39,5 @@ Before release, compare template and output for:
 - native preview findings for overlap, clipping, pagination and print layout.
 
 Structural fidelity and substantive quality are separate gates. Passing one never substitutes for the other.
+
+For pleading bundles, fidelity also requires that the pleading omit any independent evidence-source chapter and that the evidence catalogue be generated in the same run. Incomplete evidence is represented as a `待补证 / 内部草稿` catalogue, not as a missing artifact.
