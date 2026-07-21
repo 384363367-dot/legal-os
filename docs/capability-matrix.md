@@ -1,6 +1,6 @@
 # Public capability matrix
 
-Legal OS v0.2.0 candidate contains ten installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
+Legal OS v0.2.0 public pre-release contains ten installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|
