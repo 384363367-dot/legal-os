@@ -4,6 +4,10 @@
 
 ## [v0.2.0] - Unreleased
 
+### 公开更新提示
+
+- 2026-07-21：在 README 增加醒目的候选版更新摘要和下载口径，明确从 `main` 克隆或 Download ZIP 获得当前候选内容，从 GitHub Releases 获得最近稳定公开版。
+
 ### 新增
 
 - 增加 `legalos.manifest.json` 及其 Schema，统一公开版本、profiles、Skills、T-routes、调用策略和质量门清单。
