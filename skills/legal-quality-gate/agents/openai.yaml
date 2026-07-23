@@ -1,0 +1,7 @@
+interface:
+  display_name: "法律质量门"
+  short_description: "正式法律成果交付前的事实、依据、证据和表达边界复核。"
+  default_prompt: "请使用 $legal-quality-gate 复核这份正式法律成果并给出发布决定。"
+
+policy:
+  allow_implicit_invocation: false

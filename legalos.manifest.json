@@ -3,8 +3,8 @@
   "schema_version": "1.0.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.2.0",
-    "release_status": "released",
+    "public_version": "0.3.0",
+    "release_status": "candidate",
     "version_namespace": "public-semver"
   },
   "authority": {
@@ -44,7 +44,8 @@
     {"name": "legal-os-file-delivery", "role": "primary-or-auxiliary", "maturity": "stable"},
     {"name": "legal-os-reporting-presentation", "role": "primary-workflow", "maturity": "stable"},
     {"name": "legal-os-matter-memory", "role": "primary-or-auxiliary", "maturity": "stable"},
-    {"name": "legal-os-template-runtime", "role": "cross-cutting-quality-control", "maturity": "candidate"}
+    {"name": "legal-os-template-runtime", "role": "cross-cutting-quality-control", "maturity": "candidate"},
+    {"name": "legal-quality-gate", "role": "cross-cutting-release-control", "maturity": "candidate"}
   ],
   "routes": [
     {"id": "T-01", "intake_types": ["contract"], "executor": {"kind": "bundled-skill", "skill": "legal-os-contract"}},
@@ -70,7 +71,8 @@
     "legal-os-file-delivery": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
     "legal-os-reporting-presentation": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
     "legal-os-matter-memory": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-template-runtime": {"allow_implicit_invocation": false, "scope": "auxiliary for any formal templated artifact"}
+    "legal-os-template-runtime": {"allow_implicit_invocation": false, "scope": "auxiliary for any formal templated artifact"},
+    "legal-quality-gate": {"allow_implicit_invocation": false, "scope": "explicit final review and release decision for formal or high-risk legal deliverables"}
   },
   "template_runtime": {
     "catalog": "skills/legal-os-template-runtime/references/template-catalog.json",
@@ -84,6 +86,7 @@
     {"id": "routing-contract", "validator": "scripts/validate_routing_scenarios.py"},
     {"id": "native-office-policy", "validator": "python -m unittest tests.test_native_office_policy"},
     {"id": "template-runtime", "validator": "python -m unittest tests.test_template_runtime"},
+    {"id": "formal-release-lock", "validator": "python -m unittest tests.test_legal_quality_gate"},
     {"id": "synthetic-tests", "validator": "python -m unittest discover -s tests -v"}
   ]
 }
