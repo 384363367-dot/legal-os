@@ -4,7 +4,7 @@
   "product": {
     "name": "Legal OS",
     "public_version": "0.3.0",
-    "release_status": "candidate",
+    "release_status": "released",
     "version_namespace": "public-semver"
   },
   "authority": {

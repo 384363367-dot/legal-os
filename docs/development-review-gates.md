@@ -1,15 +1,16 @@
-# Continuous development and review gates
+# Development and review gates
 
-Legal OS development proceeds continuously within an approved scope. Routine artifact creation, testing, versioning, freezing and repository maintenance do not require an additional approval each time.
+Legal OS uses explicit review gates so that routine engineering changes remain efficient while high-impact changes receive appropriate scrutiny.
 
-Pause for user review only when:
+## Changes requiring maintainer review
 
-- context is no longer reliable or continuation cannot be reconstructed from files;
-- architecture, scope, legal position, permissions, migration or public/private boundary would materially change;
-- a legal conclusion could admit, waive, settle, release, terminate or otherwise affect rights;
-- an external action, publication, GitHub push, filing, signing, sending or destructive overwrite is requested;
-- a major version, new business Workspace family or public release candidate reaches a go/no-go boundary;
-- required evidence, current law, authority or license cannot be verified;
-- a mandatory quality gate fails or a Critical defect remains open.
+- material changes to architecture, scope, permissions, migration strategy or the public/private boundary;
+- workflow behavior that could admit, waive, settle, release, terminate or otherwise affect legal rights;
+- filing, signing, sending, publication, destructive overwrite or another external side effect;
+- a major version, new Workspace family or release reaching its go/no-go decision;
+- changes whose required evidence, current law, authority or licence cannot be verified;
+- a failed mandatory quality gate or an unresolved Critical defect.
 
-At every pause, report what is complete, what decision is needed and the safest default. Do not pause merely because a routine sprint or artifact has ended.
+## Merge requirements
+
+Each proposed release should identify its scope, verification results, unresolved limitations and rollback path. A release is eligible to merge only after required reviews and automated checks pass and no blocking defect remains open.
