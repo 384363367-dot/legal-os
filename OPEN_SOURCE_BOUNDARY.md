@@ -25,6 +25,6 @@ Before any commit or release intended for publication:
 1. scan for personal data, secrets and absolute local paths;
 2. confirm every example is synthetic or irreversibly anonymized;
 3. review third-party licences and attribution requirements;
-4. ensure no private Frozen artifact or matter record was copied;
+4. ensure no private or archival artifact or matter record was copied;
 5. run tests and obtain a clean repository status;
-6. publish only through an explicit user-authorized action.
+6. publish only through the authorized maintainer and release workflow.
