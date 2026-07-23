@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "legal-os://schemas/matter-manifest.schema.json",
+  "title": "Legal OS Matter Manifest",
+  "type": "object",
+  "required": ["schema_version", "matter_task_id", "owner", "classification", "matter_root", "public_export_allowed", "retention_status", "source_files"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "matter_task_id": {"type": "string", "minLength": 3},
+    "owner": {"type": "string", "minLength": 1},
+    "classification": {"enum": ["S0", "S1", "S2", "S3"]},
+    "matter_root": {"type": "string", "minLength": 3},
+    "public_export_allowed": {"type": "boolean"},
+    "retention_status": {"enum": ["active", "hold", "archive", "deletion-approved", "deleted"]},
+    "source_files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256", "role"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "role": {"enum": ["original", "attachment", "evidence", "reference"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -14,7 +14,7 @@ Identify the user's real task, role, risk, materials, output audience, and missi
 1. Read the user request and every attached file that is in scope. Do not ask the user to repeat information already present in the files.
 2. Record the minimum intake: matter name/identifier, user and counterparty roles, objective, files/versions/attachments, key dates, expected output, audience, internal/external boundary, and known conflicts or gaps.
 3. Classify risk: R0 ordinary, R1 professional, R2 formal legal, R3 major/high-impact. Raise the level when the output may affect payment, liability, admission, waiver, settlement, termination, filing, qualification, or external rights.
-4. Select exactly one primary route. Load only the necessary auxiliary routes and output quality gate.
+4. Select exactly one primary route. Load only the necessary auxiliary routes and workflow quality gate. For formal or high-risk final delivery, invoke `legal-quality-gate` explicitly as the cross-workflow release control.
 5. If the expected output is a templated formal file, identify the exact `document_type` and load `legal-os-template-runtime` as an auxiliary. For T-02 pleadings, also record `procedure_type`, `pleading_role`, `document_variant` and `paired_evidence_catalog_required=true`; the resolver must return the pleading template and paired evidence-catalog template. Record the selected template IDs, scopes, SHA-256 values and selection reasons in the matter manifest before drafting.
 6. Check subject, date, amount, legal relationship, evidence, file version and authority conflicts. Mark G1 minor gap, G2 important gap, or G3 core gap.
 7. Select an execution mode. Use `route-only` when the user asks only for classification, the next workflow requires a missing external capability, or execution authority is not yet established. Use `route-and-run` when the route is clear and the selected workflow may proceed in the same task.
@@ -57,7 +57,7 @@ Do not resolve a core conflict by guessing, silently selecting one version, or t
 
 ## Loading rule
 
-Run `Kernel + one primary workflow + necessary auxiliaries + the corresponding deliverable QC`. The intake skill is a router, not a substitute for the selected legal workflow. Do not load all modules just because they exist.
+Run `Kernel + one primary workflow + necessary auxiliaries + the corresponding deliverable QC`; add `legal-quality-gate` only for formal or high-risk final delivery. The intake skill is a router, not a substitute for the selected legal workflow. Do not load all modules just because they exist.
 
 The public Kernel inventory, route definitions, profiles, and invocation policy are declared in `legalos.manifest.json`. If explanatory documentation conflicts with that manifest, stop and report a repository-consistency issue instead of silently choosing one version.
 

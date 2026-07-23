@@ -13,7 +13,9 @@ Necessary rule packs, plugins and source checks
         ↓
 Approved template resolution (when the artifact is templated)
         ↓
-Independent quality gates
+Independent workflow quality gates
+        ↓
+Cross-workflow final review and release lock (`legal-quality-gate`)
         ↓
 Requested deliverable
         ↓

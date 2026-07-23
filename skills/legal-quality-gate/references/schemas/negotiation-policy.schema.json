@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "legal-os://schemas/negotiation-policy.schema.json",
+  "title": "Matter-level Contract Negotiation Policy",
+  "type": "object",
+  "required": ["schema_version", "matter_task_id", "party_position", "approved_by", "approved_at", "parameters"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "matter_task_id": {"type": "string", "minLength": 3},
+    "party_position": {"enum": ["buyer", "seller", "neutral", "other"]},
+    "approved_by": {"type": "string"},
+    "approved_at": {"type": "string"},
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "value", "source", "scope", "status"],
+        "properties": {
+          "key": {"type": "string", "minLength": 2},
+          "value": {},
+          "source": {"enum": ["current-user-instruction", "matter-document", "approved-template-strategy", "pending-choice"]},
+          "scope": {"type": "string", "minLength": 2},
+          "status": {"enum": ["approved", "pending", "rejected"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -14,3 +14,4 @@ Initial test categories:
 - template catalog completeness and SHA-256 binding;
 - deterministic public/private template priority, missing-template and hash-mismatch stops;
 - draft-versus-final placeholder policy and fixed-shell DOCX fidelity checks.
+- cross-workflow release decisions, human sign-off and declared public-root isolation.
