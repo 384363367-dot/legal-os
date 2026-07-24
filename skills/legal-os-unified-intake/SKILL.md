@@ -7,18 +7,19 @@ description: Source-locked intake and task routing for Chinese legal work. Use w
 
 ## Purpose
 
-Identify the user's real task, role, risk, materials, output audience, and missing information before loading a specialist workflow. Keep facts, rules, evidence, calculations, legal authorities, and delivery QC separate.
+Identify the user's real task, role, risk, materials, output audience, and missing information before loading one specialist workflow. Keep facts, rules, evidence, calculations, legal authorities, and delivery QC separate. This router selects workflows; it does not prove that a downstream capability is implemented or validated.
 
 ## Intake sequence
 
 1. Read the user request and every attached file that is in scope. Do not ask the user to repeat information already present in the files.
-2. Record the minimum intake: matter name/identifier, user and counterparty roles, objective, files/versions/attachments, key dates, expected output, audience, internal/external boundary, and known conflicts or gaps.
-3. Classify risk: R0 ordinary, R1 professional, R2 formal legal, R3 major/high-impact. Raise the level when the output may affect payment, liability, admission, waiver, settlement, termination, filing, qualification, or external rights.
-4. Select exactly one primary route. Load only the necessary auxiliary routes and workflow quality gate. For formal or high-risk final delivery, invoke `legal-quality-gate` explicitly as the cross-workflow release control.
-5. If the expected output is a templated formal file, identify the exact `document_type` and load `legal-os-template-runtime` as an auxiliary. For T-02 pleadings, also record `procedure_type`, `pleading_role`, `document_variant` and `paired_evidence_catalog_required=true`; the resolver must return the pleading template and paired evidence-catalog template. Record the selected template IDs, scopes, SHA-256 values and selection reasons in the matter manifest before drafting.
-6. Check subject, date, amount, legal relationship, evidence, file version and authority conflicts. Mark G1 minor gap, G2 important gap, or G3 core gap.
-7. Select an execution mode. Use `route-only` when the user asks only for classification, the next workflow requires a missing external capability, or execution authority is not yet established. Use `route-and-run` when the route is clear and the selected workflow may proceed in the same task.
-8. If the route is clear and no G3 or authorization stop applies, continue only when the mode is `route-and-run`. Otherwise return the routing decision, the minimum focused questions, or a clearly labelled pending-verification version.
+2. Record the minimum intake: matter name/identifier, roles, objective, files/versions/attachments, key dates, expected output, audience, internal/external boundary, and known conflicts or gaps.
+3. Classify risk: R0 ordinary, R1 professional, R2 formal legal, R3 major/high-impact. An internal preliminary scan that will not create an adoptable or external version is normally R1; an adoptable formal output is normally R2. Raise the level when the output may affect payment, liability, admission, waiver, settlement, termination, filing, qualification, or external rights.
+4. Apply the decision-question ladder in [references/risk-question-ladder.md](references/risk-question-ladder.md). Count only unresolved choices that require the user to decide; questions about facts, materials, or authority verification do not consume the decision budget.
+5. Select exactly one primary route. Load only the necessary auxiliary routes and workflow quality gate.
+6. If the expected output is a templated formal file, identify the exact `document_type` and load `legal-os-template-runtime` as an auxiliary. For T-02 pleadings, also record `procedure_type`, `pleading_role`, `document_variant` and `paired_evidence_catalog_required=true`; the resolver must return the pleading template and paired evidence-catalog template.
+7. Check subject, date, amount, legal relationship, evidence, file version and authority conflicts. Mark G1 minor gap, G2 important gap, or G3 core gap.
+8. Select an execution mode. Use `route-only` when the user asks only for classification, the next workflow requires a missing external capability, or execution authority is not established. Use `route-and-run` when the route is clear and the selected workflow may proceed in the same task.
+9. If the route is clear, no G3 or authorization stop applies, and the mode is `route-and-run`, continue into the selected workflow. Otherwise return the routing decision, focused questions, or a clearly labelled pending-verification version.
 
 ## Execution contract
 
@@ -28,13 +29,15 @@ Identify the user's real task, role, risk, materials, output audience, and missi
 - A route identifies the workstream. It does not guarantee that every required connector, source, renderer, or external service is bundled.
 - `G3` always returns `stopped`. Sending, filing, signing, publishing, pushing, settling, waiving, releasing, terminating, or making another external commitment returns `awaiting-authorization` until separately authorized.
 - `TEMPLATE_REQUIRED`, `TEMPLATE_AMBIGUOUS`, and `TEMPLATE_INTEGRITY_FAIL` stop file generation. They do not prevent source analysis or a clearly labelled text-only internal draft when that remains useful.
+- A requested external action adds an authorization blocker but does not by itself raise R2 to R3.
+- Add a blocker only when the request or available materials establish it; do not infer blockers solely from the document category.
 
 ## Route map
 
 - `T-01` contract review/redline → `legal-os-contract`; add data and document QA only as needed.
 - `T-02` pleadings and `T-04` litigation strategy → `legal-os-litigation`; use its evidence-mapping and legal-research phases as needed. T-02 remains one primary route while `procedure_type`, `pleading_role` and `document_variant` select the correct civil, commercial-arbitration or labour/personnel-arbitration variant. A complaint, application or answer requires a paired evidence catalogue.
 - `T-03` evidence register/proof mapping → the evidence-mapping phase in `legal-os-litigation`; do not infer authenticity, admissibility, or weight.
-- `T-05` current laws, regulations, cases → keep the substantive primary Skill and use an available authoritative research capability; do not use memory or third-party summaries as authority.
+- `T-05` current laws, regulations, cases → use `cn-case-hub` for official-source case research and an available authoritative current-law capability for legislation, regulations, judicial interpretations and specific articles.
 - `T-06` lawyer letters, payment/performance notices, replies, situation statements → `legal-os-correspondence`.
 - `T-07` business chat, email, oral or leadership wording → `legal-os-business-communication`; check audience and commitment boundaries.
 - `T-08` amounts, payments, interest, formulas, dates and data conflicts → `legal-os-data-verification`; keep raw and derived values separate.
@@ -63,7 +66,26 @@ The public Kernel inventory, route definitions, profiles, and invocation policy 
 
 ## Output contract
 
-Report the execution mode, selected primary route, any auxiliary routes, risk level, gap level, confirmed facts, missing facts, `routed` / `ready` / `stopped` / `awaiting-authorization` status, expected deliverable, and the next action. Keep internal reasoning and strategy out of formal external text. External sending, filing, signing, publishing, repository pushing and other state-changing actions require separate authorization.
+Return a routing header before any workflow content. Every key in [references/routing-output-contract.schema.json](references/routing-output-contract.schema.json) is mandatory; use `[]`, `null`, or an empty string instead of omitting a key:
+
+```json
+{
+  "mode": "route-only | route-and-run",
+  "primary_route": "T-01 ... T-12",
+  "auxiliary_routes": [],
+  "risk": "R0 | R1 | R2 | R3",
+  "gap": "G0 | G1 | G2 | G3",
+  "status": "routed | ready | stopped | awaiting-authorization",
+  "decision_interview": {"mode": "none | ladder", "questions_used": []},
+  "confirmed_facts": [],
+  "missing_facts": [],
+  "blockers": [],
+  "expected_deliverable": "",
+  "next_action": ""
+}
+```
+
+Use route codes only in route fields and stable kebab-case blocker codes in `blockers`; put explanations in `missing_facts` or `next_action`. `G3` has status priority and must return `stopped`; preserve any separate authorization issue in `blockers`. For `route-only`, this header is the complete response. For `route-and-run`, emit it first and continue only when no stop applies. External sending, filing, signing, publishing, repository pushing and other state-changing actions require separate authorization.
 
 ## Public/private boundary
 

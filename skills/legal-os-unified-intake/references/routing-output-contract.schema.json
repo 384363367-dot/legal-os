@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Legal OS Unified Intake Routing Header",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mode",
+    "primary_route",
+    "auxiliary_routes",
+    "risk",
+    "gap",
+    "status",
+    "decision_interview",
+    "confirmed_facts",
+    "missing_facts",
+    "blockers",
+    "expected_deliverable",
+    "next_action"
+  ],
+  "properties": {
+    "mode": {"enum": ["route-only", "route-and-run"]},
+    "primary_route": {"type": "string", "pattern": "^T-[0-9]{2}$"},
+    "auxiliary_routes": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^T-[0-9]{2}$"},
+      "uniqueItems": true
+    },
+    "risk": {"enum": ["R0", "R1", "R2", "R3"]},
+    "gap": {"enum": ["G0", "G1", "G2", "G3"]},
+    "status": {"enum": ["routed", "ready", "stopped", "awaiting-authorization"]},
+    "decision_interview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "questions_used"],
+      "properties": {
+        "mode": {"enum": ["none", "ladder"]},
+        "questions_used": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "confirmed_facts": {"type": "array", "items": {"type": "string"}},
+    "missing_facts": {"type": "array", "items": {"type": "string"}},
+    "blockers": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+      "uniqueItems": true
+    },
+    "expected_deliverable": {"type": "string"},
+    "next_action": {"type": "string"}
+  }
+}
