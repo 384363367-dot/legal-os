@@ -1,0 +1,7 @@
+interface:
+  display_name: "中国案例检索与核验"
+  short_description: "免费检索、核验并分级整理中国官方案例与裁判观点，形成类案报告"
+  default_prompt: "Use $cn-case-hub to search, verify, rank, and report authoritative Chinese cases from free official sources."
+
+policy:
+  allow_implicit_invocation: false

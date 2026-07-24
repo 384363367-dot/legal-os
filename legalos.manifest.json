@@ -3,8 +3,8 @@
   "schema_version": "1.0.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.3.0",
-    "release_status": "released",
+    "public_version": "0.4.0",
+    "release_status": "candidate",
     "version_namespace": "public-semver"
   },
   "authority": {
@@ -45,14 +45,15 @@
     {"name": "legal-os-reporting-presentation", "role": "primary-workflow", "maturity": "stable"},
     {"name": "legal-os-matter-memory", "role": "primary-or-auxiliary", "maturity": "stable"},
     {"name": "legal-os-template-runtime", "role": "cross-cutting-quality-control", "maturity": "candidate"},
-    {"name": "legal-quality-gate", "role": "cross-cutting-release-control", "maturity": "candidate"}
+    {"name": "legal-quality-gate", "role": "cross-cutting-release-control", "maturity": "candidate"},
+    {"name": "cn-case-hub", "role": "primary-or-auxiliary", "maturity": "candidate"}
   ],
   "routes": [
     {"id": "T-01", "intake_types": ["contract"], "executor": {"kind": "bundled-skill", "skill": "legal-os-contract"}},
     {"id": "T-02", "intake_types": ["pleading"], "executor": {"kind": "bundled-skill", "skill": "legal-os-litigation"}},
     {"id": "T-03", "intake_types": ["evidence-map"], "executor": {"kind": "bundled-phase", "skill": "legal-os-litigation"}},
     {"id": "T-04", "intake_types": ["litigation-strategy"], "executor": {"kind": "bundled-skill", "skill": "legal-os-litigation"}},
-    {"id": "T-05", "intake_types": ["current-law-research"], "executor": {"kind": "external-required", "skill": null}, "external_dependency": "authoritative-jurisdictional-research"},
+    {"id": "T-05", "intake_types": ["current-law-research", "case-research"], "executor": {"kind": "bundled-plus-external", "skill": "cn-case-hub"}, "external_dependency": "authoritative-current-law-research"},
     {"id": "T-06", "intake_types": ["formal-correspondence"], "executor": {"kind": "bundled-skill", "skill": "legal-os-correspondence"}},
     {"id": "T-07", "intake_types": ["business-communication"], "executor": {"kind": "bundled-skill", "skill": "legal-os-business-communication"}},
     {"id": "T-08", "intake_types": ["data-verification"], "executor": {"kind": "bundled-skill", "skill": "legal-os-data-verification"}},
@@ -72,7 +73,8 @@
     "legal-os-reporting-presentation": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
     "legal-os-matter-memory": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
     "legal-os-template-runtime": {"allow_implicit_invocation": false, "scope": "auxiliary for any formal templated artifact"},
-    "legal-quality-gate": {"allow_implicit_invocation": false, "scope": "explicit final review and release decision for formal or high-risk legal deliverables"}
+    "legal-quality-gate": {"allow_implicit_invocation": false, "scope": "explicit final review and release decision for formal or high-risk legal deliverables"},
+    "cn-case-hub": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection for Chinese official-source case research"}
   },
   "template_runtime": {
     "catalog": "skills/legal-os-template-runtime/references/template-catalog.json",

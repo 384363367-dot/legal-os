@@ -48,6 +48,35 @@ class UnifiedIntakeRoutingTests(unittest.TestCase):
 
         self.assertTrue(any("not covered" in error for error in errors), errors)
 
+    def test_public_routing_output_contract_is_complete(self) -> None:
+        schema = json.loads(
+            (
+                ROOT
+                / "skills"
+                / "legal-os-unified-intake"
+                / "references"
+                / "routing-output-contract.schema.json"
+            ).read_text(encoding="utf-8")
+        )
+        required = set(schema["required"])
+        sample = {
+            "mode": "route-only",
+            "primary_route": "T-01",
+            "auxiliary_routes": [],
+            "risk": "R1",
+            "gap": "G0",
+            "status": "routed",
+            "decision_interview": {"mode": "none", "questions_used": []},
+            "confirmed_facts": [],
+            "missing_facts": [],
+            "blockers": [],
+            "expected_deliverable": "routing decision",
+            "next_action": "await user instruction",
+        }
+        self.assertEqual(required, set(sample))
+        self.assertRegex(sample["primary_route"], r"^T-[0-9]{2}$")
+        self.assertEqual(sample["blockers"], [])
+
 
 if __name__ == "__main__":
     unittest.main()
