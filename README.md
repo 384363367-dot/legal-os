@@ -14,9 +14,7 @@
 
 <p align="center">
   <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.5.0"><img src="https://img.shields.io/badge/release-v0.5.0-orange" alt="Release v0.5.0"></a>
-  <a href="https://github.com/384363367-dot/legal-os/actions/workflows/ci.yml"><img src="https://github.com/384363367-dot/legal-os/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/Skills-12-2563eb" alt="12 Skills">
-  <img src="https://img.shields.io/badge/tests-49%20passing-16a34a" alt="49 tests passing">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
 
@@ -38,9 +36,9 @@
 
 它不是一组零散提示词，也不是替代律师判断的无人值守系统。它更像一套运行在 AI Agent 上的法律工作操作层：先分流，再调用专业模块；先核验，再生成；每一个正式成果都经过对应的质量门。
 
-| 当前公开版 | 可安装 Skills | Office 模板 | 合成路由场景 | 自动化测试 |
-|---:|---:|---:|---:|---:|
-| **v0.5.0** | **12** | **24** | **15** | **49** |
+| 当前公开版 | 可安装法律 Skills | 去身份化法律 Office 模板 |
+|---:|---:|---:|
+| **v0.5.0** | **12** | **24** |
 
 > **最新发布：2026-07-29 · v0.5.0 公开预发布版。** 新增原告、申请人和债权人首次请求文书的单方立场控制、程序阶段分离及条件性表达语境复核。完整变化见 [CHANGELOG](CHANGELOG.md)。
 
@@ -52,7 +50,7 @@
 - **精确模板与可审查文档**：模板按文种和适用范围解析并进行 SHA-256 完整性检查；合同修订、正式函件和诉讼文书保留对应的文档质量控制。
 - **最小必要上下文**：统一入口只加载当前事项需要的专业模块，降低无关规则混入、事实错配和敏感信息扩散的风险。
 - **关键动作保留人工控制**：起草不等于发送，完成不等于签署，内部审查不等于提交；外部行动和高影响决定始终是独立授权状态。
-- **可测试、可追溯、可持续升级**：机器可读 manifest、合成测试、CI、CodeQL、版本记录和发布校验共同约束公开版本。
+- **法律成果分层**：区分工作底稿、内部分析、修订稿、清洁版和最终成果，避免把内部策略、未经核验内容或过程信息带入对外文件。
 
 ## 系统如何工作
 
@@ -71,7 +69,7 @@ flowchart LR
     K["文件交付"] -. 格式与归档 .-> H
 ```
 
-系统入口为 `legal-os-unified-intake`。它识别事项类型、代表角色、风险、材料缺口、输出对象和授权边界，然后选择一个主工作流，并只组合必要的辅助模块。机器可读的版本、路由和能力清单以 [`legalos.manifest.json`](legalos.manifest.json) 为准。
+系统入口为 `legal-os-unified-intake`。它识别事项类型、代表角色、风险、材料缺口、输出对象和授权边界，然后选择一个主工作流，并只组合必要的辅助模块。
 
 ## 12 个可安装 Skills
 
@@ -100,11 +98,11 @@ flowchart LR
 | [`legal-os-file-delivery`](skills/legal-os-file-delivery/) | Word/PDF/表格/图片转换、合并、拆分、提交包和归档 | 文件清单、版本关系、脱敏、命名、哈希、打包、打印和最终交付检查 |
 | [`legal-os-matter-memory`](skills/legal-os-matter-memory/) | 保存项目背景、整理事项线索、清理记忆、沉淀重复流程 | 按规则、Skill/模板、事项线索和动态事实分层，保留来源、日期、状态和最小必要信息 |
 | [`legal-os-template-runtime`](skills/legal-os-template-runtime/) | 任何需要正式模板的法律成果 | 精确匹配文种，按优先级解析模板，校验 SHA-256，保持固定版式外壳并允许正文按事项展开 |
-| [`legal-quality-gate`](skills/legal-quality-gate/) | 正式或高风险法律成果的最终复核 | 检查事实、证据、现行法、法律关系、表达边界、隐私、模板、人工签核和发布状态 |
+| [`legal-quality-gate`](skills/legal-quality-gate/) | 正式或高风险法律成果的最终复核 | 检查事实、证据、现行法、法律关系、请求或抗辩、责任表述、模板和最终成果授权状态 |
 
 更完整的路由关系和能力边界见 [`docs/capability-matrix.md`](docs/capability-matrix.md)。
 
-## 内置控制
+## 法律工作控制
 
 | 常见风险 | Legal OS 的处理方式 |
 |---|---|
@@ -114,7 +112,6 @@ flowchart LR
 | 诉状与证据目录不一致 | 成对生成并检查证据编号、名称、证明目的和正文事实结构 |
 | 原告首次文书暴露对方抗辩路线 | 保持单方主张链；推测性抗辩和完整应对策略留在内部分析 |
 | 草稿被误当成正式成果 | 区分草稿、内部复核、清洁版、最终版和外部动作授权 |
-| 敏感信息进入公共发布 | 发布前执行隐私、路径、秘密、许可证和内容边界检查 |
 
 ## 快速开始
 
@@ -148,19 +145,6 @@ cd LegalOS-Skills-v0.5.0
 
 不要只复制 `SKILL.md`；模板、references、脚本和 Agent 元数据也是 Skill 的组成部分。
 
-### 开发者验证
-
-```bash
-git clone https://github.com/384363367-dot/legal-os.git
-cd legal-os
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python scripts/validate_repo.py
-python scripts/validate_routing_scenarios.py
-python -m unittest discover -s tests -v
-```
-
 ## 使用示例
 
 ```text
@@ -179,19 +163,13 @@ python -m unittest discover -s tests -v
 使用 $cn-case-hub 检索支持和反对该争点的中国大陆官方案例，并核验案号、来源和裁判观点。
 ```
 
-## 公开范围与边界
-
-本仓库只包含通用工作流、去身份化模板、可复用脚本、Schema 和合成测试材料，不包含真实客户、案件、合同、证据、组织内部规则或私人工作路径。
-
-需要注意：
+## 法律使用边界
 
 - 本项目不构成法律意见，不替代律师、法务或其他专业人员的判断；
 - 事实、证据、金额、日期和现行法律必须根据具体事项重新核验；
 - `cn-case-hub` 处理官方案例检索；法规、规章、司法解释和具体法条需要另行使用可核验的权威现行法检索能力；
 - Skills 不会自动取得发送、签署、提交、立案、发布或联系第三方的权限；
-- 公共版本提供通用基础能力，不包含组织专属的审批、权限、数据源和私有配置。
-
-公开边界详见 [`OPEN_SOURCE_BOUNDARY.md`](OPEN_SOURCE_BOUNDARY.md)，安全问题请参阅 [`SECURITY.md`](SECURITY.md)。
+- 任何正式成果都应结合具体法域、程序阶段、代表立场、证据情况和适用期限进行专业复核。
 
 ## 文档导航
 
@@ -202,7 +180,6 @@ python -m unittest discover -s tests -v
 - [诉讼工作空间](docs/litigation-workspace.md)
 - [原告/申请人文书工作空间](docs/pleading-workspace.md)
 - [Office 质量门](docs/native-office-quality-gate.md)
-- [开发与审查门](docs/development-review-gates.md)
 - [版本记录](CHANGELOG.md)
 - [贡献指南](CONTRIBUTING.md)
 
