@@ -16,3 +16,4 @@ Initial test categories:
 - draft-versus-final placeholder policy and fixed-shell DOCX fidelity checks.
 - cross-workflow release decisions, human sign-off and declared public-root isolation.
 - official-source case-record validation, adverse-query generation and non-official-source rejection.
+- claimant initial-pleading stance, recorded exceptions, stage separation and contextual conditional-language review.
