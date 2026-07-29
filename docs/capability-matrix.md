@@ -1,11 +1,11 @@
 # Public capability matrix
 
-Legal OS v0.4.0 public pre-release contains twelve installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
+Legal OS v0.5.0 public pre-release contains twelve installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|
 | T-01 | Contract review and redline | `legal-os-contract` | Current-law research and organization release approval remain separate. |
-| T-02 / T-04 | Pleadings, litigation analysis and strategy | `legal-os-litigation` | Filing, service and signing require separate authorization. |
+| T-02 / T-04 | Pleadings, litigation analysis and strategy | `legal-os-litigation`; includes the initial-claim single-party stance gate | Filing, service and signing require separate authorization. |
 | T-03 | Evidence register and proof mapping | Evidence-mapping phase in `legal-os-litigation`; see `docs/evidence-workspace.md` | It does not determine authenticity, admissibility or weight. |
 | T-05 | Current law, regulation and case research | `cn-case-hub` for free official-source case research; an available authoritative current-law capability for legislation | Case research does not replace current-law verification; source login and CAPTCHA controls must not be bypassed. |
 | T-06 | Formal correspondence | `legal-os-correspondence` | Drafting does not authorize sending or service. |

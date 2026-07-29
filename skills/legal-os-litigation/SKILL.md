@@ -24,7 +24,8 @@ Stop and surface a review item when any material party identity, amount, date, c
 ## Document controls
 
 - Support civil complaints and answers, commercial arbitration applications and answers, labour/personnel arbitration applications and answers, and evidence catalogues.
-- Classify `procedure_type`, `pleading_role` and `document_variant` before resolving a template. Do not use the commercial-arbitration template for a labour/personnel arbitration matter.
+- Classify `procedure_type`, `pleading_role`, `pleading_stage` and `document_variant` before resolving a template. Do not use the commercial-arbitration template for a labour/personnel arbitration matter.
+- For a claimant's initial complaint, arbitration application, payment-order application or equivalent first request, apply the initial-claim stance gate in `references/pleading-drafting-rules.md`: establish the represented party's claim affirmatively, keep speculative opponent arguments and response strategy in the internal workspace, and admit an exception only when it is actually raised or necessary to establish the claim or required procedure.
 - Every complaint, application or answer has `paired_evidence_catalog_required=true`. Generate the independent evidence catalogue even when evidence is incomplete; label it `待补证 / 内部草稿` rather than omitting it.
 - Do not create an independent “证据和证据来源” or equivalent evidence-source chapter inside a complaint, application or answer. Court, tribunal or institution evidence requirements are satisfied through the paired evidence catalogue and evidence materials.
 - Labour/personnel arbitration templates must not request arbitration costs from the opposing party. Article 53 of the PRC Labour Dispute Mediation and Arbitration Law states that labour-dispute arbitration is free of charge.
@@ -38,6 +39,6 @@ Stop and surface a review item when any material party identity, amount, date, c
 ## References
 
 - For the module contract and artifact boundaries, read `references/workspace-contract.md`.
-- For the reusable R1–R12 complaint/application/answer method, read `references/pleading-drafting-rules.md`.
+- For the reusable R1–R16 complaint/application/answer method, including the initial-claim stance gate, read `references/pleading-drafting-rules.md`.
 - For the pleading quality gate and release labels, read `references/pleading-quality-gate.md`.
 - For the verified legal basis of the labour-arbitration cost exclusion, read `references/labor-arbitration-authority.md`.
