@@ -30,6 +30,7 @@ class NativeOfficePolicyTests(unittest.TestCase):
         policy = (ROOT / "docs" / "native-office-quality-gate.md").read_text(encoding="utf-8")
         required = [
             "structured file inspection",
+            "objective risk",
             "Quick Look",
             "WPS Office",
             "explicit user authorization",
