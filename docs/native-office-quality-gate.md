@@ -6,9 +6,9 @@ Legal OS uses structured file inspection as the default Office-document quality 
 
 1. Preserve the source and create a separately named derived file.
 2. Run format-specific structural checks: package integrity, text presence, styles, fonts, tables, numbering, headers/footers, comments, revisions, formulas, metadata and accessibility as applicable.
-3. On macOS, use Quick Look for a native first-pass preview.
-4. Use WPS Office or another approved native application only as a targeted spot check when Chinese fonts, pagination, tables, tracked changes, images or print layout remain uncertain.
-5. If native inspection is unavailable or fails, report the tool limitation and keep the output at Draft/Hold. Do not substitute a different office renderer without explicit user authorization.
+3. Trigger visual inspection only when a structural check identifies an objective risk: changed tables or merged cells, pagination or section structure, headers/footers, images, fonts/numbering, or tracked-change/comment display boundaries.
+4. When triggered, use Quick Look or WPS Office/another approved native application for a targeted spot check of the affected pages or views; do not perform full-page rendering when no trigger exists.
+5. If a required native inspection is unavailable or fails, report the tool limitation and keep the output at Draft/Hold. Do not substitute a different office renderer without explicit user authorization.
 
 ## Release rule
 

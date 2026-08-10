@@ -13,13 +13,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.5.0"><img src="https://img.shields.io/badge/release-v0.5.0-orange" alt="Release v0.5.0"></a>
+  <img src="https://img.shields.io/badge/candidate-v0.6.0-orange" alt="Candidate v0.6.0">
   <img src="https://img.shields.io/badge/Skills-12-2563eb" alt="12 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.5.0"><strong>下载安装包</strong></a>
+  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.5.0"><strong>下载现行稳定包</strong></a>
   ·
   <a href="docs/architecture.md">查看架构</a>
   ·
@@ -38,9 +38,9 @@
 
 | 当前公开版 | 可安装法律 Skills | 去身份化法律 Office 模板 |
 |---:|---:|---:|
-| **v0.5.0** | **12** | **24** |
+| **v0.6.0 候选版** | **12** | **24** |
 
-> **最新发布：2026-07-29 · v0.5.0 公开预发布版。** 新增原告、申请人和债权人首次请求文书的单方立场控制、程序阶段分离及条件性表达语境复核。完整变化见 [CHANGELOG](CHANGELOG.md)。
+> **当前候选：2026-08-10 · v0.6.0（未发布）。** 本候选改进合同 DOCX 结构质量门、极简批注校验和标准段落标记修订识别；它不等同于已发布 Release。完整变化见 [CHANGELOG](CHANGELOG.md)。
 
 ## 为什么是 Legal OS
 
@@ -115,12 +115,14 @@ flowchart LR
 
 ## 快速开始
 
-### 方式一：安装 Release 包（推荐）
+### 方式一：安装现行稳定 Release 包（推荐）
 
 从 [v0.5.0 Releases 页面](https://github.com/384363367-dot/legal-os/releases/tag/v0.5.0) 下载：
 
 - `LegalOS-Skills-v0.5.0.zip`
 - `LegalOS-Skills-v0.5.0.zip.sha256`
+
+v0.6.0 仍是候选版，尚未进入 Releases；候选源和候选包不得按已发布版本使用或对外宣称。
 
 在下载目录先核验 ZIP，再解压并进入安装包目录：
 
@@ -185,6 +187,6 @@ cd LegalOS-Skills-v0.5.0
 
 ## 项目状态与许可证
 
-当前公开版本为 **v0.5.0 预发布版**。在首个稳定版本发布前，接口、模块边界和仓库结构仍可能调整。
+当前公开源为 **v0.6.0 候选版**，尚未发布为 Release。在正式发布前，接口、模块边界和仓库结构仍可能调整。
 
 除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。

@@ -132,6 +132,21 @@ def compare_critical_structure(original: Path, redline: Path, errors: list[str])
         errors.append("critical story relationships changed outside the permitted comments relationship")
 
 
+def check_illegal_paragraph_nesting(path: Path, errors: list[str]) -> None:
+    """Reject non-standard whole-paragraph insertion wrappers."""
+    for part in story_parts(path):
+        try:
+            root = read_xml(path, part)
+        except (OSError, zipfile.BadZipFile, etree.XMLSyntaxError):
+            continue
+        hits = root.xpath(".//w:ins/w:p", namespaces=NS)
+        if hits:
+            errors.append(
+                f"{part}: illegal whole-paragraph insertion structure w:ins/w:p "
+                f"({len(hits)} occurrence(s)); use paragraph-mark revision instead"
+            )
+
+
 def story_parts(path: Path) -> list[str]:
     with zipfile.ZipFile(path) as archive:
         return sorted(name for name in archive.namelist() if STORY_RE.match(name))
@@ -192,7 +207,11 @@ def paragraph_format_signature(paragraph: etree._Element, mode: str, author: str
         for child in list(ppr_clone):
             if child.tag in {qn("rPr"), qn("pPrChange")}:
                 ppr_clone.remove(child)
-        ppr_key = sha256_bytes(canonical_xml(ppr_clone, drop_property_changes=True))
+        ppr_key = (
+            ""
+            if len(ppr_clone) == 0
+            else sha256_bytes(canonical_xml(ppr_clone, drop_property_changes=True))
+        )
     chunks: list[list[str]] = []
     for run in paragraph.xpath(".//w:r", namespaces=NS):
         if not run_visible(run, mode, author):
@@ -209,16 +228,54 @@ def paragraph_format_signature(paragraph: etree._Element, mode: str, author: str
     return {"ppr": ppr_key, "runs": chunks}
 
 
+def is_pure_insertion(paragraph: etree._Element, author: str) -> bool:
+    """Return whether a paragraph is entirely inserted by the target author."""
+    ppr = paragraph.find(qn("pPr"))
+    paragraph_mark_inserted = False
+    if ppr is not None:
+        rpr = ppr.find(qn("rPr"))
+        if rpr is not None:
+            paragraph_mark_inserted = any(
+                mark.get(qn("author")) == author
+                for mark in rpr.findall(qn("ins"))
+            )
+
+    inserted_nodes = [
+        node for node in paragraph.iter(qn("ins"))
+        if node.get(qn("author")) == author
+    ]
+    if not paragraph_mark_inserted and not inserted_nodes:
+        return False
+
+    total = "".join(
+        node.text or ""
+        for node in paragraph.iter()
+        if node.tag in (qn("t"), qn("delText"))
+    )
+    inserted_text = "".join(
+        node.text or ""
+        for wrapper in inserted_nodes
+        for node in wrapper.iter()
+        if node.tag in (qn("t"), qn("delText"))
+    )
+    return total == inserted_text
+
+
 def story_view(path: Path, mode: str, author: str) -> dict[str, dict[str, object]]:
     view: dict[str, dict[str, object]] = {}
     for part in story_parts(path):
         root = read_xml(path, part)
-        paragraphs = [collect_text(p, mode, author) for p in root.xpath(".//w:p", namespaces=NS)]
+        paragraphs = []
+        formatting = []
+        for paragraph in root.xpath(".//w:p", namespaces=NS):
+            if mode == "reject" and is_pure_insertion(paragraph, author):
+                continue
+            paragraphs.append(collect_text(paragraph, mode, author))
+            formatting.append(paragraph_format_signature(paragraph, mode, author))
         table_shapes = []
         for table in root.xpath(".//w:tbl", namespaces=NS):
             rows = table.xpath("./w:tr", namespaces=NS)
             table_shapes.append([len(row.xpath("./w:tc", namespaces=NS)) for row in rows])
-        formatting = [paragraph_format_signature(p, mode, author) for p in root.xpath(".//w:p", namespaces=NS)]
         view[part] = {"paragraphs": paragraphs, "table_shapes": table_shapes, "formatting": formatting}
     return view
 
@@ -272,6 +329,9 @@ def fragments(path: Path, author: str) -> list[dict[str, object]]:
         change_index = 0
         for node in root.xpath(".//w:ins | .//w:del", namespaces=NS):
             if node.get(qn("author")) != author:
+                continue
+            parent = node.getparent()
+            if parent is not None and parent.tag == qn("rPr"):
                 continue
             kind = "insert" if node.tag == qn("ins") else "delete"
             text = change_text(node, kind)
@@ -376,7 +436,8 @@ def validate_long_fragment(
     return True
 
 
-def comment_metrics(path: Path) -> tuple[int, int, int, int, set[str], set[str], set[str], set[str]]:
+def comment_metrics(path: Path) -> tuple[int, int, int, int, set[str], set[str], set[str], set[str], dict[str, str]]:
+    texts: dict[str, str] = {}
     with zipfile.ZipFile(path) as archive:
         count = 0
         ids: set[str] = set()
@@ -385,6 +446,9 @@ def comment_metrics(path: Path) -> tuple[int, int, int, int, set[str], set[str],
             nodes = comments.xpath(".//w:comment", namespaces=NS)
             count = len(nodes)
             ids = {node.get(qn("id"), "") for node in nodes}
+            for node in nodes:
+                comment_id = node.get(qn("id"), "")
+                texts[comment_id] = "".join(node.itertext()).strip()
     refs: set[str] = set()
     starts: set[str] = set()
     ends: set[str] = set()
@@ -393,7 +457,7 @@ def comment_metrics(path: Path) -> tuple[int, int, int, int, set[str], set[str],
         refs.update(node.get(qn("id"), "") for node in root.xpath(".//w:commentReference", namespaces=NS))
         starts.update(node.get(qn("id"), "") for node in root.xpath(".//w:commentRangeStart", namespaces=NS))
         ends.update(node.get(qn("id"), "") for node in root.xpath(".//w:commentRangeEnd", namespaces=NS))
-    return count, len(refs), len(starts), len(ends), ids, refs, starts, ends
+    return count, len(refs), len(starts), len(ends), ids, refs, starts, ends, texts
 
 
 def main() -> int:
@@ -419,6 +483,7 @@ def main() -> int:
     if packages_valid:
         try:
             compare_critical_structure(args.original, args.redline, errors)
+            check_illegal_paragraph_nesting(args.redline, errors)
         except (KeyError, OSError, zipfile.BadZipFile, etree.XMLSyntaxError) as exc:
             errors.append(f"critical structure comparison failed: {exc}")
 
@@ -503,7 +568,9 @@ def main() -> int:
         warnings.append(f"insert median {insert_stats['median']} exceeds {args.max_median_insert}")
 
     try:
-        count, ref_count, start_count, end_count, ids, refs, starts, ends = comment_metrics(args.redline)
+        count, ref_count, start_count, end_count, ids, refs, starts, ends, comment_texts = comment_metrics(
+            args.redline
+        )
         # Point comments have a reference but no range anchors. Ranged comments
         # must still have balanced start/end anchors and valid IDs.
         if ids != refs or starts != ends or not starts.issubset(ids):
@@ -513,6 +580,45 @@ def main() -> int:
             )
         if args.expected_comments is not None and count != args.expected_comments:
             errors.append(f"expected {args.expected_comments} comments but found {count}")
+        for comment_id in sorted(ids):
+            text = comment_texts.get(comment_id, "")
+            text_length = len(text)
+            if text_length > 50:
+                errors.append(f"comment {comment_id} exceeds 50 chars ({text_length}): {text!r}")
+            elif text_length > 30:
+                warnings.append(
+                    f"comment {comment_id} exceeds 30 chars ({text_length}); consider shortening: {text!r}"
+                )
+            if text_length == 0:
+                errors.append(f"comment {comment_id} is empty (must be a concise confirm item)")
+
+            question_marks = text.count("？") + text.count("?")
+            whether_count = text.count("是否")
+            confirm_count = text.count("请确认") + text.count("需确认")
+            new_item_marker = any(
+                marker in text for marker in ("分别确认", "另请确认", "同时请确认", "还需确认")
+            )
+            enumerated_items = bool(
+                re.search(r"[A-Za-z0-9]+/[A-Za-z0-9]+", text)
+                or re.search(r"[一二三四五六七八九十]+/", text)
+                or re.search(r"[一二三四五六七八九十]+、", text)
+            )
+            if (
+                question_marks >= 2
+                or whether_count >= 2
+                or confirm_count >= 2
+                or new_item_marker
+                or enumerated_items
+            ):
+                errors.append(
+                    f"comment {comment_id} contains multiple independent confirm items: {text!r}"
+                )
+            else:
+                punctuation = sum(1 for char in text if char in "。；;?？\n")
+                if punctuation > 0 or text.count("，") >= 2:
+                    warnings.append(
+                        f"comment {comment_id} may contain multiple items (verify manually): {text!r}"
+                    )
     except (KeyError, OSError, zipfile.BadZipFile, etree.XMLSyntaxError) as exc:
         count = ref_count = start_count = end_count = 0
         errors.append(f"comment validation failed: {exc}")
