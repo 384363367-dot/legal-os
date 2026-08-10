@@ -1,10 +1,10 @@
 # Public capability matrix
 
-Legal OS v0.6.0 public candidate contains twelve installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection. v0.6.0 is not released.
+Legal OS v0.6.0 public prerelease contains twelve installable Skills. The T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory and the table below is its human-readable projection.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|
-| T-01 | Contract review and redline | `legal-os-contract` | v0.6.0 adds public redline/comment quality checks; current-law research and organization release approval remain separate. |
+| T-01 | Contract review and redline | `legal-os-contract` | v0.6.0 public prerelease adds public redline/comment quality checks; current-law research and organization release approval remain separate. |
 | T-02 / T-04 | Pleadings, litigation analysis and strategy | `legal-os-litigation`; includes the initial-claim single-party stance gate | Filing, service and signing require separate authorization. |
 | T-03 | Evidence register and proof mapping | Evidence-mapping phase in `legal-os-litigation`; see `docs/evidence-workspace.md` | It does not determine authenticity, admissibility or weight. |
 | T-05 | Current law, regulation and case research | `cn-case-hub` for free official-source case research; an available authoritative current-law capability for legislation | Case research does not replace current-law verification; source login and CAPTCHA controls must not be bypassed. |
@@ -35,4 +35,4 @@ This matrix is the authority for the public package boundary. Bundled templates 
 
 ## v0.6.0 compatibility note
 
-The public route contract is unchanged: contract requests still use T-01 and the same `legal-os-contract` Skill. The candidate only tightens DOCX redline validation and documents objective triggers for native visual spot checks; it does not add a dependency, private overlay, or external action.
+The public route contract is unchanged: contract requests still use T-01 and the same `legal-os-contract` Skill. This prerelease tightens DOCX redline validation and documents objective triggers for native visual spot checks; it does not add a dependency, private overlay, or external action.

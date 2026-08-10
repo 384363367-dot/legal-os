@@ -4,7 +4,7 @@
 
 ## [v0.6.0] - 2026-08-10
 
-状态：候选，未发布。
+状态：已发布公开预发布版，非稳定版。
 
 ### 合同质量门
 
@@ -16,7 +16,7 @@
 ### 验证与边界
 
 - 增加非法整段嵌套、标准段落标记修订、无锚点批注、超长批注和多事项批注的合成回归测试。
-- 本条目仅描述候选源变更；v0.6.0 尚未创建 Tag、Release 或稳定安装入口。
+- 本版本已创建 `v0.6.0` Tag 和 GitHub 公开预发布；稳定版本仍需另行决定。
 
 ## [v0.5.0] - 2026-07-29
 
@@ -133,4 +133,5 @@
 [v0.3.0]: https://github.com/384363367-dot/legal-os/compare/v0.2.0...v0.3.0
 [v0.4.0]: https://github.com/384363367-dot/legal-os/compare/v0.3.0...v0.4.0
 [v0.5.0]: https://github.com/384363367-dot/legal-os/compare/v0.4.0...v0.5.0
+[v0.6.0]: https://github.com/384363367-dot/legal-os/compare/v0.5.0...v0.6.0
 [v0.1.0]: https://github.com/384363367-dot/legal-os/releases/tag/v0.1.0
