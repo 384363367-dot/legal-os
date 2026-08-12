@@ -8,7 +8,9 @@ This is a generic, source-locked workflow for preparing document deliverables an
 - Choose the requested operation: convert, merge, split, print, clean, index, package, or archive.
 - Preserve semantic content, source originals, version relationships, and an auditable manifest.
 - Use the statuses `SOURCE`, `WORKING`, `DERIVED`, `CLEAN`, `SUBMISSION`, and `ARCHIVED`.
-- Run structured file checks, then inspect through the operating system's native preview. Use WPS or another approved native application only for targeted Chinese-font, pagination, table, tracked-change or print-layout concerns; record the inspected hash and findings.
+- For a Word/DOCX deliverable, treat the DOCX itself as the formal deliverable. Prioritize OOXML/package structure, text, revisions, styles, numbering, tables and formatting preservation.
+- Treat PDF, PNG and visual inspection as auxiliary. Trigger them only when the user explicitly requests a PDF, requests final layout or print checking, the document contains complex visual elements, or there is a concrete pagination/layout risk. After finalization, perform at most one final render; use ordinary 120-second and complex 300-second timeouts, with one corrective retry only after identifying a concrete cause.
+- If a Chinese-font, renderer or sandbox failure occurs while structural checks pass, record an environment limitation and do not set Draft/Hold solely for it. Do not change formal fonts, switch renderers repeatedly, or rebuild Word; reserve Draft/Hold for real source-content, source-structure, privacy or authorization blockers.
 
 ## Routing boundaries
 
@@ -17,6 +19,8 @@ Requests that change legal or business substance route to the corresponding cont
 ## Hard stops
 
 Pause when a source is missing or corrupt, version relationships conflict, tracked changes or clean-version status is unclear, conversion fidelity differs, privacy or public/private boundaries are unresolved, or the request would delete or overwrite an original. Sending, submitting, signing, publishing, or pushing to an external repository requires separate authorization.
+
+A rendering or native-inspection failure alone is not a hard stop when the structural checks pass.
 
 ## Delivery standard
 
