@@ -30,13 +30,31 @@ class NativeOfficePolicyTests(unittest.TestCase):
         policy = (ROOT / "docs" / "native-office-quality-gate.md").read_text(encoding="utf-8")
         required = [
             "structured file inspection",
-            "objective risk",
+            "concrete objective pagination/layout risk",
             "Quick Look",
             "WPS Office",
             "explicit user authorization",
             "Draft/Hold",
         ]
         self.assertEqual([token for token in required if token not in policy], [])
+
+    def test_render_failure_is_not_a_standalone_blocker(self) -> None:
+        policy = (ROOT / "docs" / "native-office-quality-gate.md").read_text(encoding="utf-8")
+        required = [
+            "DOCX source as the formal Office deliverable",
+            "OOXML/package structure",
+            "PDF/PNG",
+            "at most one final render",
+            "120-second",
+            "300-second",
+            "one corrective retry",
+            "ENVIRONMENT_LIMITATION",
+            "while structural checks pass",
+            "not set Draft/Hold solely",
+            "source-content, source-structure, privacy or authorization blocker",
+        ]
+        self.assertEqual([token for token in required if token not in policy], [])
+        self.assertNotIn("keep the output at Draft/Hold", policy)
 
 
 if __name__ == "__main__":

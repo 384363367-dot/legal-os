@@ -13,13 +13,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.0"><img src="https://img.shields.io/badge/prerelease-v0.6.0-orange" alt="Public prerelease v0.6.0"></a>
+  <a href="https://github.com/384363367-dot/legal-os/tree/agent/v0.6.0-public-contract-gate"><img src="https://img.shields.io/badge/candidate-v0.6.1-yellow" alt="Public candidate v0.6.1"></a>
   <img src="https://img.shields.io/badge/Skills-12-2563eb" alt="12 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.0"><strong>下载现行公开预发布包</strong></a>
+  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.0"><strong>下载现行公开预发布包 v0.6.0</strong></a>
   ·
   <a href="docs/architecture.md">查看架构</a>
   ·
@@ -38,9 +38,9 @@
 
 | 当前公开版 | 可安装法律 Skills | 去身份化法律 Office 模板 |
 |---:|---:|---:|
-| **v0.6.0 公开预发布版** | **12** | **24** |
+| **v0.6.1 公开候选版** | **12** | **24** |
 
-> **当前公开预发布：2026-08-10 · v0.6.0。** 本版本改进合同 DOCX 结构质量门、极简批注校验和标准段落标记修订识别；完整变化见 [CHANGELOG](CHANGELOG.md)。
+> **当前公开候选：2026-08-12 · v0.6.1。** 本候选修正法律 Word/DOCX 源文件优先和渲染不阻塞交付规则；可下载的最新公开预发布包仍为 v0.6.0，完整变化见 [CHANGELOG](CHANGELOG.md)。
 
 ## 为什么是 Legal OS
 
@@ -185,6 +185,6 @@ cd LegalOS-Skills-v0.6.0
 
 ## 项目状态与许可证
 
-当前公开版本为 **v0.6.0 公开预发布版**。在稳定版本发布前，接口、模块边界和仓库结构仍可能调整。
+当前公开源候选为 **v0.6.1**；可下载的最新公开预发布包为 **v0.6.0**。在稳定版本发布前，接口、模块边界和仓库结构仍可能调整。
 
 除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。

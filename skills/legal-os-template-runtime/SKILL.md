@@ -16,8 +16,8 @@ Resolve and verify templates before generating a formal file. Keep substantive d
 5. Copy the selected template to the matter workspace. For a complaint, application or answer, also copy the returned paired evidence-catalog template. Preserve the sources and record both template IDs, scopes, paths and SHA-256 values.
 6. Draft with a fixed shell and flexible body. Preserve visual identity and minimum functional sections while expanding factual, legal and risk content to the depth required by the actual matter.
 7. Run the primary workflow's substantive quality gate.
-8. Run `scripts/template_runtime.py audit-docx` for DOCX output. Allow placeholders only for an explicitly labelled internal draft.
-9. Perform the platform-approved native visual check and record findings. Template fidelity does not authorize sending, filing, signing or publication.
+8. Run `scripts/template_runtime.py audit-docx` for DOCX output. The DOCX itself is the formal deliverable, so OOXML/package structure, text, revisions, styles, numbering and formatting preservation take priority. Allow placeholders only for an explicitly labelled internal draft.
+9. Perform the platform-approved native visual check only when the user explicitly requests a PDF, requests final layout or print checking, the document contains complex visual elements, or there is a concrete pagination/layout risk. PDF/PNG and visual inspection are auxiliary; after finalization, perform at most one final render. Use ordinary 120-second and complex 300-second timeouts, with one corrective retry only after identifying a concrete cause. If a Chinese-font, renderer or sandbox failure occurs while the structural audit passes, record an environment limitation; do not set Draft/Hold solely for that, change formal fonts, switch renderers repeatedly, or rebuild Word. Template fidelity does not authorize sending, filing, signing or publication.
 
 ## Commands
 
