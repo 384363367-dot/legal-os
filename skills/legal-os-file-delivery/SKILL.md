@@ -24,7 +24,7 @@ Do not ask the user to repeat information already present in the files.
 3. Choose the smallest action: convert, merge, split, print, clean metadata, redact a public copy, index or archive.
 4. Preserve text, numbering, tables, headers/footers, page order, images, comments and tracked changes unless an authorized task explicitly changes them.
 5. Mark file status: `SOURCE`, `WORKING`, `DERIVED`, `CLEAN`, `SUBMISSION`, or `ARCHIVED`.
-6. Run structural checks first. When a Word/DOCX deliverable is requested, the DOCX itself is the formal deliverable: prioritize OOXML/package structure, text, numbering, tables, headers/footers, styles, revisions, comments and formatting preservation. PDF, PNG and visual inspection are auxiliary; trigger them only when the user explicitly requests a PDF, requests final layout or print checking, the document contains complex visual elements, or there is a concrete pagination/layout risk. After finalization, perform at most one final render. Use ordinary 120-second and complex 300-second timeouts, with one corrective retry only after identifying a concrete cause. If a Chinese-font, renderer or sandbox failure occurs while structural checks pass, record an environment limitation; do not set Draft/Hold solely for that, change formal fonts, switch renderers repeatedly, or rebuild Word.
+6. For a legal DOCX, treat the DOCX itself as the formal delivery artifact. Content, OOXML/package structure, tracked changes and formatting preservation are the primary acceptance checks; PDF/PNG rendering and visual preview are not prerequisites. Trigger one targeted auxiliary visual check only when the user explicitly requests PDF, layout, print or font QA; the deliverable is inherently visual; the file contains complex visual elements; or there is a concrete pagination/layout defect. Use ordinary 120-second and complex 300-second timeouts, with one corrective retry only after identifying a concrete cause. If a renderer, sandbox or missing-font environment produces missing glyphs, boxes, blank pages, font substitution or abnormal wrapping while structural checks pass, record an environment limitation; do not set Draft/Hold solely for that, switch renderers repeatedly, change formal fonts or rebuild the source.
 7. Generate a manifest with filenames, source relationships, processing notes, hashes when available, QC status and archive boundary.
 8. When generating the standard delivery checklist or version index, use `legal-os-template-runtime` to resolve and hash-check the registered template. Preserve the table and version-control structure while adding rows as needed; stop with `TEMPLATE_REQUIRED` if no approved template resolves.
 
@@ -43,7 +43,7 @@ Pause when:
 
 - source files, pages, attachments, versions or signatures conflict or are incomplete;
 - accepting revisions, producing a clean copy, redacting, or removing comments could change legal meaning;
-- conversion causes text, tables, pagination, images, fonts or tracked changes to differ unexpectedly;
+- the source file or an authorized conversion actually changes text, tables, pagination, images or tracked changes; renderer, sandbox or font-environment differences are recorded separately and do not alone block a structurally valid DOCX;
 - privacy, confidentiality, public/private boundary or external submission permission is unclear;
 - the user asks to delete or overwrite originals.
 

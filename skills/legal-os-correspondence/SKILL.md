@@ -28,7 +28,7 @@ Stop for review when sender, recipient, contract/project, amount, date, obligati
 - Treat deadline, delivery, attachment, and recipient details as substantive controls, not formatting details.
 - Do not use a template or old memory to fill a factual or legal gap.
 - Treat template wording as a minimum functional example, not a content ceiling. Add numbered subparts, risk warnings, calculations and attachments when the matter requires them.
-- Run DOCX structural and accessibility audits, then inspect through the operating system's native preview. Use WPS or another approved native application only for targeted Chinese-font, pagination, table or print-layout concerns. Do not substitute another renderer without explicit user authorization.
+- Run DOCX structural and accessibility audits first. Do not use native preview by default. Use an approved native application only when the user explicitly requests visual, font, layout or print QA, or a concrete pagination, table or print-layout defect exists; perform at most one targeted auxiliary check. Do not switch renderers, change formal fonts or block a structurally valid DOCX because of a preview/environment issue.
 
 ## References
 
