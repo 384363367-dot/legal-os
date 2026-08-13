@@ -13,13 +13,13 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.1"><img src="https://img.shields.io/badge/public--prerelease-v0.6.1-green" alt="v0.6.1 public prerelease"></a>
+  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.2"><img src="https://img.shields.io/badge/public--prerelease-v0.6.2-green" alt="v0.6.2 public prerelease"></a>
   <img src="https://img.shields.io/badge/Skills-12-2563eb" alt="12 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.1"><strong>下载现行公开预发布包 v0.6.1</strong></a>
+  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.2"><strong>下载现行公开预发布包 v0.6.2</strong></a>
   ·
   <a href="docs/architecture.md">查看架构</a>
   ·
@@ -38,9 +38,9 @@
 
 | 当前公开版 | 可安装法律 Skills | 去身份化法律 Office 模板 |
 |---:|---:|---:|
-| **v0.6.1 公开预发布版** | **12** | **24** |
+| **v0.6.2 公开预发布版** | **12** | **24** |
 
-> **当前公开预发布版：2026-08-12 · v0.6.1。** 本版本修正法律 Word/DOCX 源文件优先和渲染不阻塞交付规则，完整变化见 [CHANGELOG](CHANGELOG.md)。
+> **当前公开预发布版：2026-08-13 · v0.6.2。** 本版本把源文件优先门前移到统一入口，并清除函件、诉讼、数据表和模板流程中残留的默认预览或全表渲染要求，完整变化见 [CHANGELOG](CHANGELOG.md)。
 
 ## 为什么是 Legal OS
 
@@ -117,17 +117,17 @@ flowchart LR
 
 ### 方式一：安装现行公开预发布包（推荐）
 
-从 [v0.6.1 Releases 页面](https://github.com/384363367-dot/legal-os/releases/tag/v0.6.1) 下载：
+从 [v0.6.2 Releases 页面](https://github.com/384363367-dot/legal-os/releases/tag/v0.6.2) 下载：
 
-- `LegalOS-Skills-v0.6.1.zip`
-- `LegalOS-Skills-v0.6.1.zip.sha256`
+- `LegalOS-Skills-v0.6.2.zip`
+- `LegalOS-Skills-v0.6.2.zip.sha256`
 
 在下载目录先核验 ZIP，再解压并进入安装包目录：
 
 ```bash
-shasum -a 256 -c LegalOS-Skills-v0.6.1.zip.sha256
-unzip LegalOS-Skills-v0.6.1.zip
-cd LegalOS-Skills-v0.6.1
+shasum -a 256 -c LegalOS-Skills-v0.6.2.zip.sha256
+unzip LegalOS-Skills-v0.6.2.zip
+cd LegalOS-Skills-v0.6.2
 ./install.sh --dry-run
 ./install.sh
 ```
@@ -185,6 +185,6 @@ cd LegalOS-Skills-v0.6.1
 
 ## 项目状态与许可证
 
-当前公开版本为 **v0.6.1 公开预发布版**；**v0.6.0** 保留为历史版本。在稳定版本发布前，接口、模块边界和仓库结构仍可能调整。
+当前公开版本为 **v0.6.2 公开预发布版**；**v0.6.1** 保留为历史版本。在稳定版本发布前，接口、模块边界和仓库结构仍可能调整。
 
 除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。

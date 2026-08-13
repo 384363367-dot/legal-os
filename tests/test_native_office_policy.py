@@ -14,6 +14,8 @@ class NativeOfficePolicyTests(unittest.TestCase):
             "".join(("render_", "docx.py")),
             "".join(("render", " → inspect")),
             "".join(("Render and inspect", " every")),
+            "".join(("Render every", " sheet")),
+            "then inspect through the operating system's native preview",
         ]
         hits: list[str] = []
         for base in (ROOT / "docs", ROOT / "skills"):
@@ -55,6 +57,30 @@ class NativeOfficePolicyTests(unittest.TestCase):
         ]
         self.assertEqual([token for token in required if token not in policy], [])
         self.assertNotIn("keep the output at Draft/Hold", policy)
+
+    def test_source_first_gate_reaches_office_workflows(self) -> None:
+        required = {
+            "skills/legal-os-unified-intake/SKILL.md": [
+                "visual_check_required=false",
+                "cannot alone block a structurally valid DOCX or workbook",
+            ],
+            "skills/legal-os-contract/SKILL.md": [
+                "实际可见文字 run 递归复制完整 `w:rPr`",
+                "`w:rFonts` 四项",
+                "默认不做 PDF 转换",
+                "不因未触发或环境受限的辅助预览延迟交付",
+            ],
+            "skills/legal-os-data-verification/SKILL.md": ["Rendering all sheets is not required by default"],
+            "skills/legal-os-correspondence/SKILL.md": ["Do not use native preview by default"],
+            "skills/legal-os-litigation/SKILL.md": ["Do not use native preview by default"],
+            "skills/legal-os-reporting-presentation/SKILL.md": ["visual rendering is off unless"],
+            "skills/legal-quality-gate/references/checklist.md": ["visual rendering is conditional"],
+        }
+        missing: list[str] = []
+        for relative, tokens in required.items():
+            text = (ROOT / relative).read_text(encoding="utf-8")
+            missing.extend(f"{relative}: {token}" for token in tokens if token not in text)
+        self.assertEqual(missing, [])
 
 
 if __name__ == "__main__":

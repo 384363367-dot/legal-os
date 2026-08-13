@@ -25,6 +25,8 @@ Load `Kernel + one primary workflow + necessary auxiliaries + the matching quali
 
 Use `route-only` to return classification and next action without execution. Use `route-and-run` only when one primary route is clear and all stop and authorization gates pass. Every outcome has exactly one primary route; secondary capabilities remain auxiliary.
 
+For legal DOCX and ordinary editable Excel, the router sets `visual_check_required=false` by default and prioritizes source structure, content, revisions, formatting inheritance, formulas and error scans. Rendering or native preview is enabled only for an explicit visual request, an inherently visual deliverable, complex visual elements or a concrete layout defect; a renderer or font-environment failure alone does not block a structurally valid source file.
+
 ## Routing output contract
 
 Before workflow content, return the complete routing header defined in [`routing-output-contract.schema.json`](../skills/legal-os-unified-intake/references/routing-output-contract.schema.json). The header is machine-readable and must include the execution mode, one primary route, unique auxiliary routes, risk and gap levels, status, decision-interview record, confirmed and missing facts, blocker codes, expected deliverable and next action. Do not omit keys; use an empty array, `null`, or an empty string when a value is not applicable.
@@ -35,4 +37,4 @@ The [risk-question ladder](../skills/legal-os-unified-intake/references/risk-que
 
 For T-02, the single primary route is retained. The router records `procedure_type`, `pleading_role`, `document_variant` and `paired_evidence_catalog_required=true` so the litigation workflow can distinguish civil litigation, commercial arbitration and labour/personnel arbitration without creating competing primary routes. Complaints, applications and answers resolve together with an independent evidence-catalog template.
 
-In the v0.6.1 public prerelease, evidence mapping is a phase in `legal-os-litigation`; `cn-case-hub` provides official-source case research, while legislation and current-law verification require an available authoritative research capability selected for the jurisdiction. These are declared boundaries. The machine-readable contract is [legalos.manifest.json](../legalos.manifest.json); see also [capability-matrix.md](capability-matrix.md).
+In the v0.6.2 public prerelease, evidence mapping remains a phase in `legal-os-litigation`; `cn-case-hub` provides official-source case research, while legislation and current-law verification require an available authoritative research capability selected for the jurisdiction. These are declared boundaries. The machine-readable contract is [legalos.manifest.json](../legalos.manifest.json); see also [capability-matrix.md](capability-matrix.md).

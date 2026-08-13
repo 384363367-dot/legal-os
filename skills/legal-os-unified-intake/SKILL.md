@@ -9,6 +9,12 @@ description: Source-locked intake and task routing for Chinese legal work. Use w
 
 Identify the user's real task, role, risk, materials, output audience, and missing information before loading one specialist workflow. Keep facts, rules, evidence, calculations, legal authorities, and delivery QC separate. This router selects workflows; it does not prove that a downstream capability is implemented or validated.
 
+## Office artifact precedence
+
+For legal DOCX and ordinary editable Excel deliverables, source correctness is the default gate and overrides a generic helper instruction that makes rendering mandatory. Set `visual_check_required=false` by default. Inspect OOXML/package structure, text, tables, revisions, comments, styles and inherited run formatting for DOCX; inspect workbook structure, formulas, values and formula errors for Excel. When the flag is false, do not call PDF/PNG/native-preview/render commands, change formal fonts or rebuild a structurally valid source. For a new DOCX paragraph, copy complete `w:rPr` from the actual visible run of an adjacent same-level paragraph and assert paragraph properties, numbering, `w:rFonts` (`ascii`, `hAnsi`, `eastAsia`, `cs`), size and direct character formatting.
+
+Set `visual_check_required=true` only when the user explicitly requests PDF, layout, print or font QA; the deliverable is inherently visual; the file contains complex visual elements; or a concrete pagination/layout defect is identified. Then perform one targeted auxiliary check after basic finalization, with at most one corrective retry for a recorded cause. A renderer, sandbox or missing-font failure is an environment finding, not a source-file failure, and cannot alone block a structurally valid DOCX or workbook. Downstream Skills and helpers inherit this gate.
+
 ## Intake sequence
 
 1. Read the user request and every attached file that is in scope. Do not ask the user to repeat information already present in the files.
@@ -25,6 +31,7 @@ Identify the user's real task, role, risk, materials, output audience, and missi
 
 - `route-only`: return the complete routing decision and next action; do not load or execute the primary workflow.
 - `route-and-run`: return the routing decision, then load the primary workflow only if all stop and authorization gates pass.
+- Apply `visual_check_required` before loading a document or spreadsheet helper; helper defaults do not change it.
 - Every decision must contain exactly one `primary_route`. Additional capabilities are `auxiliary_routes`; they never become competing primary routes.
 - A route identifies the workstream. It does not guarantee that every required connector, source, renderer, or external service is bundled.
 - `G3` always returns `stopped`. Sending, filing, signing, publishing, pushing, settling, waiving, releasing, terminating, or making another external commitment returns `awaiting-authorization` until separately authorized.

@@ -43,7 +43,7 @@ Internal reports lead with exceptions, risks and decisions. Client reports inclu
 
 ## Hard stops
 
-Pause and produce a focused gap list when the matter, period, audience, baseline or source is unclear; amounts, dates, versions or owners conflict; a RAG conclusion lacks support; the output would expose internal strategy or create an unapproved commitment; Chinese rendering or page fidelity fails; or the user asks to send, submit, publish or overwrite.
+For a standard legal DOCX report, use source structure, content and formatting as the primary gate; visual rendering is off unless the user requests it or a concrete layout defect exists. For PPT or another inherently visual deliverable, perform the requested visual check and record material failures. Pause and produce a focused gap list when the matter, period, audience, baseline or source is unclear; amounts, dates, versions or owners conflict; a RAG conclusion lacks support; the output would expose internal strategy or create an unapproved commitment; a required visual check finds a material source defect; or the user asks to send, submit, publish or overwrite.
 
 ## Output contract
 

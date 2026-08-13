@@ -31,7 +31,7 @@
 
 ## 5. Format Gate
 
-- Word/PDF/Excel/table deliverables are complete, readable, and suitable for direct submission or leadership circulation.
+- Word/PDF/Excel/table deliverables are complete, readable, and suitable for direct submission or leadership circulation. For legal DOCX and ordinary Excel, source structure/content/formula checks are primary; visual rendering is conditional and is not a prerequisite unless a separate visual requirement or concrete defect is recorded.
 - Titles, numbering, fonts, spacing, tables, signatures, dates, and page numbers are coherent.
 - Evidence catalogs use the correct simple or complex table according to task needs.
 - Final external versions do not include comments, tracked-change debris, internal notes, or unverified placeholders.

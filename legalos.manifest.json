@@ -3,7 +3,7 @@
   "schema_version": "1.0.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.6.1",
+    "public_version": "0.6.2",
     "release_status": "released",
     "version_namespace": "public-semver"
   },

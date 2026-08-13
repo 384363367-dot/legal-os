@@ -24,7 +24,7 @@ For a complaint, application or answer, resolution is bundled: the result includ
 
 The bundled audit checks structural fidelity without comparing body length or requiring literal sample wording. It checks section geometry, header/footer relationships, drawings, tables, required East Asian fonts, file integrity, and unresolved placeholders. Drafts may retain marked placeholders; final artifacts may not.
 
-Use structured OOXML checks first, then native macOS Quick Look for visual inspection. A targeted inspection in an approved native Office application may be used when Chinese font substitution, pagination, tables, tracked changes, or print layout remain uncertain.
+Use structured OOXML checks as the default gate. Native preview is not required for an ordinary legal DOCX. Perform one targeted inspection in an approved native Office application only when the user requests visual, font, layout or print QA; the deliverable is inherently visual; the file contains complex visual elements; or a concrete pagination/layout defect is identified.
 
 ## Public/private boundary
 

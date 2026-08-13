@@ -2,6 +2,17 @@
 
 本文件记录 Legal OS 公开预发布版本的主要变化。
 
+## [v0.6.2] - 2026-08-13
+
+状态：已发布公开预发布版，非稳定版。
+
+### Office 源文件优先门
+
+- 在统一入口增加 `visual_check_required=false` 默认门，并使下游 DOCX/Excel 工作流继承该决定。
+- 移除函件、诉讼、数据表和模板流程中残留的默认预览或全表渲染要求；普通源文件以结构、内容、修订、格式继承、公式和错误扫描为主。
+- 视觉检查仅在明确要求、视觉型交付物、复杂视觉元素或具体版式缺陷时触发一次；渲染器、沙箱或缺失字体造成的环境异常不得单独阻塞结构正常的源文件。
+- 增加跨工作流回归测试，防止默认渲染要求重新进入公开 Skills。
+
 ## [v0.6.1] - 2026-08-12
 
 状态：已发布公开预发布版，非稳定版。`v0.6.1` Tag 和 GitHub 公开预发布将随本次正式流程创建。
@@ -144,5 +155,6 @@
 [v0.4.0]: https://github.com/384363367-dot/legal-os/compare/v0.3.0...v0.4.0
 [v0.5.0]: https://github.com/384363367-dot/legal-os/compare/v0.4.0...v0.5.0
 [v0.6.0]: https://github.com/384363367-dot/legal-os/compare/v0.5.0...v0.6.0
+[v0.6.2]: https://github.com/384363367-dot/legal-os/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/384363367-dot/legal-os/compare/v0.6.0...v0.6.1
 [v0.1.0]: https://github.com/384363367-dot/legal-os/releases/tag/v0.1.0

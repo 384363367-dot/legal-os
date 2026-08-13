@@ -36,7 +36,7 @@ Before release, compare template and output for:
 - headers, footers, letterhead, drawings and signature/imprint areas;
 - required tables and table headers;
 - unresolved placeholders or template-control notes;
-- native preview findings for overlap, clipping, pagination and print layout.
+- native preview findings for overlap, clipping, pagination and print layout only when visual QA was requested, the deliverable is inherently visual, the file contains complex visual elements, or a concrete layout defect was identified; ordinary legal DOCX output does not require preview.
 
 Structural fidelity and substantive quality are separate gates. Passing one never substitutes for the other.
 
