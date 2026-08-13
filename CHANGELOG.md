@@ -4,7 +4,7 @@
 
 ## [v0.6.2] - 2026-08-13
 
-状态：公开候选，尚未发布为 GitHub Release。
+状态：已发布公开预发布版，非稳定版。
 
 ### Office 源文件优先门
 
@@ -155,5 +155,6 @@
 [v0.4.0]: https://github.com/384363367-dot/legal-os/compare/v0.3.0...v0.4.0
 [v0.5.0]: https://github.com/384363367-dot/legal-os/compare/v0.4.0...v0.5.0
 [v0.6.0]: https://github.com/384363367-dot/legal-os/compare/v0.5.0...v0.6.0
+[v0.6.2]: https://github.com/384363367-dot/legal-os/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/384363367-dot/legal-os/compare/v0.6.0...v0.6.1
 [v0.1.0]: https://github.com/384363367-dot/legal-os/releases/tag/v0.1.0
