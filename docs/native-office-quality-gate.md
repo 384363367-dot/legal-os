@@ -1,5 +1,7 @@
 # Native Office Quality Gate
 
+The machine-readable rule for legal DOCX and ordinary editable Excel is [`skills/legal-os-unified-intake/references/office-source-policy.md`](../skills/legal-os-unified-intake/references/office-source-policy.md); this document explains the same gate for human reviewers.
+
 Legal OS treats the requested DOCX source as the formal Office deliverable. Source correctness and structured file inspection are the default quality path; for DOCX, OOXML/package structure, text, revisions, styles, numbering, tables and formatting preservation take priority. PDF, PNG and visual inspection are auxiliary and must use the operating system's native preview or an approved native Office application when triggered. An unapproved headless office converter is not part of the default or fallback chain.
 
 ## Required order

@@ -60,6 +60,8 @@ If any blocking condition remains, return `暂停交付` or `需复核`, state t
 
 ## Spreadsheet artifact requirements
 
+Apply `legal-os-unified-intake/references/office-source-policy.md` before loading any workbook helper; an explicit user instruction not to render is a hard stop.
+
 When creating or editing `.xlsx`/`.csv` artifacts, use the `spreadsheets` skill and its bundled `@oai/artifact-tool` runtime. Keep an editable raw-input sheet, formula-driven calculation sheet, date-node sheet, conflict/gap ledger, and visible quality gate. Inspect workbook structure, key values, formulas and `#REF!`, `#DIV/0!`, `#VALUE!`, `#NAME?`, and `#N/A` errors before export. Rendering all sheets is not required by default: visual rendering is auxiliary and is used only when the user explicitly requests it or a concrete layout/print defect exists; it does not block a structurally valid workbook. Do not use `openpyxl`, `pandas.ExcelWriter`, or alternate workbook authoring libraries unless the user explicitly requests them.
 
 For a new standard workbook, use `legal-os-template-runtime` to resolve and hash-check the registered amount/date-node workbook before entering data. Use clearly labelled synthetic demo rows only when they help prove formulas; mark them as demo data and remove them before real case entry. Keep the workbook source-locked and user-editable. Stop with `TEMPLATE_REQUIRED` instead of silently building a different workbook layout when the registered template is unavailable.

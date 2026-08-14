@@ -7,6 +7,8 @@ description: Source-locked Chinese formal-correspondence workflow for lawyer let
 
 Route formal correspondence through a source-locked workflow. Keep the public Skill generic; keep case facts, private evidence, internal strategy, and sending records in the private matter workspace.
 
+For a standard legal DOCX, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any helper; default rendering is off and an explicit user instruction not to render is a hard stop.
+
 ## Workflow
 
 1. **Identify purpose and audience** — determine the sender, recipient, role, procedural or commercial context, purpose, desired response, deadline, delivery method, and whether the text is internal or external.

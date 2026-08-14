@@ -7,6 +7,8 @@ description: Source-locked Chinese business communication workflow for drafting 
 
 Use T-07 for non-formal business communication. Keep the message useful and short, but do not trade away fact accuracy, evidence traceability, authorization, or rights boundaries.
 
+For a standard DOCX communication artifact, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any helper; source inspection is primary and default rendering is off.
+
 ## Intake
 
 Read every in-scope file first and record only the minimum needed:

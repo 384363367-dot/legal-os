@@ -7,6 +7,8 @@ description: Source-locked Chinese legal-work status reporting and presentation 
 
 Use T-10 to turn source-locked updates into a report or presentation. It expresses verified facts and clearly labelled judgments; it does not create facts, perform deep financial analysis, replace legal review, or send material externally.
 
+For a standard legal DOCX report, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any document helper; default rendering is off. PPT and other inherently visual deliverables follow their dedicated visual checks.
+
 ## Intake and source discipline
 
 Read the supplied emails, meeting notes, plans, trackers, budgets, prior reports, and attachments. Record:

@@ -7,6 +7,8 @@ description: Deterministic LegalOS template discovery, priority resolution, SHA-
 
 Resolve and verify templates before generating a formal file. Keep substantive drafting in the selected primary workflow; this Skill controls template authority and fidelity only.
 
+For DOCX and ordinary editable Excel templates, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any document helper; template fidelity does not create a default rendering requirement.
+
 ## Required workflow
 
 1. Identify one exact `document_type` from the current primary route.

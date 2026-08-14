@@ -7,6 +7,8 @@ description: Lean, source-locked Chinese legal matter-memory workflow for classi
 
 Use T-11 to keep matter memory useful without making it a second case file or an uncontrolled global rule store. Record the smallest traceable item, classify it, remove unnecessary sensitive data, and route it to the narrowest correct location.
 
+For standard DOCX memory artifacts, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any document helper; source inspection is primary and default rendering is off.
+
 ## Intake and classification
 
 For every candidate record source event, matter identity, date, scope, sensitivity, verification status, retention period, target location, and user-confirmation state. Classify it as:

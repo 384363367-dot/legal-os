@@ -7,6 +7,8 @@ description: Source-locked Chinese litigation workflow covering litigation analy
 
 Route a Chinese litigation matter through the private Legal OS workspaces in a fixed order. Keep the public skill generic and keep case facts, private evidence, internal strategy, and unverified legal propositions in the matter workspace only.
 
+For pleading and evidence-catalogue DOCX artifacts, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any document helper; default rendering is off and an explicit user instruction not to render is a hard stop.
+
 ## Workflow
 
 1. **Intake and role** — identify the procedural posture, party represented, requested outcome, deadlines, and the materials actually supplied. Do not invent missing facts.

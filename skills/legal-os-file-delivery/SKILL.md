@@ -7,6 +7,8 @@ description: Source-locked Chinese legal file-delivery and archive workflow for 
 
 Use T-09 for file form, version, packaging, privacy and traceability. Do not use it to silently rewrite legal content or replace the substantive quality gate of the primary workflow.
 
+For legal DOCX and ordinary editable Excel, apply `legal-os-unified-intake/references/office-source-policy.md` before loading any conversion or preview helper; PDF and visual deliverables remain conditional.
+
 ## Intake and inventory
 
 Read every in-scope file and record:
