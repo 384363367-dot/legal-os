@@ -1,6 +1,6 @@
 # Legal OS v0.7.0 Upgrade Report
 
-**Status:** Release Candidate  
+**Status:** Released Public Prerelease
 **Date:** 2026-08-24  
 **Target repository:** `384363367-dot/legal-os`  
 **Baseline principle:** GitHub `main`/v0.6.2 repository governance is the repository baseline; the 2026-08-20 local snapshot is used only as a source of newer Skill/runtime content; v0.7.0 research capabilities are applied as controlled increments.
@@ -191,7 +191,7 @@ Test modules use unique basenames so repository-wide pytest collection does not 
 
 Independent release review also removed two public-boundary leaks (an internal personal designation in a script comment and an internal finalization label in a rule heading) and repeated the public privacy/path scan. These strings were documentation metadata only; no legal rule or test expectation was weakened.
 
-The product state is intentionally `candidate`, not `released`. Formal v0.7.0 release should occur only after this exact package is uploaded and GitHub Actions passes on a clean runner, followed by maintainer review and the release/tag action.
+The product state is `released` after PR #17 passed GitHub Actions on a clean runner and received final maintainer review. The GitHub release remains marked as a prerelease rather than a stable release.
 
 ## 12. Files materially added or changed for v0.7.0
 
@@ -247,6 +247,6 @@ The following GitHub `main` artifacts are explicitly unchanged:
 - `legal-os-banner.png`
 - `docs/plans/2026-07-15-repository-consistency-repair.md`
 
-## 13. Known release limitation
+## 13. Release verification
 
-This package cannot truthfully claim that GitHub Actions has passed before it is uploaded. Local verification used an isolated Python 3.12 environment created for this RC; installation from `requirements.txt` and `pip check` both passed there. The pinned CI workflow must still repeat dependency, repository, routing, first-party-boundary, installer and regression gates on the exact uploaded commit before release status changes to `released`.
+Local verification used an isolated Python 3.12 environment. PR #17 then repeated dependency, repository, routing, first-party-boundary, installer and regression gates on clean GitHub runners; project CI and CodeQL checks passed before merge. This public prerelease does not waive matter-level legal verification or human signoff.

@@ -4,7 +4,7 @@
 
 ## [v0.7.0] - 2026-08-24
 
-状态：**Release Candidate**。待上传 GitHub 后通过远端 Actions 与最终人工发布门，方可改为 `released`。
+状态：**已发布公开预发布版**，不是稳定版。PR #17 的本地与远端发布门已通过。
 
 ### 第一方案例研究升级
 
@@ -45,7 +45,7 @@
 ### 验证
 
 - 本地 repository validator、16 个 routing scenarios、24 个模板哈希、两个第一方研究边界、安装 dry-run 与回归测试全部通过。
-- 全仓 `pytest` 实际执行 **93 项通过**（另有 5 个 subtests 通过）；GitHub Actions 远端结果不在本地伪造，正式 release 仍以上传后的远端 CI 为必要条件。
+- 全仓 `pytest` 实际执行 **93 项通过**（另有 5 个 subtests 通过）；PR #17 的项目 CI 与 CodeQL 检查通过后完成发布。
 - 在独立 Python 3.12 虚拟环境中按仓库 `requirements.txt` 安装后，`pip check` 通过；远端干净 runner 仍须重新执行相同依赖门禁。
 
 ## [v0.6.2] - 2026-08-13

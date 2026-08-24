@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/release--candidate-v0.7.0-orange" alt="v0.7.0 release candidate">
+  <img src="https://img.shields.io/badge/release-v0.7.0-blue" alt="v0.7.0 public prerelease">
   <img src="https://img.shields.io/badge/Skills-14-2563eb" alt="14 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
@@ -29,7 +29,7 @@
 
 ## 当前状态
 
-**v0.7.0 是 Release Candidate，不是已发布稳定版。** 本包用于上传 GitHub、运行 GitHub Actions 并进行最终发布核验。`legalos.manifest.json` 的 `release_status` 保持 `candidate`；只有实际上传后的 CI 与人工发布检查通过，才应改为 `released` 并创建正式 Tag/Release。
+**v0.7.0 已作为公开预发布版发布，不是稳定版。** 发布前已完成本地验收、公开边界复核，并在 PR #17 对上传提交运行 GitHub Actions；`legalos.manifest.json` 的 `release_status` 为 `released`。
 
 当前包包含 **14 个 Skills** 和 **24 个去身份化 Office 模板**。
 
@@ -204,7 +204,7 @@ python skills/cn-law-hub/scripts/check_first_party_boundary.py
 ./install.sh --dry-run
 ```
 
-实际本地测试结果见 [`TEST_REPORT_v0.7.0.md`](TEST_REPORT_v0.7.0.md)。GitHub Actions 只有在本包上传到 GitHub 后才能形成最终远端 CI 证据。
+实际本地与远端测试结果见 [`TEST_REPORT_v0.7.0.md`](TEST_REPORT_v0.7.0.md)。
 
 ## 文档导航
 

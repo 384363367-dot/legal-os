@@ -1,6 +1,6 @@
 # Legal OS v0.7.0 Test Report
 
-**Build:** v0.7.0 Release Candidate  
+**Build:** v0.7.0 Public Prerelease
 **Test date:** 2026-08-24  
 **Repository tree tested:** the candidate working tree used to create the RC archive; final archive reverse-extraction results are recorded below after packaging.
 
@@ -43,7 +43,7 @@ The deterministic local release gates passed, subject to the environment limitat
 | Reverse-extracted unittest suites | PASS — 54 + 27 + 9 + 3 tests |
 | Reverse-extracted repository-wide pytest | PASS — 93 tests, plus 5 passing subtests |
 | Isolated Python 3.12 `pip check` | PASS — no broken requirements |
-| GitHub Actions on uploaded commit | **NOT YET RUN** |
+| GitHub Actions on uploaded PR commits | PASS — PR #17 project CI and CodeQL checks |
 
 ## Commands exercised
 
@@ -125,10 +125,10 @@ lxml==6.1.0
 
 Verification used a newly created Python 3.12 virtual environment. `lxml==6.1.0` was installed from the repository requirement, and `python -m pip check` returned `No broken requirements found.` Pytest and PyYAML were installed only as audit tooling and are not runtime requirements.
 
-The repository CI intentionally retains `python -m pip check`; GitHub Actions must independently repeat this check in its clean Python 3.12 runner after upload.
+The repository CI retains `python -m pip check`; GitHub Actions repeated the dependency and repository gates in a clean Python 3.12 runner on PR #17.
 
 ## Release decision
 
-**Local decision: RC PASS / REMOTE CI PENDING.**
+**Release decision: LOCAL PASS / REMOTE CI PASS / PUBLIC PRERELEASE.**
 
-The package is suitable for upload as a release candidate or PR. Do not change `product.release_status` from `candidate` to `released`, and do not create the final v0.7.0 release/tag, until the exact uploaded commit passes GitHub Actions and receives final maintainer review.
+The package passed local release review and PR #17 remote CI. The manifest may therefore use `released`, and the exact merged commit may be tagged `v0.7.0` and published as a GitHub prerelease after final merge verification.

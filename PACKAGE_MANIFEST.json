@@ -21,8 +21,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "aadf86191f81c7a8d7990c56a6458d1b90e66cbaa0efc0e7d4a705f6decc5a9c",
-      "size": 13935
+      "sha256": "312e38c2998c2e2b4f4d86dde67c89ca94735077996b84d84cc788c539559e43",
+      "size": 13867
     },
     {
       "mode": "0644",
@@ -45,14 +45,14 @@
     {
       "mode": "0644",
       "path": "README.md",
-      "sha256": "b475668c4d6b6e460429d4fce662235d6a598a43dd194b056066c5497209972d",
-      "size": 10296
+      "sha256": "e9688bba9cd121fc8f7f2e9388f036adf383dd69c98737dea800d6e73d82d8fb",
+      "size": 10119
     },
     {
       "mode": "0644",
       "path": "RELEASE_NOTES_v0.7.0.md",
-      "sha256": "1ef02a5311d31f7e76ac45a4d7069a5cd9675a54c3140b635028e6edf0a2c587",
-      "size": 3025
+      "sha256": "7c65f64742c61d8f6d30456b9fa49dfb47651b298d5debfbd30fc1b4f4f9e8d3",
+      "size": 3003
     },
     {
       "mode": "0644",
@@ -63,14 +63,14 @@
     {
       "mode": "0644",
       "path": "TEST_REPORT_v0.7.0.md",
-      "sha256": "eafd8e4be650df663a2f2716ad16f7ad91762554d2a054e7b1f0e98baeafc0c4",
-      "size": 9556
+      "sha256": "bc1f18ec8af7827aa321b4ee35d8fec915f9c46cbb8175dd6d9db667e69c6e1f",
+      "size": 9547
     },
     {
       "mode": "0644",
       "path": "UPGRADE_REPORT_v0.7.0.md",
-      "sha256": "d2d1b48464e3d7c9a0d51cf3d57148af8d8ed2a06be4ec2a22f18ac2094d1971",
-      "size": 13896
+      "sha256": "f0936c39ab0e4f37045aedc7c5251a3d1c015460b5239eb48115840a0e81f05c",
+      "size": 13744
     },
     {
       "mode": "0644",
@@ -189,8 +189,8 @@
     {
       "mode": "0644",
       "path": "legalos.manifest.json",
-      "sha256": "b6a027d04601bbf3b40248991659dac70200aab4de0290744d501342d7ad177f",
-      "size": 8884
+      "sha256": "8c84e3c0e1991453120f52a05f41068dd16f7f76fc9578962a6983f1e7302ac0",
+      "size": 8883
     },
     {
       "mode": "0644",

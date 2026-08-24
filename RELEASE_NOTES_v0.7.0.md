@@ -1,4 +1,4 @@
-# Legal OS v0.7.0 Release Candidate Notes
+# Legal OS v0.7.0 Release Notes
 
 v0.7.0 upgrades Legal OS from a case-search-plus-external-current-law boundary into a bundled first-party research family while preserving the existing T-01 through T-12 routing architecture.
 
@@ -25,8 +25,8 @@ v0.7.0 upgrades Legal OS from a case-search-plus-external-current-law boundary i
 
 ## Verification state
 
-Local deterministic checks pass in an isolated Python 3.12 environment, including repository validation, dependency consistency and 93 repository-wide pytest tests (plus 5 passing subtests). The version remains a **Release Candidate** because GitHub Actions has not yet run on the uploaded commit. See `TEST_REPORT_v0.7.0.md` for the exact test scope and remote-CI limitation.
+Local deterministic checks pass in an isolated Python 3.12 environment, including repository validation, dependency consistency and 93 repository-wide pytest tests (plus 5 passing subtests). PR #17 also passed the repository CI and CodeQL checks on the uploaded commits before merge. See `TEST_REPORT_v0.7.0.md` for the exact test scope.
 
-## Upgrade path
+## Release status
 
-Upload this candidate to the repository/branch, run GitHub Actions, review the diff, and only then change manifest status to `released` and create the final v0.7.0 Tag/Release.
+This is a public prerelease, not a stable release. The manifest status is `released`; final legal work remains subject to matter-specific facts, authority verification, quality gates and human signoff.
