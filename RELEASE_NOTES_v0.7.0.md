@@ -1,5 +1,7 @@
 # Legal OS v0.7.0 Release Notes
 
+> `v0.7.0` tag 保留该版本发布时的原始 banner；当前 `main` 另有一项已记录的公开首页视觉更新，不改变 v0.7.0 的功能、接口或发布状态。
+
 v0.7.0 upgrades Legal OS from a case-search-plus-external-current-law boundary into a bundled first-party research family while preserving the existing T-01 through T-12 routing architecture.
 
 ## Highlights

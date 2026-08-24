@@ -10,7 +10,7 @@ class V070GovernanceTests(unittest.TestCase):
     def test_main_artifacts_and_official_license_hashes_are_locked(self):
         expected = {
             "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-            "legal-os-banner.png": "0c92cbc57c2075ffa7d6abab6661ade15afde659432bbd8db2698839f745a375",
+            "legal-os-banner.png": "22d21f0a6c1a06cc15c44d178b0ca2245b58b3ff8f167ddb2fa5b19ed2e78cac",
             "docs/plans/2026-07-15-repository-consistency-repair.md": "68518b9442bd62cf5bdac35e4c938786476a06a4cbd9624bbac9cd5e9c9d1bf0",
         }
         for relative_path, expected_sha256 in expected.items():

@@ -2,6 +2,13 @@
 
 本文件记录 Legal OS 公开预发布版本的主要变化。
 
+## [Unreleased] - 2026-08-24
+
+### 公开首页视觉更新
+
+- 更新 `legal-os-banner.png` 为极简法律海报风格：保留印章/印泥的压印质感和法律文书语义，减少功能图标与内部说明文字；当前文件 SHA-256 为 `22d21f0a6c1a06cc15c44d178b0ca2245b58b3ff8f167ddb2fa5b19ed2e78cac`。
+- 本次只更新公开 `main` 的首页资产；`v0.7.0` tag 和其对应的历史发布包保持不变。
+
 ## [v0.7.0] - 2026-08-24
 
 状态：**已发布公开预发布版**，不是稳定版。PR #17 的本地与远端发布门已通过。
@@ -31,7 +38,7 @@
 ### 仓库治理与安全修复
 
 - 保留并恢复原 GitHub 的严格 manifest、schema、`execution_modes`、完整 `invocation_policy`、`template_runtime`、repository validator 和 routing validator。
-- 以 GitHub `main` 的提交 `2468b9b615003fee581316503cd6da394751707a` 为真实基线，原 `legal-os-banner.png` 与完整历史 plan `docs/plans/2026-07-15-repository-consistency-repair.md` 均保持原字节，不以交接包中的缩略或占位版本覆盖。
+- 以 GitHub `main` 的提交 `2468b9b615003fee581316503cd6da394751707a` 为 v0.7.0 发布基线；在该发布 tag 中，原 `legal-os-banner.png` 与完整历史 plan `docs/plans/2026-07-15-repository-consistency-repair.md` 均保持原字节，不以交接包中的缩略或占位版本覆盖。当前 `main` 的后续首页视觉更新另见上方 `[Unreleased]`。
 - 明示修复 `LICENSE`：GitHub `main` 当时的许可证文件缺少 Apache License 2.0 正文中的一个段落；v0.7.0 将其替换为 Apache Software Foundation 官方 `LICENSE-2.0.txt` 的逐字一致文本，并以 SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30` 固定核验。该变更属于公开治理修复，不是静默替换。
 - 更新 `OPEN_SOURCE_BOUNDARY.md`，明示 `cn-case-hub`、`cn-law-hub` 的第一方维护边界、外部站点仅为数据来源以及禁止绕过访问控制；本项变更同时在升级报告和 Release Notes 披露。
 - 保留原 `.gitignore` 的法律数据保护：真实 DOCX/PDF/XLSX、`private/`、`confidential/`、`client-materials/`、`matter-files/` 默认不进入公开仓库。
