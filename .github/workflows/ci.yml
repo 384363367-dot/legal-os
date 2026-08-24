@@ -28,5 +28,16 @@ jobs:
         run: python scripts/validate_repo.py
       - name: Validate Unified Intake scenarios
         run: python scripts/validate_routing_scenarios.py
+      - name: Verify first-party research boundary
+        run: |
+          python skills/cn-case-hub/scripts/check_first_party_boundary.py
+          python skills/cn-law-hub/scripts/check_first_party_boundary.py
+      - name: Installer dry-run
+        run: ./install.sh --dry-run --target "$RUNNER_TEMP/legal-os-skills"
       - name: Run synthetic tests
         run: python -m unittest discover -s tests -v
+      - name: Run bundled Skill tests
+        run: |
+          python -m unittest discover -s skills/legal-os-contract/tests -v
+          python -m unittest discover -s skills/legal-quality-gate/tests -v
+          python -m unittest discover -s skills/legal-os-unified-intake/tests -v

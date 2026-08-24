@@ -7,6 +7,10 @@ description: Source-locked Chinese business communication workflow for drafting 
 
 Use T-07 for non-formal business communication. Keep the message useful and short, but do not trade away fact accuracy, evidence traceability, authorization, or rights boundaries.
 
+## Office source policy
+
+For a standard DOCX communication artifact, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any helper. Source structure and format properties are primary; visual QA follows the shared runtime-aware `off` / `conditional` / `final` policy rather than a blanket render default.
+
 ## Intake
 
 Read every in-scope file first and record only the minimum needed:
@@ -46,7 +50,7 @@ Add only necessary auxiliaries:
 5. Scan for admissions, concessions, new prices, fixed deadlines, liability, settlement, waiver, release, termination, or unauthorized external commitments.
 6. Match the channel: short and copyable for WeChat; subject/paragraph/action structure for email; opening goal, known facts, safe confirmations, and hold points for calls; issue/impact/options/recommendation/owner for internal notes.
 7. Preserve a version and evidence/attachment trail when the communication matters.
-8. When the requested deliverable is a standard DOCX communication artifact rather than copyable plain text, use `legal-os-template-runtime` to resolve and hash-check the channel template. Preserve its fixed shell while expanding the body for the actual audience and issue; stop with `TEMPLATE_REQUIRED` instead of creating an unrelated layout. Apply the source-first gate: do not render or preview by default; use one auxiliary visual check only for an explicit request, an inherently visual deliverable or a concrete layout defect.
+8. When the requested deliverable is a standard DOCX communication artifact rather than copyable plain text, use `legal-os-template-runtime` to resolve and hash-check the channel template. Preserve its fixed shell while expanding the body for the actual audience and issue; stop with `TEMPLATE_REQUIRED` instead of creating an unrelated layout. Check the resulting DOCX source structure, content and format properties.
 
 ## Hard stops
 

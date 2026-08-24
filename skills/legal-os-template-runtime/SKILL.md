@@ -7,6 +7,8 @@ description: Deterministic LegalOS template discovery, priority resolution, SHA-
 
 Resolve and verify templates before generating a formal file. Keep substantive drafting in the selected primary workflow; this Skill controls template authority and fidelity only.
 
+For DOCX and ordinary editable Excel templates, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any document helper. Template fidelity does not by itself force rendering; visual QA follows the shared runtime-aware mode, and a formal adoptable DOCX may receive one final visual QA pass when reliable runtime capability exists.
+
 ## Required workflow
 
 1. Identify one exact `document_type` from the current primary route.
@@ -16,8 +18,8 @@ Resolve and verify templates before generating a formal file. Keep substantive d
 5. Copy the selected template to the matter workspace. For a complaint, application or answer, also copy the returned paired evidence-catalog template. Preserve the sources and record both template IDs, scopes, paths and SHA-256 values.
 6. Draft with a fixed shell and flexible body. Preserve visual identity and minimum functional sections while expanding factual, legal and risk content to the depth required by the actual matter.
 7. Run the primary workflow's substantive quality gate.
-8. Run `scripts/template_runtime.py audit-docx` for DOCX output. The DOCX itself is the formal deliverable, so OOXML/package structure, text, revisions, styles, numbering and formatting preservation take priority. Allow placeholders only for an explicitly labelled internal draft.
-9. Treat content, OOXML/structure, tracked changes and formatting preservation as the primary DOCX gate; this source-first policy overrides a generic helper's mandatory-render default. Perform one targeted auxiliary visual check only when the user explicitly requests PDF, layout, print or font QA; the deliverable is inherently visual; the file contains complex visual elements; or there is a concrete pagination/layout defect. Use ordinary 120-second and complex 300-second timeouts, with one corrective retry only after identifying a concrete cause. If a renderer, sandbox or missing-font environment produces missing glyphs, boxes, blank pages, font substitution or abnormal wrapping while the structural audit passes, record an environment limitation; do not set Draft/Hold solely for that, switch renderers repeatedly, change formal fonts or rebuild the source. Template fidelity does not authorize sending, filing, signing or publication.
+8. Run `scripts/template_runtime.py audit-docx` for DOCX output. Allow placeholders only for an explicitly labelled internal draft.
+9. For DOCX output, verify content, OOXML/structure, tracked changes and format preservation against the selected template and supplied material. Template fidelity does not authorize sending, filing, signing or publication.
 
 ## Commands
 
@@ -47,7 +49,7 @@ python scripts/template_runtime.py audit-docx --template /path/to/template.docx 
 - Do not preserve placeholder brevity when the matter requires fuller chronology, claims, defences, consequences, risk warnings, calculations or attachments.
 - Do not state discretionary remedies or possible costs as certain outcomes.
 - Keep private templates and organization identifiers outside the public package. A private catalog is an overlay, not a public asset.
-- Follow the active native-office inspection policy; do not revive a retired renderer path.
+- Check the generated editable source artifact against the selected template and task requirements.
 
 ## Resources
 

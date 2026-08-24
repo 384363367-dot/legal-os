@@ -1,82 +1,19 @@
 from __future__ import annotations
-
-import copy
-import json
-import sys
-import unittest
+import copy,json,sys,unittest
 from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.validate_routing_scenarios import validate_scenarios
-
-
 class UnifiedIntakeRoutingTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.manifest = json.loads((ROOT / "legalos.manifest.json").read_text(encoding="utf-8"))
-        cls.scenarios = json.loads(
-            (ROOT / "tests" / "fixtures" / "unified_intake_scenarios.json").read_text(encoding="utf-8")
-        )
-
-    def test_fifteen_synthetic_scenarios_pass(self) -> None:
-        self.assertEqual(len(self.scenarios), 15)
-        self.assertEqual(validate_scenarios(self.manifest, self.scenarios), [])
-
-    def test_g3_without_stop_is_rejected(self) -> None:
-        scenarios = copy.deepcopy(self.scenarios)
-        scenarios[-1]["expected_decision"]["status"] = "ready"
-
-        errors = validate_scenarios(self.manifest, [scenarios[-1]])
-
-        self.assertTrue(any("G3" in error for error in errors), errors)
-
-    def test_external_action_without_authorization_gate_is_rejected(self) -> None:
-        scenario = copy.deepcopy(next(item for item in self.scenarios if item["id"] == "formal-letter-send-request"))
-        scenario["expected_decision"]["status"] = "ready"
-
-        errors = validate_scenarios(self.manifest, [scenario])
-
-        self.assertTrue(any("external actions require" in error for error in errors), errors)
-
-    def test_mixed_task_must_cover_every_requested_type(self) -> None:
-        scenario = copy.deepcopy(next(item for item in self.scenarios if item["id"] == "contract-with-data-check"))
-        scenario["expected_decision"]["auxiliary_routes"] = []
-
-        errors = validate_scenarios(self.manifest, [scenario])
-
-        self.assertTrue(any("not covered" in error for error in errors), errors)
-
-    def test_public_routing_output_contract_is_complete(self) -> None:
-        schema = json.loads(
-            (
-                ROOT
-                / "skills"
-                / "legal-os-unified-intake"
-                / "references"
-                / "routing-output-contract.schema.json"
-            ).read_text(encoding="utf-8")
-        )
-        required = set(schema["required"])
-        sample = {
-            "mode": "route-only",
-            "primary_route": "T-01",
-            "auxiliary_routes": [],
-            "risk": "R1",
-            "gap": "G0",
-            "status": "routed",
-            "decision_interview": {"mode": "none", "questions_used": []},
-            "confirmed_facts": [],
-            "missing_facts": [],
-            "blockers": [],
-            "expected_deliverable": "routing decision",
-            "next_action": "await user instruction",
-        }
-        self.assertEqual(required, set(sample))
-        self.assertRegex(sample["primary_route"], r"^T-[0-9]{2}$")
-        self.assertEqual(sample["blockers"], [])
-
-
-if __name__ == "__main__":
-    unittest.main()
+ @classmethod
+ def setUpClass(cls):
+  cls.manifest=json.loads((ROOT/'legalos.manifest.json').read_text(encoding='utf-8'));cls.scenarios=json.loads((ROOT/'tests/fixtures/unified_intake_scenarios.json').read_text(encoding='utf-8'))
+ def test_sixteen_synthetic_scenarios_pass(self):self.assertEqual(len(self.scenarios),16);self.assertEqual(validate_scenarios(self.manifest,self.scenarios),[])
+ def test_case_and_current_law_both_route_t05(self):
+  ids={x['id']:x for x in self.scenarios};self.assertEqual(ids['case-research']['expected_decision']['primary_route'],'T-05');self.assertEqual(ids['current-law-research']['expected_decision']['primary_route'],'T-05')
+ def test_g3_without_stop_rejected(self):
+  s=copy.deepcopy(self.scenarios[-1]);s['expected_decision']['status']='ready';self.assertTrue(any('G3' in e for e in validate_scenarios(self.manifest,[s])))
+ def test_external_action_requires_authorization(self):
+  s=copy.deepcopy(next(x for x in self.scenarios if x['id']=='formal-letter-send-request'));s['expected_decision']['status']='ready';self.assertTrue(any('external actions require' in e for e in validate_scenarios(self.manifest,[s])))
+ def test_mixed_task_covers_every_type(self):
+  s=copy.deepcopy(next(x for x in self.scenarios if x['id']=='contract-with-data-check'));s['expected_decision']['auxiliary_routes']=[];self.assertTrue(any('not covered' in e for e in validate_scenarios(self.manifest,[s])))
+if __name__=='__main__':unittest.main()

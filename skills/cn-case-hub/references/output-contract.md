@@ -1,8 +1,8 @@
-# 案例记录与类案报告规范
+# 案例记录、双轴矩阵与裁判分叉变量规范
 
 ## 案例记录
 
-案例记录使用以下字段；未知值用 `null` 或 `[]`，不得猜测：
+未知值使用 `null` 或 `[]`，不得猜测。v0.7.0 在兼容旧字段的基础上增加双轴分类与程序链字段。
 
 ```json
 {
@@ -18,6 +18,8 @@
   "publication_date": null,
   "cause": null,
   "procedural_posture": null,
+  "procedure_chain_id": null,
+  "procedure_chain": [],
   "issues": [],
   "key_facts": [],
   "holding": null,
@@ -32,34 +34,58 @@
     "time_and_law": "high | medium | low",
     "reason": "简要理由"
   },
+  "relevance_grade": "A | B | C | D",
+  "direction_grade": "+ | ± | 0 | -",
+  "matrix_grade": "A+ | A± | A0 | A- | B+ ...",
+  "decisive_variables": [],
   "current_law_check": null,
   "source_url": "https://...",
+  "source_locator": null,
   "accessed_at": "YYYY-MM-DD",
   "limitations": []
 }
 ```
 
+旧记录没有 v0.7.0 扩展字段时仍可进入兼容模式；一旦用于新的正式类案报告，建议补齐三项矩阵字段。
+
+## 裁判分叉变量记录
+
+```json
+{
+  "variable": "可能改变裁判结果的事实/证据/法律条件",
+  "supporting_cases": [],
+  "adverse_cases": [],
+  "matter_status": "confirmed | disputed | unknown | not-applicable",
+  "evidence_status": "supported | partial | missing | conflicting",
+  "likely_effect": "对裁判方向的可能影响，必须基于案例比较而非概率猜测",
+  "action": "补证、区分案例、调整请求/抗辩或继续检索"
+}
+```
+
 ## 验证状态
 
-- `verified-source`：已打开官方原文并核对支撑本记录的字段。
-- `verified-metadata-only`：只核对了官方元数据，未取得足以概括实体内容的正文。
-- `official-summary`：官方典型案例或新闻摘要；按其公开范围使用。
-- `lead-only`：搜索或二手材料线索，不能支持正式结论。
-- `blocked`：被登录、验证码、维护或权限阻断。
+- `verified-source`：已打开官方原文并核对支撑记录的字段；
+- `verified-metadata-only`：只核对官方元数据；
+- `official-summary`：官方典型案例或摘要，只按公开范围使用；
+- `lead-only`：线索，不能支持正式结论；
+- `blocked`：访问受限。
 
 ## 类案报告顺序
 
-1. 结论摘要：最相关案例、主要裁判分歧、检索边界。
-2. 检索策略：争点、关键词、来源和访问日期。
-3. 案例矩阵：正向、反向、混合案例并列。
-4. 重点案例：关键事实、裁判理由、结果、相似度、用途、限制。
-5. 当前法源衔接：现行法、司法解释及可能冲突。
-6. 证据/事实缺口：哪些事实会改变相似度或结论。
-7. Verification Notes。
+1. 结论摘要与检索边界；
+2. 检索策略和访问日期；
+3. 3—5 个核心案例；
+4. 双轴矩阵；
+5. 裁判分叉变量；
+6. `A-` 等不利案例；
+7. 本案证据/事实缺口；
+8. 当前法源衔接；
+9. Verification Notes。
 
 ## 引用纪律
 
-- 案号、法院、日期只能从实际访问的官方材料抄录。
-- 区分法院“认为”、最高法发布机关“概括”和检索者“推断”。
-- 不大段复制原文；用准确释义并紧邻官方链接。
-- 不把案例数量、命中数或排序当成裁判趋势，除非检索范围和样本方法足以支持。
+- 案号、法院、日期、程序链必须来自实际核验材料；
+- 法院观点、发布机关概括、研究者推断必须分开；
+- 重要裁判理由应记录原文定位信息；
+- 不把检索命中数量称为胜诉率；
+- 不隐藏高相关不利案例。

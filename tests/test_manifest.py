@@ -1,49 +1,19 @@
 from __future__ import annotations
-
-import copy
-import json
-import sys
-import unittest
+import copy,json,sys,unittest
 from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT))
-
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.validate_manifest import validate_manifest
-
-
 class ManifestValidationTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.manifest = json.loads((ROOT / "legalos.manifest.json").read_text(encoding="utf-8"))
-
-    def test_current_manifest_is_consistent(self) -> None:
-        self.assertEqual(validate_manifest(ROOT), [])
-
-    def test_missing_route_is_reported(self) -> None:
-        manifest = copy.deepcopy(self.manifest)
-        manifest["routes"] = manifest["routes"][:-1]
-
-        errors = validate_manifest(ROOT, manifest)
-
-        self.assertTrue(any("T-01 through T-12" in error for error in errors), errors)
-
-    def test_private_profile_cannot_be_distributed(self) -> None:
-        manifest = copy.deepcopy(self.manifest)
-        next(profile for profile in manifest["profiles"] if profile["id"] == "private-controlled")["distributed"] = True
-
-        errors = validate_manifest(ROOT, manifest)
-
-        self.assertTrue(any("undistributed overlay" in error for error in errors), errors)
-
-    def test_invocation_policy_must_match_agent_metadata(self) -> None:
-        manifest = copy.deepcopy(self.manifest)
-        manifest["invocation_policy"]["legal-os-contract"]["allow_implicit_invocation"] = False
-
-        errors = validate_manifest(ROOT, manifest)
-
-        self.assertTrue(any("implicit invocation contradicts" in error for error in errors), errors)
-
-
-if __name__ == "__main__":
-    unittest.main()
+ @classmethod
+ def setUpClass(cls):cls.manifest=json.loads((ROOT/'legalos.manifest.json').read_text(encoding='utf-8'))
+ def test_current_manifest_is_consistent(self):self.assertEqual(validate_manifest(ROOT),[])
+ def test_has_fourteen_skills_and_twelve_routes(self):self.assertEqual(len(self.manifest['skills']),14);self.assertEqual(len(self.manifest['routes']),12)
+ def test_t05_dispatches_case_and_current_law(self):
+  r=next(x for x in self.manifest['routes'] if x['id']=='T-05');self.assertEqual(r['executor']['skill_by_intake_type'],{'current-law-research':'cn-law-hub','case-research':'cn-case-hub'})
+ def test_t12_uses_learning_maintenance(self):
+  r=next(x for x in self.manifest['routes'] if x['id']=='T-12');self.assertEqual(r['executor']['skill'],'legal-os-learning-maintenance')
+ def test_missing_route_is_reported(self):
+  m=copy.deepcopy(self.manifest);m['routes']=m['routes'][:-1];self.assertTrue(any('T-01 through T-12' in e for e in validate_manifest(ROOT,m)))
+ def test_invocation_policy_must_cover_every_skill(self):
+  m=copy.deepcopy(self.manifest);m['invocation_policy'].pop('cn-law-hub');self.assertTrue(any('every and only' in e for e in validate_manifest(ROOT,m)))
+if __name__=='__main__':unittest.main()

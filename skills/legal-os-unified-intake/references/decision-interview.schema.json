@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "legal-os://schemas/decision-interview.schema.json",
+  "title": "LegalOS Decision Interview Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "matter_task_id",
+    "risk_level",
+    "grill_mode",
+    "question_budget",
+    "questions_used",
+    "resolved_decisions",
+    "open_material_branches",
+    "risk_upgrade_reason"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "matter_task_id": {"type": "string", "minLength": 3},
+    "risk_level": {"enum": ["R0", "R1", "R2", "R3"]},
+    "grill_mode": {"enum": ["none", "targeted", "quick", "full"]},
+    "question_budget": {
+      "type": "object",
+      "required": ["minimum", "maximum"],
+      "properties": {
+        "minimum": {"type": "integer", "minimum": 0, "maximum": 8},
+        "maximum": {"type": "integer", "minimum": 0, "maximum": 8}
+      },
+      "additionalProperties": false
+    },
+    "questions_used": {"type": "integer", "minimum": 0},
+    "resolved_decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question", "decision", "reason"],
+        "properties": {
+          "question": {"type": "string", "minLength": 1},
+          "decision": {"type": "string", "minLength": 1},
+          "reason": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "open_material_branches": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "risk_upgrade_reason": {"type": ["string", "null"]},
+    "zero_question_exception_reason": {"type": ["string", "null"]},
+    "evidence_status": {"type": ["string", "null"]},
+    "next_action": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

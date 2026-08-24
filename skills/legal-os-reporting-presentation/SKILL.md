@@ -7,6 +7,8 @@ description: Source-locked Chinese legal-work status reporting and presentation 
 
 Use T-10 to turn source-locked updates into a report or presentation. It expresses verified facts and clearly labelled judgments; it does not create facts, perform deep financial analysis, replace legal review, or send material externally.
 
+For a standard legal DOCX report, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any document helper; editable-source QA is primary and visual QA follows the runtime-aware mode selected by that policy. PPT and other inherently visual deliverables follow their dedicated visual checks when requested or required.
+
 ## Intake and source discipline
 
 Read the supplied emails, meeting notes, plans, trackers, budgets, prior reports, and attachments. Record:
@@ -43,7 +45,7 @@ Internal reports lead with exceptions, risks and decisions. Client reports inclu
 
 ## Hard stops
 
-For a standard legal DOCX report, use source structure, content and formatting as the primary gate; visual rendering is off unless the user requests it or a concrete layout defect exists. For PPT or another inherently visual deliverable, perform the requested visual check and record material failures. Pause and produce a focused gap list when the matter, period, audience, baseline or source is unclear; amounts, dates, versions or owners conflict; a RAG conclusion lacks support; the output would expose internal strategy or create an unapproved commitment; a required visual check finds a material source defect; or the user asks to send, submit, publish or overwrite.
+For a standard legal DOCX report, verify the editable source artifact's structure, content and format properties. For PPT or other explicitly visual deliverables, perform the checks required by that requested file type. Pause and produce a focused gap list when the matter, period, audience, baseline or source is unclear; amounts, dates, versions or owners conflict; a RAG conclusion lacks support; the output would expose internal strategy or create an unapproved commitment; a requested file-type check fails materially; or the user asks to send, submit, publish or overwrite.
 
 ## Output contract
 

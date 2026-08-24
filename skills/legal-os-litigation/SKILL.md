@@ -7,15 +7,20 @@ description: Source-locked Chinese litigation workflow covering litigation analy
 
 Route a Chinese litigation matter through the private Legal OS workspaces in a fixed order. Keep the public skill generic and keep case facts, private evidence, internal strategy, and unverified legal propositions in the matter workspace only.
 
+## Office source policy
+
+For pleading and evidence-catalogue DOCX artifacts, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any document helper. Source structure, tracked changes and formatting properties are primary; for a formal pleading or evidence-catalogue DOCX, use one final visual QA pass when the current Runtime has reliable visual capability, otherwise remain conditional under the shared policy. An explicit user instruction not to render is a hard stop.
+
 ## Workflow
 
-1. **Intake and role** — identify the procedural posture, party represented, requested outcome, deadlines, and the materials actually supplied. Do not invent missing facts.
+1. **Intake and role** — identify the procedural posture, party represented, requested outcome, deadlines, and the materials actually supplied. Do not invent missing facts. For an existing matter, treat the latest verified procedural status, judgment, new evidence and opponent position as the current authority; preserve superseded statuses only as history. For a new matter, separate confirmed facts from facts still requiring verification before choosing a theory.
 2. **Litigation analysis** — build the issues, claims/defences, elements, disputed facts, procedural risks, and decision points. Separate facts from hypotheses and strategy.
 3. **Evidence mapping** — map each material fact or proposition to an evidence item, source location, authentication/availability note, and gap status. Mark contradictions and missing originals.
-4. **Legal research** — verify current law and authority from the appropriate source. Record jurisdiction, effective status, article/paragraph, source URL or document identifier, and the proposition supported. Do not use a remembered rule as a citation.
-5. **Paired pleading assembly** — use `legal-os-template-runtime` to resolve and hash-check the exact pleading template and its paired evidence-catalog template. For every complaint, application or answer, create both artifacts in the same drafting run. Preserve the fixed visual shell, but expand facts, claims/defences, legal grounds, calculations and subsections to the depth required by the matter. Keep evidence names, numbers, page ranges and proof purposes in the separate evidence catalogue, not in a standalone pleading section. Keep internal analysis out of the external version.
-6. **Quality gate** — check fact–evidence–authority–relief/defence alignment, party identity, jurisdiction, amount, dates, case number, procedural posture, numbering, A4 layout, page numbers, evidence-table headers, cross-artifact numbering and template fidelity.
-7. **Release boundary** — label outputs as draft, internal review, or final clean version. Filing, service, sending, signing, or other external action requires separate user authorization.
+4. **Legal and case research** — send current-law questions to `cn-law-hub` and case-comparison questions to `cn-case-hub` when those capabilities are needed. Current-law outputs must identify version, effect, article/pinpoint and temporal application. Case outputs must identify source verification, procedure chain, relevance/direction matrix and decision-fork variables. Do not use a remembered rule or remembered case as a citation.
+5. **Research-to-strategy handoff** — convert verified research into an action matrix before drafting: `decision-fork variable → matter fact → supporting/adverse evidence → evidence_gap → opponent attack → evidence action → argument/procedural action`. A high-relevance adverse case (`A-`) must be distinguished or expressly carried as risk; never omit it merely because it is adverse. See `references/case-research-handoff.md`.
+6. **Paired pleading assembly** — use `legal-os-template-runtime` to resolve and hash-check the exact pleading template and its paired evidence-catalog template. For every complaint, application or answer, create both artifacts in the same drafting run. Preserve the fixed visual shell, but expand facts, claims/defences, legal grounds, calculations and subsections to the depth required by the matter. Keep evidence names, numbers, page ranges and proof purposes in the separate evidence catalogue, not in a standalone pleading section. Keep internal analysis out of the external version.
+7. **Quality gate** — check fact–evidence–authority–relief/defence alignment, party identity, jurisdiction, amount, dates, case number, procedural posture, numbering, A4 layout, page numbers, evidence-table headers, cross-artifact numbering and template fidelity.
+8. **Release boundary** — label outputs as draft, internal review, or final clean version. Filing, service, sending, signing, or other external action requires separate user authorization.
 
 ## Stop conditions
 
@@ -34,11 +39,12 @@ Stop and surface a review item when any material party identity, amount, date, c
 - Preserve traceability from each material statement to supplied material and, for legal propositions, to verified authority.
 - Keep internal strategy and risk ratings in the internal package; remove them from any external-facing document.
 - Use minimal, granular edits when editing an existing document; preserve wording unless the material is unsupported or a necessary protection is missing.
-- Run structured DOCX and accessibility checks first. Do not use native preview by default. Use an approved native application only when the user explicitly requests visual, font, layout or print QA, or a concrete pagination, table or print-layout defect exists; perform at most one targeted auxiliary check and record material findings. Do not switch renderers, change formal fonts or block a structurally valid DOCX because of a preview/environment issue.
+- Check the DOCX source for readable OOXML, complete text, numbering, tables, headers/footers, comments, font and paragraph properties, accessibility, and preservation of unchanged content.
 
 ## References
 
 - For the module contract and artifact boundaries, read `references/workspace-contract.md`.
+- For the v0.7.0 case-research-to-strategy handoff, read `references/case-research-handoff.md`.
 - For the reusable R1–R16 complaint/application/answer method, including the initial-claim stance gate, read `references/pleading-drafting-rules.md`.
 - For the pleading quality gate and release labels, read `references/pleading-quality-gate.md`.
 - For the verified legal basis of the labour-arbitration cost exclusion, read `references/labor-arbitration-authority.md`.
