@@ -9,7 +9,7 @@ Unified Intake (`route-only` or `route-and-run`)
         ↓
 One primary workspace
         ↓
-Necessary rule packs, plugins and source checks
+Necessary rule packs, source checks and research auxiliaries
         ↓
 Approved template resolution (when the artifact is templated)
         ↓
@@ -32,3 +32,4 @@ Learning observation and controlled upgrade
 - Keep the public runtime generic; place organization-specific behaviour in private configuration.
 - For templated artifacts, bind the approved template before drafting. Keep the shell fixed and the substantive body expandable to the matter.
 - Treat `legalos.manifest.json` as the public machine authority for version, profiles, Skills, routes, invocation policy and gates.
+- In v0.7.0, T-05 dispatches current-law research to `cn-law-hub` and case research to `cn-case-hub`; both are bundled first-party research Skills.

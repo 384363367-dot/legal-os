@@ -2,6 +2,52 @@
 
 本文件记录 Legal OS 公开预发布版本的主要变化。
 
+## [v0.7.0] - 2026-08-24
+
+状态：**已发布公开预发布版**，不是稳定版。PR #17 的本地与远端发布门已通过。
+
+### 第一方案例研究升级
+
+- 重构 `cn-case-hub`，保持旧记录字段兼容，同时新增新案/存量案双入口、最新状态锁定、多轮检索校准、程序链、`A/B/C/D × +/±/0/-` 双轴矩阵和裁判分叉变量。
+- 明确 `A-` 为高价值风险案例；不利案例不得因为方向不利而降低相关度或隐藏。
+- 报告将案例研究结果转换为事实变量和证据缺口；检索数量只可描述为“检索样本支持比例”，不得包装为胜诉率。
+
+### 第一方现行法研究
+
+- 新增 `cn-law-hub`，处理法律、行政法规、司法解释、规章及条约的权威来源、效力、版本链、条文定位和时间适用；条约使用外交部条约数据库等官方来源并单独记录状态。
+- 不再把现行法检索描述为必须依赖未捆绑第三方 Skill；本包不携带本地运行时中曾出现的第三方 crawler 实现。
+- `cn-case-hub` 与 `cn-law-hub` 均加入第一方依赖边界检查；官方/专业数据库是数据来源而非安装依赖。
+
+### Litigation research handoff
+
+- `legal-os-litigation` 增加 `decision-fork variable → matter fact → evidence → evidence_gap → opponent attack → evidence action → argument/procedural action` 回流链。
+- 存量案件以最新已核验程序状态为当前口径；历史状态仅保留为时间线。
+
+### 路由与学习维护
+
+- T-05 按 intake subtype 内部分流：`current-law-research → cn-law-hub`，`case-research → cn-case-hub`；T-01/T-04 等 substantive workflow 在研究仅为辅助时继续保持唯一 primary route。
+- 将 2026-08-20 本地运行时中的 `legal-os-learning-maintenance` 作为第 14 个公开 Skill 纳入 manifest；T-12 由其负责 net-new-only 可复用改进。
+
+### 仓库治理与安全修复
+
+- 保留并恢复原 GitHub 的严格 manifest、schema、`execution_modes`、完整 `invocation_policy`、`template_runtime`、repository validator 和 routing validator。
+- 以 GitHub `main` 的提交 `2468b9b615003fee581316503cd6da394751707a` 为真实基线，原 `legal-os-banner.png` 与完整历史 plan `docs/plans/2026-07-15-repository-consistency-repair.md` 均保持原字节，不以交接包中的缩略或占位版本覆盖。
+- 明示修复 `LICENSE`：GitHub `main` 当时的许可证文件缺少 Apache License 2.0 正文中的一个段落；v0.7.0 将其替换为 Apache Software Foundation 官方 `LICENSE-2.0.txt` 的逐字一致文本，并以 SHA-256 `cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30` 固定核验。该变更属于公开治理修复，不是静默替换。
+- 更新 `OPEN_SOURCE_BOUNDARY.md`，明示 `cn-case-hub`、`cn-law-hub` 的第一方维护边界、外部站点仅为数据来源以及禁止绕过访问控制；本项变更同时在升级报告和 Release Notes 披露。
+- 保留原 `.gitignore` 的法律数据保护：真实 DOCX/PDF/XLSX、`private/`、`confidential/`、`client-materials/`、`matter-files/` 默认不进入公开仓库。
+- 恢复 24 个公开模板及 SHA-256 绑定，包括 `MEMORY-CANDIDATE-DIFF-V1.12`。
+- 保留 v0.6.2 以前的架构文档、测试与 CHANGELOG 历史，不以降低验证标准换取发布通过。
+- 根目录安装器适配 GitHub 源码结构，不依赖本地快照 `runtime/` 目录。
+- 修复安装器对 GNU `mapfile`／`find -printf` 的隐性依赖，现可在 macOS 自带 Bash 3.2 与 BSD `find` 环境中运行；运行时安装默认调用 `python3`，也可由 `PYTHON` 显式指定。
+- 删除公开脚本和规则标题中的个人称谓／内部定稿标记，重新执行公开隐私与绝对路径扫描。
+- 继续执行普通和正式法律 DOCX 默认不渲染：正式提交、正式对外或“可直接使用”不单独触发视觉检查；只有明确视觉要求、视觉型交付物、复杂视觉元素或源文件检查发现具体版式风险时，才做一次定向检查。
+
+### 验证
+
+- 本地 repository validator、16 个 routing scenarios、24 个模板哈希、两个第一方研究边界、安装 dry-run 与回归测试全部通过。
+- 全仓 `pytest` 实际执行 **93 项通过**（另有 5 个 subtests 通过）；PR #17 的项目 CI 与 CodeQL 检查通过后完成发布。
+- 在独立 Python 3.12 虚拟环境中按仓库 `requirements.txt` 安装后，`pip check` 通过；远端干净 runner 仍须重新执行相同依赖门禁。
+
 ## [v0.6.2] - 2026-08-13
 
 状态：已发布公开预发布版，非稳定版。
@@ -157,4 +203,5 @@
 [v0.6.0]: https://github.com/384363367-dot/legal-os/compare/v0.5.0...v0.6.0
 [v0.6.2]: https://github.com/384363367-dot/legal-os/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/384363367-dot/legal-os/compare/v0.6.0...v0.6.1
+[v0.7.0]: https://github.com/384363367-dot/legal-os/compare/v0.6.2...v0.7.0
 [v0.1.0]: https://github.com/384363367-dot/legal-os/releases/tag/v0.1.0

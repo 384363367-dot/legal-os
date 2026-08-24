@@ -1,0 +1,6 @@
+interface:
+  display_name: "Legal OS Learning Maintenance"
+  short_description: "Promote only net-new reusable improvements into canonical Legal OS rules"
+  default_prompt: "Use $legal-os-learning-maintenance to review and apply only net-new reusable Legal OS improvements with tests and rollback."
+policy:
+  allow_implicit_invocation: false

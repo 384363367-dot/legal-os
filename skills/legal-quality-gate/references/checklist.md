@@ -31,7 +31,7 @@
 
 ## 5. Format Gate
 
-- Word/PDF/Excel/table deliverables are complete, readable, and suitable for direct submission or leadership circulation. For legal DOCX and ordinary Excel, source structure/content/formula checks are primary; visual rendering is conditional and is not a prerequisite unless a separate visual requirement or concrete defect is recorded.
+- Word/PDF/Excel/table deliverables are complete, readable, and suitable for their stated use. For legal DOCX and ordinary Excel, verify the editable source structure, content, format properties, formulas and errors as applicable. Apply the shared runtime-aware visual mode: when `final` is active or a `conditional` trigger fires, complete and record one proportionate visual QA pass; if the runtime cannot perform it, record `ENVIRONMENT_LIMITATION` and do not treat that alone as a source-file defect.
 - Titles, numbering, fonts, spacing, tables, signatures, dates, and page numbers are coherent.
 - Evidence catalogs use the correct simple or complex table according to task needs.
 - Final external versions do not include comments, tracked-change debris, internal notes, or unverified placeholders.

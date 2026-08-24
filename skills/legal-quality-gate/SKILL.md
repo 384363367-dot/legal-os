@@ -11,6 +11,8 @@ Use this skill as a final review layer before formal or high-risk legal delivery
 
 Read the current matter materials and any organization policy or approved template actually provided for the task. Do not assume a private rule library exists, invent missing policy, or embed organization names, personal paths, client data or matter-specific defaults in this Skill.
 
+For legal DOCX and ordinary editable Excel, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md). Editable-source QA is always primary; when the active mode is `final` or a `conditional` trigger fires, record the visual findings once. Environment-limited rendering does not by itself fail a structurally valid source artifact, and an explicit user instruction not to render remains a hard stop.
+
 ## Workflow
 
 1. Identify use and audience: court, arbitration, government, leader, business unit, counterparty, external counsel, internal file.

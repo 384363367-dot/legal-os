@@ -1,19 +1,5 @@
 # Tests
 
-Only synthetic or irreversibly anonymized fixtures may be stored here.
+Only synthetic or irreversibly anonymized fixtures, or already-public official legal materials used for deterministic validation, may be stored here.
 
-Initial test categories:
-
-- manifest, Skill inventory, route map, profile and invocation-policy consistency;
-- Unified Intake `route-only` / `route-and-run` scenario contracts;
-- character-level redline metrics;
-- accepted-redline and clean-version equality;
-- duplicate authority and dependency checks;
-- represented-side switching;
-- missing, conflict, permission and abnormal scenarios.
-- template catalog completeness and SHA-256 binding;
-- deterministic public/private template priority, missing-template and hash-mismatch stops;
-- draft-versus-final placeholder policy and fixed-shell DOCX fidelity checks.
-- cross-workflow release decisions, human sign-off and declared public-root isolation.
-- official-source case-record validation, adverse-query generation and non-official-source rejection.
-- claimant initial-pleading stance, recorded exceptions, stage separation and contextual conditional-language review.
+Coverage includes manifest/routes/profiles/invocation policy, template catalog/hash binding, unified intake, Office source policy, contract redline gates, release locks, case/current-law first-party research, claimant stance and installer behavior.

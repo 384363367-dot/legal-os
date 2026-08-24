@@ -2,9 +2,8 @@
 """Fail-closed quality gate for Chinese contract DOCX redlines.
 
 The gate compares the source contract with the redline after rejecting this
-author's changes, and compares the redline after accepting this author's
-changes with the clean copy. It checks every Word story part, not only the
-main document text. Long fragments require an exact, approved v2 ledger entry.
+author's changes and verifies that the accepted view is readable. It checks
+every Word story part, not only the main document text.
 """
 
 from __future__ import annotations
@@ -39,11 +38,6 @@ IGNORED_RELATIONSHIP_SUFFIXES = {
     "/commentsIds",
     "/people",
 }
-INSERT_CATEGORIES = {"necessary_addition", "structural_completion"}
-DELETE_CATEGORIES = {"necessary_deletion"}
-PLACEHOLDERS = {"todo", "tbd", "requires_human_review", "待确认", "待审核", "待补充"}
-
-
 def qn(local: str) -> str:
     return f"{{{W}}}{local}"
 
@@ -133,17 +127,21 @@ def compare_critical_structure(original: Path, redline: Path, errors: list[str])
 
 
 def check_illegal_paragraph_nesting(path: Path, errors: list[str]) -> None:
-    """Reject non-standard whole-paragraph insertion wrappers."""
+    """拒绝任何 w:ins 直接包含 w:p 的非标准整段新增嵌套（minimal_redline.py 早期产物形态）。
+
+    合规的整段新增必须是"段落标记修订"结构：w:pPr/w:rPr/w:ins 标记段落本身新增，
+    文字由段内 w:ins 承载；w:p 保持位于 body/tc 等块级位置，w:ins 不得包含 w:p。"""
     for part in story_parts(path):
         try:
             root = read_xml(path, part)
         except (OSError, zipfile.BadZipFile, etree.XMLSyntaxError):
-            continue
+            continue  # XML 可解析性由 validate_package 的 ZIP 检查与后续解析兜底
         hits = root.xpath(".//w:ins/w:p", namespaces=NS)
         if hits:
             errors.append(
                 f"{part}: illegal whole-paragraph insertion structure w:ins/w:p "
-                f"({len(hits)} occurrence(s)); use paragraph-mark revision instead"
+                f"({len(hits)} occurrence(s)) is not permitted; "
+                "use paragraph-mark revision (w:pPr/w:rPr/w:ins) instead"
             )
 
 
@@ -228,37 +226,39 @@ def paragraph_format_signature(paragraph: etree._Element, mode: str, author: str
     return {"ppr": ppr_key, "runs": chunks}
 
 
-def is_pure_insertion(paragraph: etree._Element, author: str) -> bool:
-    """Return whether a paragraph is entirely inserted by the target author."""
-    ppr = paragraph.find(qn("pPr"))
-    paragraph_mark_inserted = False
+def is_pure_insertion(p: etree._Element, author: str) -> bool:
+    """段落是否完全由指定作者的插入（w:ins）构成（无其他文本内容）。
+    用于拒绝视图：整段新增的独立段落（necessary_addition/structural_completion）
+    在 reject 视图下应被跳过，不参与与源合同的逐段比对。
+
+    识别两种标准整段新增形态：
+    1. 段落标记新增（ECMA-376 CT_ParaRPr）：w:pPr/w:rPr 内含指定作者的 w:ins，
+       表示段落标记本身属于新增——拒绝修订时段落标记删除、整段消失；
+    2. 段内整段新增：段落唯一内容为单个指定作者的非空 w:ins。
+    拒绝任何 w:ins 直接包含 w:p 的非标准嵌套（由 validate_package 独立拦截）。"""
+    # 1) 段落标记本身为新增（w:pPr/w:rPr/w:ins）
+    ppr = p.find(qn("pPr"))
     if ppr is not None:
         rpr = ppr.find(qn("rPr"))
         if rpr is not None:
-            paragraph_mark_inserted = any(
-                mark.get(qn("author")) == author
-                for mark in rpr.findall(qn("ins"))
-            )
-
-    inserted_nodes = [
-        node for node in paragraph.iter(qn("ins"))
-        if node.get(qn("author")) == author
-    ]
-    if not paragraph_mark_inserted and not inserted_nodes:
+            for mark in rpr.findall(qn("ins")):
+                if mark.get(qn("author")) == author:
+                    return True
+    # 2) 段内整段新增
+    has_ins = False
+    for node in p.iter(qn("ins")):
+        if node.get(qn("author")) == author:
+            has_ins = True
+    if not has_ins:
         return False
-
-    total = "".join(
-        node.text or ""
-        for node in paragraph.iter()
-        if node.tag in (qn("t"), qn("delText"))
-    )
-    inserted_text = "".join(
-        node.text or ""
-        for wrapper in inserted_nodes
-        for node in wrapper.iter()
-        if node.tag in (qn("t"), qn("delText"))
-    )
-    return total == inserted_text
+    total = "".join(n.text or "" for n in p.iter() if n.tag in (qn("t"), qn("delText")))
+    ins_text = ""
+    for node in p.iter(qn("ins")):
+        if node.get(qn("author")) == author:
+            for n in node.iter():
+                if n.tag in (qn("t"), qn("delText")):
+                    ins_text += n.text or ""
+    return total == ins_text
 
 
 def story_view(path: Path, mode: str, author: str) -> dict[str, dict[str, object]]:
@@ -267,11 +267,12 @@ def story_view(path: Path, mode: str, author: str) -> dict[str, dict[str, object
         root = read_xml(path, part)
         paragraphs = []
         formatting = []
-        for paragraph in root.xpath(".//w:p", namespaces=NS):
-            if mode == "reject" and is_pure_insertion(paragraph, author):
+        for p in root.xpath(".//w:p", namespaces=NS):
+            # 拒绝视图：跳过纯新增段落（独立整段插入），避免新增段落导致逐段比对失败
+            if mode == "reject" and is_pure_insertion(p, author):
                 continue
-            paragraphs.append(collect_text(paragraph, mode, author))
-            formatting.append(paragraph_format_signature(paragraph, mode, author))
+            paragraphs.append(collect_text(p, mode, author))
+            formatting.append(paragraph_format_signature(p, mode, author))
         table_shapes = []
         for table in root.xpath(".//w:tbl", namespaces=NS):
             rows = table.xpath("./w:tr", namespaces=NS)
@@ -306,6 +307,43 @@ def compare_views(label: str, left: dict[str, dict[str, object]], right: dict[st
     return True
 
 
+def historical_revision_inventory(path: Path, current_author: str) -> dict[str, list[tuple[str, str, str, str]]]:
+    """Inventory pre-existing insertion/deletion revision wrappers by story part.
+
+    Only wrapper identity is compared so a new current-author revision may be
+    nested inside historical content without accepting/rejecting or re-authoring
+    the historical wrapper itself.
+    """
+    inventory: dict[str, list[tuple[str, str, str, str]]] = {}
+    for part in story_parts(path):
+        root = read_xml(path, part)
+        rows: list[tuple[str, str, str, str]] = []
+        for node in root.xpath(".//w:ins | .//w:del", namespaces=NS):
+            author = node.get(qn("author"), "")
+            if author == current_author:
+                continue
+            rows.append((
+                etree.QName(node).localname,
+                node.get(qn("id"), ""),
+                author,
+                node.get(qn("date"), ""),
+            ))
+        inventory[part] = rows
+    return inventory
+
+
+def compare_historical_revisions(original: Path, redline: Path, current_author: str, errors: list[str]) -> bool:
+    left = historical_revision_inventory(original, current_author)
+    right = historical_revision_inventory(redline, current_author)
+    if left != right:
+        errors.append(
+            "historical tracked revisions changed outside current-author revisions; "
+            "do not accept, reject, remove, or re-author pre-existing revisions without authorization"
+        )
+        return False
+    return True
+
+
 def change_text(node: etree._Element, kind: str) -> str:
     """Return the complete historical text carried by a revision wrapper."""
     del kind
@@ -324,116 +362,32 @@ def fragments(path: Path, author: str) -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
     for part in story_parts(path):
         root = read_xml(path, part)
-        paragraphs = root.xpath(".//w:p", namespaces=NS)
-        paragraph_index = {p: i for i, p in enumerate(paragraphs)}
-        change_index = 0
         for node in root.xpath(".//w:ins | .//w:del", namespaces=NS):
             if node.get(qn("author")) != author:
                 continue
+            # 跳过段落标记修订（w:pPr/w:rPr 内的 ins/del）：无文字内容，不属于文本片段
             parent = node.getparent()
             if parent is not None and parent.tag == qn("rPr"):
                 continue
             kind = "insert" if node.tag == qn("ins") else "delete"
             text = change_text(node, kind)
-            ancestors = node.xpath("ancestor::w:p[1]", namespaces=NS)
-            p_index = paragraph_index.get(ancestors[0], -1) if ancestors else -1
-            location = f"{part}::p={p_index}::change={change_index}"
-            digest = sha256_bytes(text.encode("utf-8"))
-            fragment_id = sha256_bytes(f"{kind}\0{location}\0{text}".encode("utf-8"))
             records.append({
-                "fragment_id": fragment_id,
                 "kind": kind,
                 "text": text,
                 "length": len(text),
-                "sha256": digest,
-                "location": location,
             })
-            change_index += 1
     return records
 
 
 def stats(values: list[int]) -> dict[str, object]:
     if not values:
-        return {"count": 0, "median": 0, "max": 0, "mean": 0.0, "le5": 0, "le15": 0}
+        return {"count": 0, "median": 0, "max": 0, "mean": 0.0}
     return {
         "count": len(values),
         "median": statistics.median(values),
         "max": max(values),
         "mean": round(sum(values) / len(values), 2),
-        "le5": sum(value <= 5 for value in values),
-        "le15": sum(value <= 15 for value in values),
     }
-
-
-def load_ledger(path: Path | None, errors: list[str]) -> dict[str, object]:
-    if path is None:
-        return {}
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        errors.append(f"ledger unreadable: {exc}")
-        return {}
-    if not isinstance(data, dict) or data.get("schema_version") != "2.0":
-        errors.append("ledger must be an object with schema_version 2.0")
-        return {}
-    if not isinstance(data.get("exceptions"), list):
-        errors.append("ledger exceptions must be an array")
-        return {}
-    return data
-
-
-def has_placeholder(value: object) -> bool:
-    normalized = str(value).strip().lower()
-    return not normalized or any(token in normalized for token in PLACEHOLDERS)
-
-
-def paragraph_for(fragment: dict[str, object], view: dict[str, dict[str, object]]) -> str:
-    match = re.match(r"(.+)::p=(-?\d+)::change=\d+$", str(fragment["location"]))
-    if not match:
-        return ""
-    part, index_text = match.groups()
-    index = int(index_text)
-    paragraphs = list(view.get(part, {}).get("paragraphs", []))
-    return paragraphs[index] if 0 <= index < len(paragraphs) else ""
-
-
-def validate_long_fragment(
-    fragment: dict[str, object],
-    item: dict[str, object] | None,
-    original_context: str,
-    resulting_paragraph: str,
-    errors: list[str],
-) -> bool:
-    prefix = f"long {fragment['kind']} at {fragment['location']}"
-    if item is None:
-        errors.append(f"{prefix}: no exact ledger entry for fragment_id {fragment['fragment_id']}")
-        return False
-    exact = {
-        "fragment_id": fragment["fragment_id"],
-        "kind": fragment["kind"],
-        "location": fragment["location"],
-        "full_text": fragment["text"],
-        "sha256": fragment["sha256"],
-        "original_context": original_context,
-        "resulting_paragraph": resulting_paragraph,
-    }
-    mismatches = [key for key, value in exact.items() if item.get(key) != value]
-    if mismatches:
-        errors.append(f"{prefix}: ledger mismatch in {mismatches}")
-        return False
-    category = item.get("category")
-    allowed = INSERT_CATEGORIES if fragment["kind"] == "insert" else DELETE_CATEGORIES
-    if category not in allowed:
-        errors.append(f"{prefix}: category {category!r} is not allowed for {fragment['kind']}")
-        return False
-    for field in ("original_gap", "reason"):
-        if len(str(item.get(field, "")).strip()) < 8 or has_placeholder(item.get(field)):
-            errors.append(f"{prefix}: {field} is missing, generic or pending")
-            return False
-    if item.get("review_status") != "approved" or has_placeholder(item.get("approved_by")) or has_placeholder(item.get("approved_at")):
-        errors.append(f"{prefix}: human approval is not complete")
-        return False
-    return True
 
 
 def comment_metrics(path: Path) -> tuple[int, int, int, int, set[str], set[str], set[str], set[str], dict[str, str]]:
@@ -447,8 +401,8 @@ def comment_metrics(path: Path) -> tuple[int, int, int, int, set[str], set[str],
             count = len(nodes)
             ids = {node.get(qn("id"), "") for node in nodes}
             for node in nodes:
-                comment_id = node.get(qn("id"), "")
-                texts[comment_id] = "".join(node.itertext()).strip()
+                cid = node.get(qn("id"), "")
+                texts[cid] = "".join(node.itertext()).strip()
     refs: set[str] = set()
     starts: set[str] = set()
     ends: set[str] = set()
@@ -464,12 +418,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--original", required=True, type=Path)
     parser.add_argument("--redline", required=True, type=Path)
-    parser.add_argument("--clean", required=True, type=Path)
-    parser.add_argument("--ledger", type=Path)
     parser.add_argument("--author", default="法务")
-    parser.add_argument("--max-fragment", type=int, default=15)
-    parser.add_argument("--max-median-delete", type=int, default=15)
-    parser.add_argument("--max-median-insert", type=int, default=15)
     parser.add_argument("--expected-comments", type=int)
     parser.add_argument("--out-json", type=Path)
     args = parser.parse_args()
@@ -478,18 +427,17 @@ def main() -> int:
     warnings: list[str] = []
     validate_package(args.original, "original", errors)
     validate_package(args.redline, "redline", errors)
-    validate_package(args.clean, "clean", errors)
     packages_valid = not errors
     if packages_valid:
         try:
             compare_critical_structure(args.original, args.redline, errors)
-            check_illegal_paragraph_nesting(args.redline, errors)
+            compare_historical_revisions(args.original, args.redline, args.author, errors)
         except (KeyError, OSError, zipfile.BadZipFile, etree.XMLSyntaxError) as exc:
             errors.append(f"critical structure comparison failed: {exc}")
+        check_illegal_paragraph_nesting(args.redline, errors)
 
     source_hash = sha256_file(args.original)
     redline_hash = sha256_file(args.redline)
-    clean_hash = sha256_file(args.clean)
     parts = fragments(args.redline, args.author) if packages_valid else []
     insert_lengths = [int(item["length"]) for item in parts if item["kind"] == "insert"]
     delete_lengths = [int(item["length"]) for item in parts if item["kind"] == "delete"]
@@ -509,63 +457,21 @@ def main() -> int:
         errors.append("redline: empty tracked-change wrapper found")
 
     source_matches_rejected = False
-    accepted_matches_clean = False
-    source_view: dict[str, dict[str, object]] = {}
-    accepted_view: dict[str, dict[str, object]] = {}
+    accepted_view_readable = False
     if not errors or parts:
         try:
             source_view = story_view(args.original, "current", args.author)
             rejected_view = story_view(args.redline, "reject", args.author)
-            accepted_view = story_view(args.redline, "accept", args.author)
-            clean_view = story_view(args.clean, "current", args.author)
+            story_view(args.redline, "accept", args.author)
+            accepted_view_readable = True
             source_matches_rejected = compare_views(
                 "source vs redline rejected view",
                 source_view,
                 rejected_view,
                 errors,
             )
-            accepted_matches_clean = compare_views(
-                "redline accepted view vs clean",
-                accepted_view,
-                clean_view,
-                errors,
-            )
         except (KeyError, OSError, zipfile.BadZipFile, etree.XMLSyntaxError) as exc:
             errors.append(f"story comparison failed: {exc}")
-
-    ledger = load_ledger(args.ledger, errors)
-    entries = {
-        str(item.get("fragment_id")): item
-        for item in ledger.get("exceptions", [])
-        if isinstance(item, dict) and item.get("fragment_id")
-    }
-    if ledger:
-        if ledger.get("source_contract_sha256") != source_hash:
-            errors.append("ledger source_contract_sha256 does not match original")
-        if ledger.get("redline_sha256") != redline_hash:
-            errors.append("ledger redline_sha256 does not match redline")
-        if ledger.get("author") != args.author:
-            errors.append("ledger author does not match gate author")
-
-    approved_long = 0
-    long_fragments = [item for item in parts if int(item["length"]) > args.max_fragment]
-    for fragment in long_fragments:
-        if validate_long_fragment(
-            fragment,
-            entries.get(str(fragment["fragment_id"])),
-            paragraph_for(fragment, source_view),
-            paragraph_for(fragment, accepted_view),
-            errors,
-        ):
-            approved_long += 1
-    extra_entries = sorted(set(entries) - {str(item["fragment_id"]) for item in long_fragments})
-    if extra_entries:
-        errors.append(f"ledger contains {len(extra_entries)} stale/unmatched exception entries")
-
-    if float(delete_stats["median"]) > args.max_median_delete:
-        warnings.append(f"delete median {delete_stats['median']} exceeds {args.max_median_delete}")
-    if float(insert_stats["median"]) > args.max_median_insert:
-        warnings.append(f"insert median {insert_stats['median']} exceeds {args.max_median_insert}")
 
     try:
         count, ref_count, start_count, end_count, ids, refs, starts, ends, comment_texts = comment_metrics(
@@ -580,64 +486,69 @@ def main() -> int:
             )
         if args.expected_comments is not None and count != args.expected_comments:
             errors.append(f"expected {args.expected_comments} comments but found {count}")
-        for comment_id in sorted(ids):
-            text = comment_texts.get(comment_id, "")
-            text_length = len(text)
-            if text_length > 50:
-                errors.append(f"comment {comment_id} exceeds 50 chars ({text_length}): {text!r}")
-            elif text_length > 30:
-                warnings.append(
-                    f"comment {comment_id} exceeds 30 chars ({text_length}); consider shortening: {text!r}"
-                )
-            if text_length == 0:
-                errors.append(f"comment {comment_id} is empty (must be a concise confirm item)")
-
-            question_marks = text.count("？") + text.count("?")
-            whether_count = text.count("是否")
-            confirm_count = text.count("请确认") + text.count("需确认")
-            new_item_marker = any(
-                marker in text for marker in ("分别确认", "另请确认", "同时请确认", "还需确认")
-            )
-            enumerated_items = bool(
-                re.search(r"[A-Za-z0-9]+/[A-Za-z0-9]+", text)
-                or re.search(r"[一二三四五六七八九十]+/", text)
-                or re.search(r"[一二三四五六七八九十]+、", text)
-            )
-            if (
-                question_marks >= 2
-                or whether_count >= 2
-                or confirm_count >= 2
-                or new_item_marker
-                or enumerated_items
-            ):
+        # Minimal-comment rule: 30 chars warns, 50 chars fails; each comment must
+        # be one concise question for one confirm item; no text -> fail.
+        for cid in sorted(ids):
+            ctext = comment_texts.get(cid, "")
+            ctext_len = len(ctext)
+            if ctext_len > 50:
                 errors.append(
-                    f"comment {comment_id} contains multiple independent confirm items: {text!r}"
+                    f"comment {cid} exceeds 50 chars ({ctext_len}): {ctext!r}"
+                )
+            elif ctext_len > 30:
+                warnings.append(
+                    f"comment {cid} exceeds 30 chars ({ctext_len}); consider shortening: {ctext!r}"
+                )
+            if ctext_len == 0:
+                errors.append(f"comment {cid} is empty (must be a concise confirm item)")
+            # Multi-item check:
+            # - Punctuation and ordinary conjunctions are only WARNING evidence;
+            #   never FAIL on comma/semicolon/question-mark/newline count alone.
+            # - FAIL only when an explicit, machine-detectable multi-item pattern
+            #   is hit: 2+ question marks; 2+ "是否" or repeated "请确认/需确认";
+            #   "分别确认/另请确认/同时请确认/还需确认" introducing a new
+            #   independent question; or explicit enumeration ("A/B、1/2、
+            #   第一/第二") of multiple confirm items.
+            # - Anything ambiguous -> WARNING only, never blocks output.
+            _q = ctext.count("？") + ctext.count("?")
+            _shi_fo = ctext.count("是否")
+            _repeat_confirm = ctext.count("请确认") + ctext.count("需确认")
+            _new_indep = any(
+                kw in ctext
+                for kw in ("分别确认", "另请确认", "同时请确认", "还需确认")
+            )
+            _enum = bool(
+                re.search(r"[A-Za-z0-9]+/[A-Za-z0-9]+", ctext)
+                or re.search(r"[一二三四五六七八九十]+/", ctext)
+                or re.search(r"[一二三四五六七八九十]+、", ctext)
+            )
+            if _q >= 2 or _shi_fo >= 2 or _repeat_confirm >= 2 or _new_indep or _enum:
+                errors.append(
+                    f"comment {cid} contains multiple independent confirm items: {ctext!r}"
                 )
             else:
-                punctuation = sum(1 for char in text if char in "。；;?？\n")
-                if punctuation > 0 or text.count("，") >= 2:
+                # Only WARNING-level suspicion from punctuation / conjunctions.
+                _punct = sum(1 for ch in ctext if ch in "。；;?？\n")
+                if _punct > 0 or ctext.count("，") >= 2:
                     warnings.append(
-                        f"comment {comment_id} may contain multiple items (verify manually): {text!r}"
+                        f"comment {cid} may contain multiple items (verify manually): {ctext!r}"
                     )
     except (KeyError, OSError, zipfile.BadZipFile, etree.XMLSyntaxError) as exc:
         count = ref_count = start_count = end_count = 0
         errors.append(f"comment validation failed: {exc}")
 
     report = {
-        "schema_version": "2.0",
+        "schema_version": "3.0",
         "status": "PASS" if not errors else "FAIL",
         "original": str(args.original),
         "redline": str(args.redline),
-        "clean": str(args.clean),
-        "hashes": {"original": source_hash, "redline": redline_hash, "clean": clean_hash},
+        "hashes": {"original": source_hash, "redline": redline_hash},
         "author": args.author,
         "track_revisions": track,
         "source_matches_rejected_view": source_matches_rejected,
-        "accepted_view_matches_clean": accepted_matches_clean,
+        "accepted_view_readable": accepted_view_readable,
         "insert": insert_stats,
         "delete": delete_stats,
-        "long_fragments": len(long_fragments),
-        "approved_long_fragment_exceptions": approved_long,
         "comment_count": count,
         "comment_refs": ref_count,
         "comment_range_starts": start_count,

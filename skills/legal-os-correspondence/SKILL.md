@@ -7,6 +7,10 @@ description: Source-locked Chinese formal-correspondence workflow for lawyer let
 
 Route formal correspondence through a source-locked workflow. Keep the public Skill generic; keep case facts, private evidence, internal strategy, and sending records in the private matter workspace.
 
+## Office source policy
+
+For a standard legal DOCX, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any helper. Source structure is primary; select `off`, `conditional`, or `final` under the shared runtime-aware policy. A formal adoptable DOCX may receive one final visual QA pass when reliable runtime capability exists, and an explicit user instruction not to render remains a hard stop.
+
 ## Workflow
 
 1. **Identify purpose and audience** — determine the sender, recipient, role, procedural or commercial context, purpose, desired response, deadline, delivery method, and whether the text is internal or external.
@@ -28,7 +32,7 @@ Stop for review when sender, recipient, contract/project, amount, date, obligati
 - Treat deadline, delivery, attachment, and recipient details as substantive controls, not formatting details.
 - Do not use a template or old memory to fill a factual or legal gap.
 - Treat template wording as a minimum functional example, not a content ceiling. Add numbered subparts, risk warnings, calculations and attachments when the matter requires them.
-- Run DOCX structural and accessibility audits first. Do not use native preview by default. Use an approved native application only when the user explicitly requests visual, font, layout or print QA, or a concrete pagination, table or print-layout defect exists; perform at most one targeted auxiliary check. Do not switch renderers, change formal fonts or block a structurally valid DOCX because of a preview/environment issue.
+- Check the DOCX source for readable OOXML, complete text, numbering, tables, headers/footers, font and paragraph properties, accessibility, and preservation of unchanged content.
 
 ## References
 

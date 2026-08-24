@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "scope": "unresolved-user-decision-questions-only",
+  "levels": {
+    "R0": {"mode": "none", "minimum": 0, "maximum": 0},
+    "R1": {"mode": "targeted", "minimum": 0, "maximum": 1},
+    "R2": {
+      "mode": "quick",
+      "minimum": 1,
+      "maximum": 2,
+      "zero_question_exception": "all-material-choices-already-resolved",
+      "escalate_when": "material-branch-remains-after-two-decision-questions",
+      "escalate_to": "R3"
+    },
+    "R3": {
+      "mode": "full",
+      "minimum": 3,
+      "maximum": 8,
+      "minimum_is_typical_not_quota": true,
+      "stages": ["structure", "route", "failure-and-control"]
+    }
+  },
+  "excluded_from_count": [
+    "missing-fact-or-material-request",
+    "evidence-verification",
+    "amount-or-date-verification",
+    "authority-verification",
+    "answer-already-in-current-material"
+  ]
+}

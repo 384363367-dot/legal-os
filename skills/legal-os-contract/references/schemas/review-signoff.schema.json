@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "legal-os://schemas/review-signoff.schema.json",
+  "title": "Legal OS Human Review Sign-off",
+  "type": "object",
+  "required": ["schema_version", "matter_task_id", "artifact_path", "artifact_sha256", "risk_level", "reviewer", "reviewed_at", "status", "permitted_use", "checks"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "matter_task_id": {"type": "string", "minLength": 3},
+    "artifact_path": {"type": "string", "minLength": 3},
+    "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "risk_level": {"enum": ["R0", "R1", "R2", "R3"]},
+    "reviewer": {"type": "string", "minLength": 1},
+    "reviewed_at": {"type": "string", "minLength": 10},
+    "status": {"enum": ["approved", "rejected", "pending"]},
+    "permitted_use": {"enum": ["internal-draft", "internal-final", "external-final", "filing", "publishing"]},
+    "checks": {
+      "type": "object",
+      "required": ["facts", "authority", "strategy", "format", "privacy"],
+      "properties": {
+        "facts": {"const": true},
+        "authority": {"const": true},
+        "strategy": {"const": true},
+        "format": {"const": true},
+        "privacy": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": false
+}

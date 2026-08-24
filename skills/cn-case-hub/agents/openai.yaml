@@ -1,7 +1,6 @@
 interface:
-  display_name: "中国案例检索与核验"
-  short_description: "免费检索、核验并分级整理中国官方案例与裁判观点，形成类案报告"
-  default_prompt: "Use $cn-case-hub to search, verify, rank, and report authoritative Chinese cases from free official sources."
-
+  display_name: "Legal OS 中国案例研究"
+  short_description: "官方来源类案检索、核验、双轴分类与裁判分叉变量"
+  default_prompt: "Use $cn-case-hub to research and verify Chinese cases, classify relevance and direction separately, and extract decision-fork variables."
 policy:
   allow_implicit_invocation: false

@@ -1,9 +1,9 @@
 {
   "$schema": "./schemas/legalos-manifest.schema.json",
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.6.2",
+    "public_version": "0.7.0",
     "release_status": "released",
     "version_namespace": "public-semver"
   },
@@ -35,46 +35,260 @@
     "route-and-run": "Continue into the selected primary workflow only when no stop or authorization gate applies."
   },
   "skills": [
-    {"name": "legal-os-unified-intake", "role": "router", "maturity": "candidate"},
-    {"name": "legal-os-contract", "role": "primary-workflow", "maturity": "stable"},
-    {"name": "legal-os-litigation", "role": "primary-workflow", "maturity": "stable"},
-    {"name": "legal-os-correspondence", "role": "primary-workflow", "maturity": "stable"},
-    {"name": "legal-os-business-communication", "role": "primary-workflow", "maturity": "stable"},
-    {"name": "legal-os-data-verification", "role": "primary-or-auxiliary", "maturity": "stable"},
-    {"name": "legal-os-file-delivery", "role": "primary-or-auxiliary", "maturity": "stable"},
-    {"name": "legal-os-reporting-presentation", "role": "primary-workflow", "maturity": "stable"},
-    {"name": "legal-os-matter-memory", "role": "primary-or-auxiliary", "maturity": "stable"},
-    {"name": "legal-os-template-runtime", "role": "cross-cutting-quality-control", "maturity": "candidate"},
-    {"name": "legal-quality-gate", "role": "cross-cutting-release-control", "maturity": "candidate"},
-    {"name": "cn-case-hub", "role": "primary-or-auxiliary", "maturity": "candidate"}
+    {
+      "name": "legal-os-unified-intake",
+      "role": "router",
+      "maturity": "candidate"
+    },
+    {
+      "name": "legal-os-contract",
+      "role": "primary-workflow",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-litigation",
+      "role": "primary-workflow",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-correspondence",
+      "role": "primary-workflow",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-business-communication",
+      "role": "primary-workflow",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-data-verification",
+      "role": "primary-or-auxiliary",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-file-delivery",
+      "role": "primary-or-auxiliary",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-reporting-presentation",
+      "role": "primary-workflow",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-matter-memory",
+      "role": "primary-or-auxiliary",
+      "maturity": "stable"
+    },
+    {
+      "name": "legal-os-template-runtime",
+      "role": "cross-cutting-quality-control",
+      "maturity": "candidate"
+    },
+    {
+      "name": "legal-quality-gate",
+      "role": "cross-cutting-release-control",
+      "maturity": "candidate"
+    },
+    {
+      "name": "cn-case-hub",
+      "role": "primary-or-auxiliary",
+      "maturity": "candidate"
+    },
+    {
+      "name": "cn-law-hub",
+      "role": "primary-or-auxiliary",
+      "maturity": "candidate"
+    },
+    {
+      "name": "legal-os-learning-maintenance",
+      "role": "governance-workflow",
+      "maturity": "candidate"
+    }
   ],
   "routes": [
-    {"id": "T-01", "intake_types": ["contract"], "executor": {"kind": "bundled-skill", "skill": "legal-os-contract"}},
-    {"id": "T-02", "intake_types": ["pleading"], "executor": {"kind": "bundled-skill", "skill": "legal-os-litigation"}},
-    {"id": "T-03", "intake_types": ["evidence-map"], "executor": {"kind": "bundled-phase", "skill": "legal-os-litigation"}},
-    {"id": "T-04", "intake_types": ["litigation-strategy"], "executor": {"kind": "bundled-skill", "skill": "legal-os-litigation"}},
-    {"id": "T-05", "intake_types": ["current-law-research", "case-research"], "executor": {"kind": "bundled-plus-external", "skill": "cn-case-hub"}, "external_dependency": "authoritative-current-law-research"},
-    {"id": "T-06", "intake_types": ["formal-correspondence"], "executor": {"kind": "bundled-skill", "skill": "legal-os-correspondence"}},
-    {"id": "T-07", "intake_types": ["business-communication"], "executor": {"kind": "bundled-skill", "skill": "legal-os-business-communication"}},
-    {"id": "T-08", "intake_types": ["data-verification"], "executor": {"kind": "bundled-skill", "skill": "legal-os-data-verification"}},
-    {"id": "T-09", "intake_types": ["file-delivery"], "executor": {"kind": "bundled-skill", "skill": "legal-os-file-delivery"}},
-    {"id": "T-10", "intake_types": ["reporting-presentation"], "executor": {"kind": "bundled-skill", "skill": "legal-os-reporting-presentation"}},
-    {"id": "T-11", "intake_types": ["matter-memory"], "executor": {"kind": "bundled-skill", "skill": "legal-os-matter-memory"}},
-    {"id": "T-12", "intake_types": ["system-correction"], "executor": {"kind": "bundled-skill", "skill": "legal-os-matter-memory"}}
+    {
+      "id": "T-01",
+      "intake_types": [
+        "contract"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-contract"
+      }
+    },
+    {
+      "id": "T-02",
+      "intake_types": [
+        "pleading"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-litigation"
+      }
+    },
+    {
+      "id": "T-03",
+      "intake_types": [
+        "evidence-map"
+      ],
+      "executor": {
+        "kind": "bundled-phase",
+        "skill": "legal-os-litigation"
+      }
+    },
+    {
+      "id": "T-04",
+      "intake_types": [
+        "litigation-strategy"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-litigation"
+      }
+    },
+    {
+      "id": "T-05",
+      "intake_types": [
+        "current-law-research",
+        "case-research"
+      ],
+      "executor": {
+        "kind": "bundled-research-family",
+        "skill_by_intake_type": {
+          "current-law-research": "cn-law-hub",
+          "case-research": "cn-case-hub"
+        }
+      }
+    },
+    {
+      "id": "T-06",
+      "intake_types": [
+        "formal-correspondence"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-correspondence"
+      }
+    },
+    {
+      "id": "T-07",
+      "intake_types": [
+        "business-communication"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-business-communication"
+      }
+    },
+    {
+      "id": "T-08",
+      "intake_types": [
+        "data-verification"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-data-verification"
+      }
+    },
+    {
+      "id": "T-09",
+      "intake_types": [
+        "file-delivery"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-file-delivery"
+      }
+    },
+    {
+      "id": "T-10",
+      "intake_types": [
+        "reporting-presentation"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-reporting-presentation"
+      }
+    },
+    {
+      "id": "T-11",
+      "intake_types": [
+        "matter-memory"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-matter-memory"
+      }
+    },
+    {
+      "id": "T-12",
+      "intake_types": [
+        "system-correction"
+      ],
+      "executor": {
+        "kind": "bundled-skill",
+        "skill": "legal-os-learning-maintenance"
+      }
+    }
   ],
   "invocation_policy": {
-    "legal-os-unified-intake": {"allow_implicit_invocation": true, "scope": "ambiguous, mixed, unknown, conflicting, or high-impact tasks"},
-    "legal-os-contract": {"allow_implicit_invocation": true, "scope": "direct single-domain contract requests with no unresolved routing conflict"},
-    "legal-os-litigation": {"allow_implicit_invocation": true, "scope": "direct single-domain litigation requests with no unresolved routing conflict"},
-    "legal-os-correspondence": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-business-communication": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-data-verification": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-file-delivery": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-reporting-presentation": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-matter-memory": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection"},
-    "legal-os-template-runtime": {"allow_implicit_invocation": false, "scope": "auxiliary for any formal templated artifact"},
-    "legal-quality-gate": {"allow_implicit_invocation": false, "scope": "explicit final review and release decision for formal or high-risk legal deliverables"},
-    "cn-case-hub": {"allow_implicit_invocation": false, "scope": "explicit invocation or router selection for Chinese official-source case research"}
+    "legal-os-unified-intake": {
+      "allow_implicit_invocation": true,
+      "scope": "ambiguous, mixed, unknown, conflicting, or high-impact tasks"
+    },
+    "legal-os-contract": {
+      "allow_implicit_invocation": true,
+      "scope": "direct single-domain contract requests with no unresolved routing conflict"
+    },
+    "legal-os-litigation": {
+      "allow_implicit_invocation": true,
+      "scope": "direct single-domain litigation requests with no unresolved routing conflict"
+    },
+    "legal-os-correspondence": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection"
+    },
+    "legal-os-business-communication": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection"
+    },
+    "legal-os-data-verification": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection"
+    },
+    "legal-os-file-delivery": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection"
+    },
+    "legal-os-reporting-presentation": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection"
+    },
+    "legal-os-matter-memory": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection"
+    },
+    "legal-os-template-runtime": {
+      "allow_implicit_invocation": false,
+      "scope": "auxiliary for any formal templated artifact"
+    },
+    "legal-quality-gate": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit final review and release decision for formal or high-risk legal deliverables"
+    },
+    "cn-case-hub": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection for Chinese official-source case research"
+    },
+    "cn-law-hub": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or router selection for authoritative current-law research"
+    },
+    "legal-os-learning-maintenance": {
+      "allow_implicit_invocation": false,
+      "scope": "explicit invocation or T-12 router selection for controlled learning and maintenance"
+    }
   },
   "template_runtime": {
     "catalog": "skills/legal-os-template-runtime/references/template-catalog.json",
@@ -84,11 +298,37 @@
     "no_template_status": "TEMPLATE_REQUIRED"
   },
   "quality_gates": [
-    {"id": "manifest-consistency", "validator": "scripts/validate_repo.py"},
-    {"id": "routing-contract", "validator": "scripts/validate_routing_scenarios.py"},
-    {"id": "native-office-policy", "validator": "python -m unittest tests.test_native_office_policy"},
-    {"id": "template-runtime", "validator": "python -m unittest tests.test_template_runtime"},
-    {"id": "formal-release-lock", "validator": "python -m unittest tests.test_legal_quality_gate"},
-    {"id": "synthetic-tests", "validator": "python -m unittest discover -s tests -v"}
+    {
+      "id": "manifest-consistency",
+      "validator": "scripts/validate_repo.py"
+    },
+    {
+      "id": "routing-contract",
+      "validator": "scripts/validate_routing_scenarios.py"
+    },
+    {
+      "id": "native-office-policy",
+      "validator": "python -m unittest tests.test_native_office_policy"
+    },
+    {
+      "id": "template-runtime",
+      "validator": "python -m unittest tests.test_template_runtime"
+    },
+    {
+      "id": "formal-release-lock",
+      "validator": "python -m unittest tests.test_legal_quality_gate"
+    },
+    {
+      "id": "first-party-research-boundary",
+      "validator": "python -m unittest tests.test_research_v070"
+    },
+    {
+      "id": "installer",
+      "validator": "python -m unittest tests.test_installer"
+    },
+    {
+      "id": "synthetic-tests",
+      "validator": "python -m unittest discover -s tests -v"
+    }
   ]
 }

@@ -28,3 +28,11 @@ Before any commit or release intended for publication:
 4. ensure no private or archival artifact or matter record was copied;
 5. run tests and obtain a clean repository status;
 6. publish only through the authorized maintainer and release workflow.
+
+## v0.7.0 first-party research boundary
+
+`cn-case-hub` and `cn-law-hub` are maintained inside Legal OS. They must not require another third-party Skill, MCP package, commercial database SDK, or copied crawler implementation in order to run. External official websites remain research data sources rather than bundled code dependencies. If access is blocked by login, CAPTCHA, maintenance, robots policy or another access control, record the limitation and stop; do not bypass the control.
+
+### Change disclosure
+
+This v0.7.0 section is an intentional expansion of the public repository boundary. It records a distribution and runtime-dependency rule; it does not claim ownership of legislation, cases, databases or official websites, and it does not authorize copying third-party crawler code or restricted content into the repository.

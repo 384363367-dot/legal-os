@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "legal-os://schemas/artifact-registry.schema.json",
+  "title": "Legal OS Artifact Registry",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "project_root_policy", "artifacts", "skills"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "generated_at": {"type": "string", "minLength": 10},
+    "project_root_policy": {"const": "runtime_argument_or_environment; no user absolute path stored"},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "artifact_id", "version", "path", "sha256", "status_tier", "current_runtime", "formal_use", "evidence_scope"],
+        "properties": {
+          "record_id": {"type": "string", "minLength": 5},
+          "artifact_id": {"type": "string", "minLength": 3},
+          "version": {"type": "string", "minLength": 2},
+          "path": {"type": "string", "pattern": "^(?!/).+"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "status_tier": {"enum": ["governance-only", "prompt-only-experimental", "template-only", "tool-assisted-pilot", "e2e-validated", "formal-approved"]},
+          "current_runtime": {"type": "boolean"},
+          "formal_use": {"type": "boolean"},
+          "evidence_scope": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": true
+      }
+    },
+    "skills": {"type": "array"}
+  },
+  "additionalProperties": false
+}

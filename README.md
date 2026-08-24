@@ -9,48 +9,92 @@
 </p>
 
 <p align="center">
-  把事项受理、合同、诉讼、案例检索、文书、数据、交付和质量控制，组织成一套可复用的法律工作基础设施。
+  把事项受理、合同、诉讼、现行法与类案研究、文书、数据、交付和质量控制，组织成一套可复用的法律工作基础设施。
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.2"><img src="https://img.shields.io/badge/public--prerelease-v0.6.2-green" alt="v0.6.2 public prerelease"></a>
-  <img src="https://img.shields.io/badge/Skills-12-2563eb" alt="12 Skills">
+  <img src="https://img.shields.io/badge/release-v0.7.0-blue" alt="v0.7.0 public prerelease">
+  <img src="https://img.shields.io/badge/Skills-14-2563eb" alt="14 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/384363367-dot/legal-os/releases/tag/v0.6.2"><strong>下载现行公开预发布包 v0.6.2</strong></a>
-  ·
-  <a href="docs/architecture.md">查看架构</a>
-  ·
-  <a href="docs/capability-matrix.md">能力矩阵</a>
-  ·
+  <a href="docs/architecture.md">查看架构</a> ·
+  <a href="docs/capability-matrix.md">能力矩阵</a> ·
+  <a href="docs/case-and-law-research-v0.7.md">v0.7.0 研究架构</a> ·
   <a href="CHANGELOG.md">版本记录</a>
 </p>
 
 ---
 
+## 当前状态
+
+**v0.7.0 已作为公开预发布版发布，不是稳定版。** 发布前已完成本地验收、公开边界复核，并在 PR #17 对上传提交运行 GitHub Actions；`legalos.manifest.json` 的 `release_status` 为 `released`。
+
+当前包包含 **14 个 Skills** 和 **24 个去身份化 Office 模板**。
+
 ## 它解决什么问题
 
-通用 AI 可以生成文字，但正式法律工作需要的不只是“写一段看起来正确的内容”。Legal OS 把法律工作的关键约束放进同一条工作流：材料来源、代表立场、事实与证据、现行法律、金额日期、模板版本、文档质量、授权状态和最终交付。
+通用 AI 可以生成文字，但正式法律工作需要的不只是“写一段看起来正确的内容”。Legal OS 把材料来源、代表立场、事实与证据、现行法律、类案、金额日期、模板版本、文档质量、授权状态和最终交付放进同一条可审计工作流。
 
-它不是一组零散提示词，也不是替代律师判断的无人值守系统。它更像一套运行在 AI Agent 上的法律工作操作层：先分流，再调用专业模块；先核验，再生成；每一个正式成果都经过对应的质量门。
+它不是一组零散提示词，也不是替代律师判断的无人值守系统。核心原则是：**先分流，再加载；先核验，再引用；事实—证据—法律—请求/抗辩保持可追溯；关键外部动作始终保留人工控制。**
 
-| 当前公开版 | 可安装法律 Skills | 去身份化法律 Office 模板 |
-|---:|---:|---:|
-| **v0.6.2 公开预发布版** | **12** | **24** |
+## v0.7.0 核心升级
 
-> **当前公开预发布版：2026-08-13 · v0.6.2。** 本版本把源文件优先门前移到统一入口，并清除函件、诉讼、数据表和模板流程中残留的默认预览或全表渲染要求，完整变化见 [CHANGELOG](CHANGELOG.md)。
+### 1. `cn-case-hub` 第一方类案研究引擎
 
-## 为什么是 Legal OS
+保留原 Skill 名称和 v0.6 记录兼容性，但升级为：
 
-- **工作流，而不只是提示词**：从受理、分流、核验、起草、复核到交付形成连续链条，减少在多个聊天和工具之间丢失上下文。
-- **来源锁定**：事实、金额、日期和法律命题必须回到当次材料或实际访问的权威来源；缺失、冲突和无法核验的内容保持待核验状态。
-- **事实—证据—法律—请求对齐**：诉讼分析、证据映射、法律研究和文书请求使用同一检查链，便于发现证据缺口和论证跳跃。
-- **精确模板与可审查文档**：模板按文种和适用范围解析并进行 SHA-256 完整性检查；合同修订、正式函件和诉讼文书保留对应的文档质量控制。
-- **最小必要上下文**：统一入口只加载当前事项需要的专业模块，降低无关规则混入、事实错配和敏感信息扩散的风险。
-- **关键动作保留人工控制**：起草不等于发送，完成不等于签署，内部审查不等于提交；外部行动和高影响决定始终是独立授权状态。
-- **法律成果分层**：区分工作底稿、内部分析、修订稿、清洁版和最终成果，避免把内部策略、未经核验内容或过程信息带入对外文件。
+- 新案 / 存量案件双入口；
+- 最新案件状态锁定；
+- 争点层、事实层、裁判依据层检索；
+- 多轮法院语言校准；
+- 程序链核验；
+- `A/B/C/D × +/±/0/-` 双轴类案矩阵；
+- `A-` 高相关不利案例强制处理；
+- 裁判分叉变量；
+- 类案结果反推证据缺口；
+- 只允许使用“检索样本支持比例”，不得把检索样本包装成“胜诉率”。
+
+### 2. 新增第一方 `cn-law-hub`
+
+用于法律、行政法规、司法解释、规章等的：
+
+- 权威来源核验；
+- 法源效力；
+- 修改/废止/版本链；
+- 条文定位；
+- 事实发生时与程序进行时的时间适用。
+
+本包**不携带后来本地运行时中出现的第三方法规 crawler 实现**，也不要求另装第三方 Skill、MCP 或商业数据库 SDK。
+
+### 3. `legal-os-litigation` 研究结果回流
+
+类案与法源研究不再只用于“引用”。v0.7.0 要求：
+
+`裁判分叉变量 → 本案事实 → 支持/不利证据 → evidence_gap → 对方攻击点 → 补证动作 → 论证/程序动作`
+
+### 4. T-05 研究路由内置化
+
+- `current-law-research` → `cn-law-hub`
+- `case-research` → `cn-case-hub`
+
+当研究只是诉讼或合同事项的辅助任务时，原 substantive workflow 继续保持唯一 primary route。
+
+### 5. `legal-os-learning-maintenance` 正式纳入公开 Skill 清单
+
+T-12 由该 Skill 负责可复用错误、规则优化与周期维护，遵循 **net-new-only**：已有规则不重复沉淀，事项事实不污染全局规则。
+
+### 6. 发布工程与安全治理修复
+
+- 保留 GitHub 原有严格 manifest/schema/validator；
+- 保留 `execution_modes`、完整 `invocation_policy` 和 `template_runtime`；
+- 恢复安全 `.gitignore`：默认排除真实 DOCX/PDF/XLSX、`private/`、`confidential/`、`client-materials/`、`matter-files/`；
+- 恢复全部 24 个模板注册和 SHA-256 绑定；
+- 保留历史 CHANGELOG、原架构文档和旧回归门，不以“降低测试标准”换取通过；
+- 新增第一方研究边界和安装测试。
+
+完整差异见 [`UPGRADE_REPORT_v0.7.0.md`](UPGRADE_REPORT_v0.7.0.md)。
 
 ## 系统如何工作
 
@@ -58,133 +102,125 @@
 flowchart LR
     A["用户请求与材料"] --> B["统一受理与风险分流"]
     B --> C["一个主工作流"]
-    C --> D["来源与数据核验"]
-    D --> E["模板解析与成果制作"]
-    E --> F["专业质量门"]
-    F --> G["最终复核与授权状态"]
-    G --> H["可交付成果"]
+    C --> D["事实 / 数据 / 法源核验"]
+    D --> E["现行法 / 类案研究"]
+    E --> F["证据与策略回流"]
+    F --> G["模板解析与成果制作"]
+    G --> H["专业质量门"]
+    H --> I["最终复核与授权状态"]
+    I --> J["可交付成果"]
 
-    I["事项记忆"] -. 受控上下文 .-> B
-    J["案例检索"] -. 经核验资料 .-> C
-    K["文件交付"] -. 格式与归档 .-> H
+    K["事项记忆"] -. 受控上下文 .-> B
+    L["Learning Maintenance"] -. net-new delta .-> B
 ```
 
-系统入口为 `legal-os-unified-intake`。它识别事项类型、代表角色、风险、材料缺口、输出对象和授权边界，然后选择一个主工作流，并只组合必要的辅助模块。
+系统入口为 `legal-os-unified-intake`。它识别事项类型、代表角色、风险、材料缺口、输出对象和授权边界，选择一个主工作流，并只组合必要辅助模块。
 
-## 12 个可安装 Skills
+## 14 个可安装 Skills
 
-### 入口与核心法律工作
-
-| Skill | 适用场景 | 主要能力 |
+| Skill | 角色 | 主要能力 |
 |---|---|---|
-| [`legal-os-unified-intake`](skills/legal-os-unified-intake/) | 事项类型不清、任务混合、材料冲突或风险较高 | 读取请求和材料，识别角色、目标、风险与缺口，选择一个主工作流并控制追问数量 |
-| [`legal-os-contract`](skills/legal-os-contract/) | 合同审核、风险扫描、甲乙方立场、DOCX 修订 | 最小颗粒度修改、修订版与清洁版控制、履约风险检查、修订结构指标和质量门 |
-| [`legal-os-litigation`](skills/legal-os-litigation/) | 民事诉讼、商事仲裁、劳动仲裁、证据整理 | 诉讼分析、事实—证据映射、法律研究、诉状/申请书/答辩书与独立证据目录成对制作 |
-| [`cn-case-hub`](skills/cn-case-hub/) | 中国大陆案例、类案、裁判观点和案号核验 | 仅使用实际访问的免费官方来源，生成正反向检索式、核验案例记录并形成可追溯类案材料 |
+| [`legal-os-unified-intake`](skills/legal-os-unified-intake/) | Router | 统一受理、风险/缺口识别、一个 primary route + 必要 auxiliaries |
+| [`legal-os-contract`](skills/legal-os-contract/) | Primary | 合同审核、最小必要修改、tracked-changes DOCX 与质量门 |
+| [`legal-os-litigation`](skills/legal-os-litigation/) | Primary | 诉讼/仲裁分析、证据映射、研究回流、诉辩文书与证据目录 |
+| [`cn-case-hub`](skills/cn-case-hub/) | Primary/Auxiliary | 官方案例核验、双轴类案矩阵、程序链、裁判分叉变量 |
+| [`cn-law-hub`](skills/cn-law-hub/) | Primary/Auxiliary | 现行法、版本、效力、条文、时间适用核验 |
+| [`legal-os-correspondence`](skills/legal-os-correspondence/) | Primary | 律师函、催款/履约通知、回复函、情况说明 |
+| [`legal-os-business-communication`](skills/legal-os-business-communication/) | Primary | 微信、邮件、会议/电话口径与承诺风险控制 |
+| [`legal-os-data-verification`](skills/legal-os-data-verification/) | Primary/Auxiliary | 金额、付款、发票、日期节点、数据冲突 |
+| [`legal-os-file-delivery`](skills/legal-os-file-delivery/) | Primary/Auxiliary | 文件转换、打包、版本、归档、交付检查 |
+| [`legal-os-reporting-presentation`](skills/legal-os-reporting-presentation/) | Primary | 周报/月报、领导汇报、客户报告、PPT 结构 |
+| [`legal-os-matter-memory`](skills/legal-os-matter-memory/) | Primary/Auxiliary | 事项记忆、动态事实状态、可复用与事项信息分层 |
+| [`legal-os-template-runtime`](skills/legal-os-template-runtime/) | Cross-cutting | 24 个模板解析、SHA-256 绑定、缺模板/哈希失败停止 |
+| [`legal-quality-gate`](skills/legal-quality-gate/) | Cross-cutting | 正式法律成果最终复核与 release lock |
+| [`legal-os-learning-maintenance`](skills/legal-os-learning-maintenance/) | Governance | 周期复盘、Critical hotfix、net-new-only 规则升级 |
 
-### 文书、沟通与数据
-
-| Skill | 适用场景 | 主要能力 |
-|---|---|---|
-| [`legal-os-correspondence`](skills/legal-os-correspondence/) | 律师函、催款函、履约通知、回复函、情况说明 | 建立事实与期限台账，区分可确认事实和待核验内容，控制责任表述、权利保留和发送状态 |
-| [`legal-os-business-communication`](skills/legal-os-business-communication/) | 商务微信、邮件、电话或会议口径、项目协调 | 在简洁表达中控制事实准确性、承诺风险、附件、期限和内外部边界 |
-| [`legal-os-data-verification`](skills/legal-os-data-verification/) | 金额、付款、发票、日期节点和数据冲突 | 分离来源值、派生计算与人工结论，形成可追溯核验台账并标记缺失证据 |
-| [`legal-os-reporting-presentation`](skills/legal-os-reporting-presentation/) | 周报月报、领导汇报、客户报告、RAG 状态、PPT | 从来源材料生成结构化报告或演示方案，区分事实、判断、风险、依赖和待决策事项 |
-
-### 交付、记忆与质量控制
-
-| Skill | 适用场景 | 主要能力 |
-|---|---|---|
-| [`legal-os-file-delivery`](skills/legal-os-file-delivery/) | Word/PDF/表格/图片转换、合并、拆分、提交包和归档 | 文件清单、版本关系、脱敏、命名、哈希、打包、打印和最终交付检查 |
-| [`legal-os-matter-memory`](skills/legal-os-matter-memory/) | 保存项目背景、整理事项线索、清理记忆、沉淀重复流程 | 按规则、Skill/模板、事项线索和动态事实分层，保留来源、日期、状态和最小必要信息 |
-| [`legal-os-template-runtime`](skills/legal-os-template-runtime/) | 任何需要正式模板的法律成果 | 精确匹配文种，按优先级解析模板，校验 SHA-256，保持固定版式外壳并允许正文按事项展开 |
-| [`legal-quality-gate`](skills/legal-quality-gate/) | 正式或高风险法律成果的最终复核 | 检查事实、证据、现行法、法律关系、请求或抗辩、责任表述、模板和最终成果授权状态 |
-
-更完整的路由关系和能力边界见 [`docs/capability-matrix.md`](docs/capability-matrix.md)。
-
-## 法律工作控制
-
-| 常见风险 | Legal OS 的处理方式 |
-|---|---|
-| 材料缺失或事实冲突 | 停止补造，保留 `待核验` 或阻塞状态 |
-| 法条、案例或效力状态不明 | 要求权威来源核验，模型记忆不能作为正式引用 |
-| 使用了错误或未经批准的模板 | 模板运行时拒绝继续，不用相近模板静默替代 |
-| 诉状与证据目录不一致 | 成对生成并检查证据编号、名称、证明目的和正文事实结构 |
-| 原告首次文书暴露对方抗辩路线 | 保持单方主张链；推测性抗辩和完整应对策略留在内部分析 |
-| 草稿被误当成正式成果 | 区分草稿、内部复核、清洁版、最终版和外部动作授权 |
+更完整的路由边界见 [`docs/capability-matrix.md`](docs/capability-matrix.md)。
 
 ## 快速开始
 
-### 方式一：安装现行公开预发布包（推荐）
-
-从 [v0.6.2 Releases 页面](https://github.com/384363367-dot/legal-os/releases/tag/v0.6.2) 下载：
-
-- `LegalOS-Skills-v0.6.2.zip`
-- `LegalOS-Skills-v0.6.2.zip.sha256`
-
-在下载目录先核验 ZIP，再解压并进入安装包目录：
+### 从仓库根目录安装 Skills
 
 ```bash
-shasum -a 256 -c LegalOS-Skills-v0.6.2.zip.sha256
-unzip LegalOS-Skills-v0.6.2.zip
-cd LegalOS-Skills-v0.6.2
 ./install.sh --dry-run
 ./install.sh
 ```
 
-默认安装到 Codex Skills 目录。安装脚本不会静默覆盖已有 Skill；需要替换时必须显式使用 `--replace`，旧目录会先备份。
+默认安装到 `~/.codex/skills`。安装脚本不会静默覆盖已有 Skill；如需替换：
 
-### 方式二：从源码选择安装
+```bash
+./install.sh --replace
+```
 
-将 `skills/` 下所需的完整目录复制到 Codex Skills 目录，然后重新启动 Codex。建议从以下组合开始：
+旧 Skill 会先备份。可选创建/更新 Python runtime：
 
-1. `legal-os-unified-intake`：统一入口和分流；
-2. `legal-os-template-runtime`：模板解析与完整性控制；
-3. `legal-quality-gate`：正式成果最终复核；
-4. 一个与实际任务对应的主工作流。
+```bash
+./install.sh --setup-runtime
+```
 
-不要只复制 `SKILL.md`；模板、references、脚本和 Agent 元数据也是 Skill 的组成部分。
+此选项只读取仓库根 `requirements.txt`；不依赖本地快照中的 `runtime/` 目录。
+
+### 从源码选择安装
+
+也可只复制 `skills/` 下所需的完整目录。不要只复制 `SKILL.md`，因为 references、scripts、templates 和 `agents/openai.yaml` 都是 Skill 的组成部分。
 
 ## 使用示例
 
 ```text
-使用 $legal-os-unified-intake 读取这些材料，判断事项类型、风险、缺口和下一步工作流。
+使用 $legal-os-unified-intake 读取材料，判断事项类型、风险、缺口和下一步工作流。
 ```
 
 ```text
-使用 $legal-os-contract 从乙方立场审核这份 DOCX，输出风险清单、修订版和清洁版，并运行修订质量门。
+使用 $cn-case-hub 针对这个争点查正反类案，按 A/B/C/D × +/±/0/- 分类，并提炼可能改变裁判结果的事实变量。
 ```
 
 ```text
-使用 $legal-os-litigation 整理事实、证据和法律问题，形成内部分析、起诉状草稿及配套证据目录。
+使用 $cn-law-hub 核验这条规定当前是否有效、历史版本、适用时间以及准确条文。
 ```
 
 ```text
-使用 $cn-case-hub 检索支持和反对该争点的中国大陆官方案例，并核验案号、来源和裁判观点。
+使用 $legal-os-litigation 把已核验案例和法源结果映射到本案证据缺口、补证动作和诉讼策略。
 ```
 
-## 法律使用边界
+## 法律与研究边界
 
-- 本项目不构成法律意见，不替代律师、法务或其他专业人员的判断；
-- 事实、证据、金额、日期和现行法律必须根据具体事项重新核验；
-- `cn-case-hub` 处理官方案例检索；法规、规章、司法解释和具体法条需要另行使用可核验的权威现行法检索能力；
-- Skills 不会自动取得发送、签署、提交、立案、发布或联系第三方的权限；
-- 任何正式成果都应结合具体法域、程序阶段、代表立场、证据情况和适用期限进行专业复核。
+- 本项目不构成法律意见，不替代律师、法务或其他专业人员判断；
+- 事实、证据、金额、日期、案件状态和现行法律必须根据具体事项重新核验；
+- 搜索摘要、模型记忆和二手材料只能作为线索；
+- 外部官方站点的登录、验证码、robots 或权限限制不得绕过；
+- “第一方 Skill”是指工作流/脚本由本仓库维护，不意味着 Legal OS 自行拥有一套完整法规/裁判数据库；
+- 起草不等于发送，完成不等于签署，内部审查不等于提交；外部动作需要独立授权。
+
+## 发布前验证
+
+本候选包包含：
+
+```bash
+python scripts/validate_repo.py
+python scripts/validate_routing_scenarios.py
+python -m unittest discover -s tests -v
+python skills/cn-case-hub/scripts/check_first_party_boundary.py
+python skills/cn-law-hub/scripts/check_first_party_boundary.py
+./install.sh --dry-run
+```
+
+实际本地与远端测试结果见 [`TEST_REPORT_v0.7.0.md`](TEST_REPORT_v0.7.0.md)。
 
 ## 文档导航
 
 - [系统架构](docs/architecture.md)
 - [能力矩阵](docs/capability-matrix.md)
 - [统一入口与路由](docs/unified-intake-routing.md)
-- [模板运行时](docs/template-runtime.md)
+- [v0.7.0 案例/现行法研究架构](docs/case-and-law-research-v0.7.md)
 - [诉讼工作空间](docs/litigation-workspace.md)
-- [原告/申请人文书工作空间](docs/pleading-workspace.md)
+- [证据工作空间](docs/evidence-workspace.md)
+- [模板运行时](docs/template-runtime.md)
 - [Office 质量门](docs/native-office-quality-gate.md)
 - [版本记录](CHANGELOG.md)
 - [贡献指南](CONTRIBUTING.md)
 
 ## 项目状态与许可证
 
-当前公开版本为 **v0.6.2 公开预发布版**；**v0.6.1** 保留为历史版本。在稳定版本发布前，接口、模块边界和仓库结构仍可能调整。
+当前候选版本为 **v0.7.0 RC**。上一已发布公开预发布版本为 v0.6.2。稳定版本发布前，接口和模块边界仍可能调整。
 
 除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。

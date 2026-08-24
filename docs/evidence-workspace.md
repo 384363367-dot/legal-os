@@ -2,17 +2,10 @@
 
 Evidence Workspace turns source materials into a traceable register and proof-purpose map. It does not decide that evidence is authentic, admissible, relevant or persuasive by default.
 
-## Runtime chain
+1. Preserve source identity, version, provenance, integrity and access boundaries.
+2. Maintain one evidence row per item and a verification ledger.
+3. Link neutral factual propositions to issues/evidence, separating support, contradiction and neutral material.
+4. Check source fidelity, completeness, conflicts, restrictions, mapping and procedure-specific research triggers.
+5. In v0.7.0, a case-law decision-fork variable with no supporting matter evidence is recorded as an `evidence_gap`, not silently assumed.
 
-1. Evidence Intake preserves source identity, version, provenance, integrity and access boundaries.
-2. Evidence Register maintains one row per item and a verification ledger.
-3. Proof Purpose Mapping links neutral factual propositions to issues and evidence, separating support, contradiction and neutral material.
-4. Evidence Quality Gate checks source fidelity, completeness, conflicts, restrictions, mapping and procedure-specific research triggers.
-
-## Boundaries
-
-- A register entry is not evidence admission.
-- A proof purpose is not a legal conclusion.
-- An unreadable, incomplete or conflicting source remains limited or blocked.
-- Civil, labour, arbitration, administrative, criminal and enforcement requirements are routed separately and verified through current authoritative law.
-- Real matter facts and evidence remain private; public fixtures must be synthetic or irreversibly anonymized.
+Real matter facts/evidence remain private; public fixtures must be synthetic or irreversibly anonymized.
