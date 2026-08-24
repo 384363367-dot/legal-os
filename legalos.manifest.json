@@ -299,6 +299,10 @@
   },
   "quality_gates": [
     {
+      "id": "public-surface",
+      "validator": "python3 scripts/validate_public_surface.py"
+    },
+    {
       "id": "manifest-consistency",
       "validator": "scripts/validate_repo.py"
     },

@@ -6,6 +6,8 @@ from pathlib import Path
 from urllib.parse import unquote
 try:from scripts.validate_manifest import validate_manifest
 except ModuleNotFoundError:from validate_manifest import validate_manifest
+try:from scripts.validate_public_surface import validate_public_surface
+except ModuleNotFoundError:from validate_public_surface import validate_public_surface
 NAME_RE=re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 FRONTMATTER_RE=re.compile(r"\A---\s*\n(?P<data>.*?)\n---\s*(?:\n|\Z)",re.DOTALL)
 MARKDOWN_LINK_RE=re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
@@ -28,7 +30,7 @@ def local_target(source:Path,raw:str):
  if not target or target.startswith('#') or re.match(r'^(?:https?|mailto):',target):return None
  target=unquote(target.split('#',1)[0].split('?',1)[0]);return source.parent/target
 def validate_repository(root:Path):
- root=root.resolve();errors=[];sr=root/'skills';dirs=sorted(p for p in sr.iterdir() if p.is_dir()) if sr.is_dir() else []
+ root=root.resolve();errors=[];errors.extend(validate_public_surface(root));sr=root/'skills';dirs=sorted(p for p in sr.iterdir() if p.is_dir()) if sr.is_dir() else []
  if not dirs:errors.append(f"{sr}: no Skill directories found")
  published={p.name for p in dirs};errors.extend(validate_manifest(root))
  for d in dirs:

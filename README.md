@@ -5,20 +5,23 @@
 <h1 align="center">Legal OS</h1>
 
 <p align="center">
-  <strong>面向中国法律工作场景的可安装、可组合、可审计 AI 工作流系统</strong>
+  <strong>面向中国法律工作的可安装、可组合、可审计 AI 工作流</strong>
 </p>
 
 <p align="center">
-  把事项受理、合同、诉讼、现行法与类案研究、文书、数据、交付和质量控制，组织成一套可复用的法律工作基础设施。
+  把材料受理、合同、诉讼、现行法与类案研究、函件、数据、Office 交付和质量控制，组织成一条可复用的工作路径。
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/release-v0.7.0-blue" alt="v0.7.0 public prerelease">
   <img src="https://img.shields.io/badge/Skills-14-2563eb" alt="14 Skills">
+  <img src="https://img.shields.io/badge/routes-12-0f766e" alt="12 routes">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
 
 <p align="center">
+  <a href="#快速开始">快速开始</a> ·
+  <a href="#核心能力">核心能力</a> ·
   <a href="docs/architecture.md">查看架构</a> ·
   <a href="docs/capability-matrix.md">能力矩阵</a> ·
   <a href="docs/case-and-law-research-v0.7.md">v0.7.0 研究架构</a> ·
@@ -27,76 +30,41 @@
 
 ---
 
-## 当前状态
+## 当前版本
 
-**v0.7.0 已作为公开预发布版发布，不是稳定版。** 发布前已完成本地验收、公开边界复核，并在 PR #17 对上传提交运行 GitHub Actions；`legalos.manifest.json` 的 `release_status` 为 `released`。
+**v0.7.0 公开预发布版**。当前公开包包含 **14 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
 
-当前包包含 **14 个 Skills** 和 **24 个去身份化 Office 模板**。
+## Legal OS 是什么
 
-## 它解决什么问题
+Legal OS 不是一组零散提示词，也不是替代律师判断的无人值守系统。它把正式法律工作中容易断裂的环节接起来：
 
-通用 AI 可以生成文字，但正式法律工作需要的不只是“写一段看起来正确的内容”。Legal OS 把材料来源、代表立场、事实与证据、现行法律、类案、金额日期、模板版本、文档质量、授权状态和最终交付放进同一条可审计工作流。
+- 从用户请求和材料开始，先判断事项类型、代表立场、风险和缺口；
+- 选择一个主工作流，只加载完成当前任务所需的辅助能力；
+- 将事实、证据、金额、日期、现行法律和类案结果保持可追溯；
+- 以模板、源文件质量门和人工授权状态约束正式交付。
 
-它不是一组零散提示词，也不是替代律师判断的无人值守系统。核心原则是：**先分流，再加载；先核验，再引用；事实—证据—法律—请求/抗辩保持可追溯；关键外部动作始终保留人工控制。**
+核心目标是让 AI 产出更容易复核、修改、交接和留痕，而不是把法律判断交给自动化流程。
 
-## v0.7.0 核心升级
+## 核心能力
 
-### 1. `cn-case-hub` 第一方类案研究引擎
+| 工作结果 | Legal OS 提供的能力 |
+| --- | --- |
+| 从一条请求开始 | 统一受理、风险分流、材料缺口识别和主工作流选择 |
+| 把法律问题查清楚 | 现行法效力/版本核验、官方类案研究、争点与裁判变量整理 |
+| 把正式文书做出来 | 合同审核、诉讼/仲裁、律师函与正式函件、业务沟通、报告和演示结构 |
+| 把数字与文件交付稳住 | 金额/付款/日期核验、模板解析、Office 源文件检查、版本与归档 |
+| 把风险留在可控范围 | 证据回流、法律质量门、事实与策略分层、外部动作单独授权 |
 
-保留原 Skill 名称和 v0.6 记录兼容性，但升级为：
+### v0.7.0 重点升级
 
-- 新案 / 存量案件双入口；
-- 最新案件状态锁定；
-- 争点层、事实层、裁判依据层检索；
-- 多轮法院语言校准；
-- 程序链核验；
-- `A/B/C/D × +/±/0/-` 双轴类案矩阵；
-- `A-` 高相关不利案例强制处理；
-- 裁判分叉变量；
-- 类案结果反推证据缺口；
-- 只允许使用“检索样本支持比例”，不得把检索样本包装成“胜诉率”。
+- **研究更可核验**：`cn-case-hub` 负责官方类案研究，`cn-law-hub` 负责现行法、效力、版本链和时间适用；
+- **研究能回到案件**：把裁判变量连接到本案事实、证据缺口、补证动作和诉讼策略，而不把检索样本包装成胜诉率；
+- **交付更可控**：统一入口、模板运行时、Office 源文件质量门和法律质量门共同约束正式成果；
+- **改进可持续**：`legal-os-learning-maintenance` 把可复用流程改进沉淀为规则，同时将具体事项事实留在事项范围内。
 
-### 2. 新增第一方 `cn-law-hub`
+研究模块也可以作为合同或诉讼工作流的辅助能力使用。详细设计见 [`docs/case-and-law-research-v0.7.md`](docs/case-and-law-research-v0.7.md)。
 
-用于法律、行政法规、司法解释、规章等的：
-
-- 权威来源核验；
-- 法源效力；
-- 修改/废止/版本链；
-- 条文定位；
-- 事实发生时与程序进行时的时间适用。
-
-本包**不携带后来本地运行时中出现的第三方法规 crawler 实现**，也不要求另装第三方 Skill、MCP 或商业数据库 SDK。
-
-### 3. `legal-os-litigation` 研究结果回流
-
-类案与法源研究不再只用于“引用”。v0.7.0 要求：
-
-`裁判分叉变量 → 本案事实 → 支持/不利证据 → evidence_gap → 对方攻击点 → 补证动作 → 论证/程序动作`
-
-### 4. T-05 研究路由内置化
-
-- `current-law-research` → `cn-law-hub`
-- `case-research` → `cn-case-hub`
-
-当研究只是诉讼或合同事项的辅助任务时，原 substantive workflow 继续保持唯一 primary route。
-
-### 5. `legal-os-learning-maintenance` 正式纳入公开 Skill 清单
-
-T-12 由该 Skill 负责可复用错误、规则优化与周期维护，遵循 **net-new-only**：已有规则不重复沉淀，事项事实不污染全局规则。
-
-### 6. 发布工程与安全治理修复
-
-- 保留 GitHub 原有严格 manifest/schema/validator；
-- 保留 `execution_modes`、完整 `invocation_policy` 和 `template_runtime`；
-- 恢复安全 `.gitignore`：默认排除真实 DOCX/PDF/XLSX、`private/`、`confidential/`、`client-materials/`、`matter-files/`；
-- 恢复全部 24 个模板注册和 SHA-256 绑定；
-- 保留历史 CHANGELOG、原架构文档和旧回归门，不以“降低测试标准”换取通过；
-- 新增第一方研究边界和安装测试。
-
-完整差异见 [`UPGRADE_REPORT_v0.7.0.md`](UPGRADE_REPORT_v0.7.0.md)。
-
-## 系统如何工作
+## 工作方式
 
 ```mermaid
 flowchart LR
@@ -106,12 +74,8 @@ flowchart LR
     D --> E["现行法 / 类案研究"]
     E --> F["证据与策略回流"]
     F --> G["模板解析与成果制作"]
-    G --> H["专业质量门"]
-    H --> I["最终复核与授权状态"]
-    I --> J["可交付成果"]
-
-    K["事项记忆"] -. 受控上下文 .-> B
-    L["Learning Maintenance"] -. net-new delta .-> B
+    G --> H["质量门与人工复核"]
+    H --> I["授权后交付"]
 ```
 
 系统入口为 `legal-os-unified-intake`。它识别事项类型、代表角色、风险、材料缺口、输出对象和授权边界，选择一个主工作流，并只组合必要辅助模块。
@@ -131,38 +95,30 @@ flowchart LR
 | [`legal-os-file-delivery`](skills/legal-os-file-delivery/) | Primary/Auxiliary | 文件转换、打包、版本、归档、交付检查 |
 | [`legal-os-reporting-presentation`](skills/legal-os-reporting-presentation/) | Primary | 周报/月报、领导汇报、客户报告、PPT 结构 |
 | [`legal-os-matter-memory`](skills/legal-os-matter-memory/) | Primary/Auxiliary | 事项记忆、动态事实状态、可复用与事项信息分层 |
-| [`legal-os-template-runtime`](skills/legal-os-template-runtime/) | Cross-cutting | 24 个模板解析、SHA-256 绑定、缺模板/哈希失败停止 |
-| [`legal-quality-gate`](skills/legal-quality-gate/) | Cross-cutting | 正式法律成果最终复核与 release lock |
-| [`legal-os-learning-maintenance`](skills/legal-os-learning-maintenance/) | Governance | 周期复盘、Critical hotfix、net-new-only 规则升级 |
+| [`legal-os-template-runtime`](skills/legal-os-template-runtime/) | Cross-cutting | 24 个模板解析、版本绑定和缺模板阻断 |
+| [`legal-quality-gate`](skills/legal-quality-gate/) | Cross-cutting | 正式法律成果最终复核和交付锁定 |
+| [`legal-os-learning-maintenance`](skills/legal-os-learning-maintenance/) | Governance | 受控复盘、规则增量和长期维护 |
 
 更完整的路由边界见 [`docs/capability-matrix.md`](docs/capability-matrix.md)。
 
 ## 快速开始
 
-### 从仓库根目录安装 Skills
+### 安装 Skills
 
 ```bash
 ./install.sh --dry-run
 ./install.sh
 ```
 
-默认安装到 `~/.codex/skills`。安装脚本不会静默覆盖已有 Skill；如需替换：
+默认安装到 `~/.codex/skills`。安装脚本不会静默覆盖已有 Skill。
 
 ```bash
 ./install.sh --replace
 ```
 
-旧 Skill 会先备份。可选创建/更新 Python runtime：
+安装器会先备份原有 Skill，不会静默覆盖。
 
-```bash
-./install.sh --setup-runtime
-```
-
-此选项只读取仓库根 `requirements.txt`；不依赖本地快照中的 `runtime/` 目录。
-
-### 从源码选择安装
-
-也可只复制 `skills/` 下所需的完整目录。不要只复制 `SKILL.md`，因为 references、scripts、templates 和 `agents/openai.yaml` 都是 Skill 的组成部分。
+也可以只复制 `skills/` 下所需的完整目录。不要只复制 `SKILL.md`，因为 references、scripts、templates 和 `agents/openai.yaml` 都是 Skill 的组成部分。
 
 ## 使用示例
 
@@ -191,20 +147,19 @@ flowchart LR
 - “第一方 Skill”是指工作流/脚本由本仓库维护，不意味着 Legal OS 自行拥有一套完整法规/裁判数据库；
 - 起草不等于发送，完成不等于签署，内部审查不等于提交；外部动作需要独立授权。
 
-## 发布前验证
+## 开发者验证
 
-本候选包包含：
+贡献或修改公开包后，可运行：
 
 ```bash
-python scripts/validate_repo.py
-python scripts/validate_routing_scenarios.py
-python -m unittest discover -s tests -v
-python skills/cn-case-hub/scripts/check_first_party_boundary.py
-python skills/cn-law-hub/scripts/check_first_party_boundary.py
+python3 scripts/validate_public_surface.py
+python3 scripts/validate_repo.py
+python3 scripts/validate_routing_scenarios.py
+python3 -m unittest discover -s tests -v
 ./install.sh --dry-run
 ```
 
-实际本地与远端测试结果见 [`TEST_REPORT_v0.7.0.md`](TEST_REPORT_v0.7.0.md)。
+具体命令、环境和结果见 [`TEST_REPORT_v0.7.0.md`](TEST_REPORT_v0.7.0.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
 
 ## 文档导航
 
@@ -216,11 +171,10 @@ python skills/cn-law-hub/scripts/check_first_party_boundary.py
 - [证据工作空间](docs/evidence-workspace.md)
 - [模板运行时](docs/template-runtime.md)
 - [Office 质量门](docs/native-office-quality-gate.md)
+- [公开首页与版本更新规则](docs/public-homepage-and-release-rules.md)
 - [版本记录](CHANGELOG.md)
 - [贡献指南](CONTRIBUTING.md)
 
-## 项目状态与许可证
+## 许可证
 
-当前候选版本为 **v0.7.0 RC**。上一已发布公开预发布版本为 v0.6.2。稳定版本发布前，接口和模块边界仍可能调整。
-
-除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。
+版本变化见 [`CHANGELOG.md`](CHANGELOG.md)，单个版本的升级说明和验证记录见仓库根目录的对应文档。除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。
