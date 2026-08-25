@@ -32,4 +32,4 @@ Learning observation and controlled upgrade
 - Keep the public runtime generic; place organization-specific behaviour in private configuration.
 - For templated artifacts, bind the approved template before drafting. Keep the shell fixed and the substantive body expandable to the matter.
 - Treat `legalos.manifest.json` as the public machine authority for version, profiles, Skills, routes, invocation policy and gates.
-- In v0.7.0, T-05 dispatches current-law research to `cn-law-hub` and case research to `cn-case-hub`; both are bundled first-party research Skills.
+- In v0.8.0, T-05 dispatches current-law research to the public `cn-law-hub` query/authority-record adapter and case research to `cn-case-hub`; both remain bundled first-party research Skills. External official sites are data sources, not bundled crawler dependencies.

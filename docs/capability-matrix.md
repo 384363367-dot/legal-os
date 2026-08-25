@@ -1,13 +1,13 @@
 # Public capability matrix
 
-Legal OS v0.7.0 release candidate contains fourteen installable Skills. T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory.
+Legal OS v0.8.0 public adaptation contains fourteen installable Skills. T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|
 | T-01 | Contract review and redline | `legal-os-contract` | Current-law questions may call T-05; external release requires separate authorization. |
 | T-02 / T-04 | Pleadings, litigation analysis and strategy | `legal-os-litigation` | Filing, service and signing require separate authorization. v0.7.0 converts verified case-law forks into evidence and strategy actions. |
 | T-03 | Evidence register and proof mapping | phase in `legal-os-litigation` | Does not determine authenticity, admissibility or weight. |
-| T-05 | Current law and case research | `cn-law-hub` for current law; `cn-case-hub` for cases | Official/authoritative source verification required; access controls may not be bypassed. |
+| T-05 | Current law and case research | `cn-law-hub` for current law and official-source query/record validation; `cn-case-hub` for cases | Official/authoritative source verification required; access controls may not be bypassed; public package does not bundle crawlers or external database SDKs. |
 | T-06 | Formal correspondence | `legal-os-correspondence` | Drafting does not authorize sending/service. |
 | T-07 | Business communication | `legal-os-business-communication` | Formal notices route to T-06. |
 | T-08 | Amount, payment, date and data verification | `legal-os-data-verification` | Arithmetic status is not a legal conclusion. |
@@ -33,6 +33,6 @@ Legal OS v0.7.0 release candidate contains fourteen installable Skills. T-routes
 - `cn-law-hub`
 - `legal-os-learning-maintenance`
 
-## v0.7.0 compatibility note
+## v0.8.0 compatibility note
 
-T-01 through T-12 remain stable. `cn-case-hub` retains the v0.6 case-record fields while adding a dual-axis case matrix and decision-fork variables. T-05 is no longer dependent on an unbundled current-law Skill: current-law questions dispatch to bundled `cn-law-hub`. The public package still requires human legal judgment and separate authorization for external actions.
+T-01 through T-12 remain stable. `cn-case-hub` retains the v0.6 case-record fields while adding a dual-axis case matrix and decision-fork variables. T-05 current-law questions dispatch to bundled `cn-law-hub`, whose public adaptation generates official-source plans and validates authority records without embedding external crawlers. The public package still requires human legal judgment and separate authorization for external actions.

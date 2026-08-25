@@ -1,6 +1,6 @@
 ---
 name: cn-law-hub
-description: Legal OS 第一方中国现行法与条约研究核验 Skill。用于检索和核验法律、行政法规、司法解释、部门规章、条约及其他需要确认效力、版本、生效时间和具体条文的权威法源。以官方来源和实际访问记录为依据，不依赖第三方 Skill、MCP、商业法规数据库 SDK 或复制的外部爬虫代码。
+description: Legal OS 第一方中国现行法与条约研究核验 Skill。用于设计官方法源查询、核验法律、行政法规、司法解释、部门规章、条约及其他规范的效力、版本、生效时间和具体条文，并生成可审计的 authority record。以官方来源和实际访问记录为依据，不依赖第三方 Skill、MCP、商业法规数据库 SDK 或复制的外部爬虫代码。
 ---
 
 # 中国现行法研究与核验（Legal OS first-party）
@@ -13,17 +13,17 @@ description: Legal OS 第一方中国现行法与条约研究核验 Skill。用�
 
 1. **定义法律命题。** 写清楚需要验证的法域、事项类型、事实发生时间、程序时间和具体命题；不要先从模型记忆写法条。
 2. **确定法源层级。** 按宪法/法律、行政法规、司法解释、部门规章、地方性法规/规章或条约识别应检索的规范层级；条约另行核对签署、批准/核准、对中国生效及保留声明。
-3. **设计官方查询。** 可运行 `scripts/build_authority_queries.py`。检索词包括规范名称、条号、关键词、制定机关、公布/施行日期及“修改/废止/失效/现行有效”等版本词。
+3. **设计官方查询。** 可运行 `scripts/build_authority_queries.py`。它会按登记的十个主要官方来源生成查询计划；检索词包括规范名称、条号、关键词、制定机关、公布/施行日期及“修改/废止/失效/现行有效”等版本词。该脚本只生成计划，不自动抓取、缓存或绕过访问控制。
 4. **实际访问官方来源。** 优先国家法律法规数据库、全国人大/中国政府网、最高人民法院/最高人民检察院、国务院部门和有权地方机关官方站点。搜索摘要仅作线索。
 5. **核验版本链。** 至少记录制定/公布机关、文号、公布日期、施行日期、修改/废止信息、当前状态、适用于本案的时间版本。
 6. **核验具体条文。** 记录条号、条文原文定位或官方页面定位；避免引用已经修改但仍可搜索到的旧文本。
 7. **处理时间适用。** 明确区分事实发生时法、程序进行时法和当前法。存在新旧法衔接、溯及力或特别过渡条款时单独列示。
-8. **形成 authority record。** 使用 `references/authority-record.md` 并可运行 `scripts/validate_authority_records.py`。
+8. **形成 authority record。** 使用 `references/authority-record.md` 并运行 `scripts/validate_authority_records.py`。验证器会检查必备字段、官方 HTTPS 来源、来源与法源类型绑定、状态变更说明、日期字段和数组重复项。
 9. **回流主工作流。** 返回“命题—现行法—历史版本—时间适用—未核事项”，不要把法规检索结果自动变成案件结论。
 
 ## 官方来源策略
 
-读取 `references/source-registry.md`。不同官方站点可能需要登录或可能暂时不可访问；受限时记录 `blocked`，不要绕过访问控制。专业数据库可在实际工作环境中辅助检索，但不是本 Skill 的安装条件，正式结论仍需可追溯权威来源。
+读取 `references/source-registry.md`。不同官方站点可能需要登录或可能暂时不可访问；受限时记录 `blocked`，不要绕过访问控制。专业数据库可在实际工作环境中辅助检索，但不是本 Skill 的安装条件，正式结论仍需可追溯权威来源。`scripts/source_registry.py` 是公开适配的机器可读来源登记，不是外部数据镜像。
 
 ## 硬性停止条件
 
@@ -36,6 +36,7 @@ description: Legal OS 第一方中国现行法与条约研究核验 Skill。用�
 ## Bundled resources
 
 - `scripts/build_authority_queries.py`
+- `scripts/source_registry.py`
 - `scripts/validate_authority_records.py`
 - `scripts/check_first_party_boundary.py`
 - `references/source-registry.md`

@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/release-v0.7.0-blue" alt="v0.7.0 public prerelease">
+  <img src="https://img.shields.io/badge/release-v0.8.0-blue" alt="v0.8.0 public prerelease">
   <img src="https://img.shields.io/badge/Skills-14-2563eb" alt="14 Skills">
   <img src="https://img.shields.io/badge/routes-12-0f766e" alt="12 routes">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
@@ -24,7 +24,7 @@
   <a href="#核心能力">核心能力</a> ·
   <a href="docs/architecture.md">查看架构</a> ·
   <a href="docs/capability-matrix.md">能力矩阵</a> ·
-  <a href="docs/case-and-law-research-v0.7.md">v0.7.0 研究架构</a> ·
+  <a href="docs/current-law-public-adaptation-v0.8.md">v0.8.0 研究适配</a> ·
   <a href="CHANGELOG.md">版本记录</a>
 </p>
 
@@ -32,7 +32,7 @@
 
 ## 当前版本
 
-**v0.7.0 公开预发布版**。当前公开包包含 **14 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
+**v0.8.0 公开适配版（公开预发布）**。当前公开包包含 **14 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
 
 ## Legal OS 是什么
 
@@ -55,9 +55,10 @@ Legal OS 不是一组零散提示词，也不是替代律师判断的无人值�
 | 把数字与文件交付稳住 | 金额/付款/日期核验、模板解析、Office 源文件检查、版本与归档 |
 | 把风险留在可控范围 | 证据回流、法律质量门、事实与策略分层、外部动作单独授权 |
 
-### v0.7.0 重点升级
+### v0.8.0 重点升级
 
-- **研究更可核验**：`cn-case-hub` 负责官方类案研究，`cn-law-hub` 负责现行法、效力、版本链和时间适用；
+- **研究更可核验**：`cn-case-hub` 负责官方类案研究，`cn-law-hub` 负责现行法、效力、版本链和时间适用，并为十个主要官方来源生成可审计查询计划；
+- **公开适配更安全**：`cn-law-hub` 的公开实现只包含来源登记、查询计划和 authority record 核验，不捆绑来源爬虫、第三方 MCP 或商业数据库 SDK；外部官方站点仍需在实际工作环境中按权限访问；
 - **研究能回到案件**：把裁判变量连接到本案事实、证据缺口、补证动作和诉讼策略，而不把检索样本包装成胜诉率；
 - **交付更可控**：统一入口、模板运行时、Office 源文件质量门和法律质量门共同约束正式成果；
 - **改进可持续**：`legal-os-learning-maintenance` 把可复用流程改进沉淀为规则，同时将具体事项事实留在事项范围内。
@@ -159,13 +160,14 @@ python3 -m unittest discover -s tests -v
 ./install.sh --dry-run
 ```
 
-具体命令、环境和结果见 [`TEST_REPORT_v0.7.0.md`](TEST_REPORT_v0.7.0.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
+具体命令、环境和结果见 [`TEST_REPORT_v0.8.0.md`](TEST_REPORT_v0.8.0.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
 
 ## 文档导航
 
 - [系统架构](docs/architecture.md)
 - [能力矩阵](docs/capability-matrix.md)
 - [统一入口与路由](docs/unified-intake-routing.md)
+- [v0.8.0 现行法公开适配](docs/current-law-public-adaptation-v0.8.md)
 - [v0.7.0 案例/现行法研究架构](docs/case-and-law-research-v0.7.md)
 - [诉讼工作空间](docs/litigation-workspace.md)
 - [证据工作空间](docs/evidence-workspace.md)
@@ -178,3 +180,7 @@ python3 -m unittest discover -s tests -v
 ## 许可证
 
 版本变化见 [`CHANGELOG.md`](CHANGELOG.md)，单个版本的升级说明和验证记录见仓库根目录的对应文档。除文件或子目录另有说明外，本仓库采用 [Apache License 2.0](LICENSE) 许可。
+
+## 致谢
+
+感谢 [`cn-law-hub`](https://github.com/ZongziForu/cn-law-hub) 公开项目及其维护者分享中国官方法源组织和法律检索的实践经验。Legal OS 的公开适配保持独立实现，不复制该项目的源代码、爬虫或运行时，并不表示双方存在隶属、背书或官方合作关系。

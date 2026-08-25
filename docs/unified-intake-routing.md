@@ -8,9 +8,9 @@ Load `Kernel + one primary workflow + necessary auxiliaries + the matching quali
 
 For legal DOCX and ordinary editable Excel, use the shared Office source policy: source structure/content/revisions/formulas are primary, while visual inspection is runtime-aware and conditional unless the user asks for it or a concrete layout risk exists.
 
-## T-05 research dispatch in v0.7.0
+## T-05 research dispatch in v0.8.0
 
-- `current-law-research` → `cn-law-hub`;
+- `current-law-research` → `cn-law-hub` (official-source query plan and authority-record validation);
 - `case-research` → `cn-case-hub`.
 
 When legal/case research is auxiliary to a contract or litigation matter, retain the substantive route as primary. Do not turn T-05 into a competing primary route merely because research is needed.

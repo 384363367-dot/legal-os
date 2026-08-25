@@ -1,15 +1,20 @@
 # 中国现行法官方来源登记
 
-优先使用实际有权发布或汇集现行法文本的官方来源：
+优先使用实际有权发布或汇集现行法文本的官方来源。公开适配的来源登记和法源类型绑定由 `scripts/source_registry.py` 维护；该登记只描述官方入口，不抓取、缓存或重新分发外部内容：
 
 1. 国家法律法规数据库：`https://flk.npc.gov.cn/`
-2. 中国人大网：`https://www.npc.gov.cn/`
-3. 中国政府网：`https://www.gov.cn/`
-4. 最高人民法院：`https://www.court.gov.cn/`
-5. 最高人民检察院：`https://www.spp.gov.cn/`
-6. 外交部条约数据库：`https://treaty.mfa.gov.cn/`，用于条约身份、缔约方、签署/生效信息及文本核验。
-7. 司法部及国务院部门官网：用于其权限范围内规章、规范性文件和公开说明。
-8. 地方人大、地方政府官方站点：用于地方性法规、地方政府规章。
+2. 国家规章库：中国政府网规章公开入口 `https://www.gov.cn/zhengce/xxgk/gjgzk/`
+3. 外交部条约数据库：`https://treaty.mfa.gov.cn/`，用于条约身份、缔约方、签署/生效信息及文本核验。
+4. 国务院政策文件库：`https://sousuo.www.gov.cn/`
+5. 司法部行政法规库：`https://xzfg.moj.gov.cn/`
+6. 党内法规库：`https://www.12371.cn/special/dnfg/`
+7. 国防部法规文库：`https://www.mod.gov.cn/gfbw/fgwx/`
+8. 税务法规库：`https://fgk.chinatax.gov.cn/`
+9. 生态环境部法规规章：`https://www.mee.gov.cn/ywgz/fgbz/`
+10. 最高人民法院发布栏目：`https://www.court.gov.cn/fabu/`
+11. 中国人大网、最高人民检察院、地方人大和地方政府官方站点：作为对应权限范围内的交叉核验来源。
+
+运行 `scripts/build_authority_queries.py` 会为登记的十个主要来源生成查询计划，并保留通用搜索词作为线索。它不会自动访问外部站点；实际访问应在获得相应权限、遵守站点访问控制并打开官方原文后完成。
 
 官方来源之间出现版本不一致时，优先核对制定/修改机关发布文本及法定公布信息，并把冲突记入记录，不自动选择对本案有利的版本。
 
