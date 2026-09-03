@@ -39,8 +39,10 @@ This v0.7.0 section is an intentional expansion of the public repository boundar
 
 ## v0.8.0 public current-law adaptation
 
-The public `cn-law-hub` adaptation adds only first-party source metadata, official-source query planning and deterministic authority-record validation. It does not bundle source-specific crawlers, MCP servers, commercial database SDKs, downloaded legal data, caches or private runtime files.
+The public `cn-legal-research` Skill is an independently authored, standard-library source adapter. It provides bounded runtime search, detail, article, preview and download handling for ten registered official-source families, plus deterministic authority-record validation and an optional SDK-free JSON-RPC interface. It does not bundle source data, caches, credentials, commercial database SDKs or private runtime files.
+
+`cn-law-hub` remains a compatibility/transition Skill for public source metadata, query planning and authority-record calls from older integrations; it is not the T-05 current-law default.
 
 The ten primary official-source entries are source metadata and research entry points, not a claim that Legal OS owns or redistributes the underlying legislation, cases, databases or government publications. The public package must open and verify an official source in the actual permitted environment before treating a proposition as `verified-source`.
 
-The public adaptation is independent from any private runtime copy. Private names, absolute paths, internal governance records, matter materials and organization overlays remain outside the public repository. The acknowledgement in `README.md` is attribution of research experience only and does not imply code reuse, affiliation or endorsement.
+The public adaptation is independent from any private runtime copy. Private names, absolute paths, internal governance records, matter materials and organization overlays remain outside the public repository. The acknowledgement in `README.md` is attribution of research experience only and does not imply code reuse, affiliation or endorsement. Official websites and their content remain subject to their own terms and access controls.

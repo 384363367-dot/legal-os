@@ -9,6 +9,8 @@ description: "Source-locked final quality gate for formal Chinese legal work. Us
 
 Use this skill as a final review layer before formal or high-risk legal delivery. It does not create legal facts or legal authorities. Verify facts against current materials and verify legal authorities against current effective Chinese law before treating them as final.
 
+For external expression, read the public [external-expression boundary](../legal-os-unified-intake/references/external-expression-boundary.md) and apply it by audience. It limits unnecessary counterparty disclosure, preserves truthful and mandatory procedural content, and never replaces complete internal/client analysis or authorization.
+
 Read the current matter materials and any organization policy or approved template actually provided for the task. Do not assume a private rule library exists, invent missing policy, or embed organization names, personal paths, client data or matter-specific defaults in this Skill.
 
 For legal DOCX and ordinary editable Excel, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md). Editable-source QA is always primary; when the active mode is `final` or a `conditional` trigger fires, record the visual findings once. Environment-limited rendering does not by itself fail a structurally valid source artifact, and an explicit user instruction not to render remains a hard stop.
@@ -21,7 +23,7 @@ For legal DOCX and ordinary editable Excel, apply [the shared Office source poli
 4. Verify facts: subject names, identities, amount, date, contract number, project, case number, court/arbitration body, procedural stage, payment, delivery, acceptance, invoice, breach, termination, limitation period.
 5. Verify evidence: each key assertion must map to material evidence or be marked as unverified outside the formal text.
 6. Verify law: current effective law, judicial interpretation, regulation, or authoritative rule. Do not use old memory, third-party skills, or uncited recollection as authority.
-7. Review expression boundary: no unnecessary admission, waiver, concession, overstatement, emotional accusation, or exposure of backup arguments.
+7. Review expression boundary: no unnecessary admission, waiver, concession, overstatement, emotional accusation, unraised opponent defence/legal roadmap, or exposure of backup arguments. Confirm that mandatory legal, contractual and procedural disclosures remain present and truthful; for procedural submissions, verify that the confirmed objective, requested relief/defence, legal basis, necessary facts, evidence, amount basis and logical chain remain supportable; verify consistency across related documents; keep pending/unverified labels and favourable-only analysis out of the external artifact while preserving complete internal analysis.
 8. Review format and delivery: Word/table/page numbers/signature/date/attachments are clean and suitable for direct use.
 9. Build the authority package for every material formal legal proposition. Laws and rules require current effective status; cases require an actually accessed, identifiable official/court source and `current_status=verified-source`. Model memory and secondary summaries are leads only.
 10. Run the release lock. Final, filing, publishing, R2 and R3 outputs require a matter manifest and a sign-off whose matter ID, exact artifact path, SHA-256, risk level and permitted use match the current artifact. Contract Final also requires a matching `PASS` redline report.

@@ -9,6 +9,10 @@ description: Source-locked intake and task routing for ambiguous or cross-domain
 
 Resolve only genuinely ambiguous or cross-domain requests to one primary workflow. A clearly named contract, litigation, correspondence, research, data, file-delivery, reporting, communication, or memory task bypasses this router and invokes its primary skill directly. This router does not prove that a downstream capability is implemented or validated.
 
+## Shared external-expression boundary
+
+When a downstream workflow produces external-facing text, read the public [external-expression boundary](references/external-expression-boundary.md). Apply it by audience and legal relationship. It selects necessary disclosure; it does not replace source verification, legal/procedural duties, internal analysis or authorization, and it must not be copied as a parallel gate into every route.
+
 ## Invocation boundary
 
 - Use this router when the primary workstream is genuinely unclear, multiple workstreams compete for ownership, or the user asks for classification.
@@ -48,7 +52,7 @@ Read [office-source-policy.md](references/office-source-policy.md) before loadin
 - `T-01` contract review/redline → `legal-os-contract`; add data and document QA only as needed.
 - `T-02` pleadings and `T-04` litigation strategy → `legal-os-litigation`; use its evidence-mapping and legal-research phases as needed. T-02 remains one primary route while `procedure_type`, `pleading_role` and `document_variant` select the correct civil, commercial-arbitration or labour/personnel-arbitration variant. A complaint, application or answer requires a paired evidence catalogue.
 - `T-03` evidence register/proof mapping → the evidence-mapping phase in `legal-os-litigation`; do not infer authenticity, admissibility, or weight.
-- `T-05` legal research → use `cn-law-hub` for laws, regulations, rules, judicial interpretations, treaties and article-level current-status verification; use `cn-case-hub` for cases, guiding cases, typical cases, case-number verification and adjudicative viewpoints. Treat both as research auxiliaries to the substantive primary workflow. Every formal proposition must enter the authority package with an actually accessed official source, access date, pinpoint and verified status; memory, model knowledge, search snippets and third-party summaries are leads only.
+- `T-05` legal research → use the default `cn-legal-research` adapter for laws, regulations, rules, judicial interpretations, treaties and article-level current-status verification; use `cn-case-hub` for cases, guiding cases, typical cases, case-number verification and adjudicative viewpoints. `cn-law-hub` is retained only for explicit compatibility metadata, query plans and authority-record validation. Treat research Skills as auxiliaries to the substantive primary workflow. Every formal proposition must enter the authority package with an actually accessed official source, access date, pinpoint and verified status; memory, model knowledge, search snippets and third-party summaries are leads only.
 - `T-06` lawyer letters, payment/performance notices, replies, situation statements → `legal-os-correspondence`.
 - `T-07` business chat, email, oral or leadership wording → `legal-os-business-communication`; check audience and commitment boundaries.
 - `T-08` amounts, payments, interest, formulas, dates and data conflicts → `legal-os-data-verification`; keep raw and derived values separate.

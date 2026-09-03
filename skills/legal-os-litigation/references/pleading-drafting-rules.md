@@ -2,21 +2,23 @@
 
 Apply these rules when generating or substantively reviewing a complaint, arbitration application, civil answer or arbitration answer.
 
+The public external-expression boundary in `legal-os-unified-intake/references/external-expression-boundary.md` supplies the audience rule. R13–R16 apply it to pleadings without replacing procedural disclosure duties or restricting complete internal/client analysis.
+
 ## R1 — Resolve the procedure variant first
 
 Classify `procedure_type`, `pleading_role` and `document_variant` before template resolution. Civil litigation, commercial arbitration, labour/personnel arbitration and other procedures do not share identical requests, cost rules or mandatory fields. Stop with `PROCEDURE_VARIANT_REQUIRED` when the variant cannot be established from current material.
 
 ## R2 — Analyse broadly, plead through a controlled route
 
-The internal work product may identify all reasonable claims, defences, alternatives and risks. The external pleading should use the strongest compatible route that covers the requested outcome without unnecessary admissions or exposure. Add an alternative position only when the primary route is incomplete and the alternative is factually and legally compatible.
+The internal work product may identify all reasonable claims, defences, alternatives and risks. Confirm the current procedural or substantive objective and requested relief or defence scope from current material before selecting the external route. If either remains unresolved, mark it pending in internal analysis and do not complete it by inference in the external pleading. The external pleading should use the strongest compatible route that covers the requested outcome without unnecessary admissions or exposure. Add an alternative position only when the primary route is incomplete and the alternative is factually and legally compatible.
 
 ## R3 — Applications must establish each requested remedy
 
-For every claim, connect:
+For every material claim or defence, connect internally:
 
-`executable relief and calculation → legal elements → material facts → evidence → jurisdiction, limitation and required procedure → verified current authority`
+`confirmed objective → executable relief or defence and calculation → legal/procedural elements → material facts → evidence → jurisdiction, limitation, required procedure and verified current authority → legal conclusion`
 
-Do not replace facts with abstract legal conclusions or omit an element merely to keep the document short.
+Adapt the chain to the document's function; do not mechanically expose the entire internal chain in an external pleading. Do not replace facts with abstract legal conclusions or omit an element merely to keep the document short. High information density does not justify omitting necessary logical links, procedural information, amount basis or issue explanation.
 
 ## R4 — Answers use an issue-scope gate
 
@@ -36,7 +38,7 @@ Before placing authority in the external pleading, ask whether it decides the is
 
 ## R7 — Do not exceed the evidence
 
-Prefer complete originals and signed records to screenshots, OCR or recollection. Keep ambiguous handwriting, amounts, dates or identities unverified. A payment record proves only the parties, time, amount and displayed purpose shown on it; do not infer an unsupported allocation or full settlement. Separate fact, inference and legal evaluation in the internal work product.
+Prefer complete originals and signed records to screenshots, OCR or recollection. Keep ambiguous handwriting, amounts, dates or identities unverified. A payment record proves only the parties, time, amount and displayed purpose shown on it; do not infer an unsupported allocation or full settlement. Record the source of each material fact. In internal work, distinguish evidence-supported facts, party statements, opponent assertions, facts still to be proved, disputed/unconfirmed facts, legal evaluations and inferences. An external pleading may state a fact to be proved when necessary, but must not describe it as established beyond source support.
 
 ## R8 — Generate the pleading and evidence catalogue as a pair
 
@@ -68,6 +70,8 @@ For a complaint, arbitration application, payment-order application or equivalen
 4. How do verified facts, evidence and authority establish each requested remedy?
 
 Do not volunteer a hypothetical opponent defence, opponent evidence roadmap, opponent proof deficiency, proposed allocation of the opponent's burden, adjudicator investigation plan, nonessential adverse authority or the represented party's complete contingency response. Do not state an unverified favourable fact as established. Keep these items in the internal analysis, hearing plan, authority package or a separate procedural application as applicable.
+
+Keep stage boundaries explicit: an initial or start-up pleading establishes the requested relief and necessary foundation; a responsive or argumentative pleading develops issues actually raised or formed in the proceeding. Do not import hypothetical response analysis into an initial pleading merely because an adverse fact could matter.
 
 ## R14 — Exceptions require a recorded function
 
@@ -125,3 +129,4 @@ Do not speculate about whether the third party paid, whether the opposing party 
 - Renumbering, renaming or changing a proof purpose requires synchronized updates across both artifacts.
 - Unknown page ranges remain `待编页`; never invent pagination.
 - Distinguish evidence submitted by the represented party from material filed by another party.
+- Keep related pleadings, evidence catalogues, written submissions and hearing statements substantively consistent in party identity, dates, amounts, legal relationship, performance and core facts. If new evidence, verification, relief or procedure requires a change, record the difference and legal effect internally rather than leaving an unexplained material conflict.

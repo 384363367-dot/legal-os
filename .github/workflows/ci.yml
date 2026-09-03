@@ -32,6 +32,7 @@ jobs:
         run: |
           python skills/cn-case-hub/scripts/check_first_party_boundary.py
           python skills/cn-law-hub/scripts/check_first_party_boundary.py
+          python skills/cn-legal-research/scripts/check_first_party_boundary.py
       - name: Installer dry-run
         run: ./install.sh --dry-run --target "$RUNNER_TEMP/legal-os-skills"
       - name: Run synthetic tests

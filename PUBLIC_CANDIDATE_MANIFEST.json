@@ -1,0 +1,42 @@
+{
+  "public_version": "0.8.0",
+  "candidate_id": "legal-os-public-v0.8.0-candidate",
+  "status": "candidate",
+  "released": false,
+  "inventory": {
+    "skills": 15,
+    "routes": 12,
+    "standard_office_templates": 24
+  },
+  "current_law_route": {
+    "route": "T-05/current-law-research",
+    "default_skill": "cn-legal-research",
+    "compatibility_skill": "cn-law-hub"
+  },
+  "research_adapter": {
+    "official_source_families": 10,
+    "implementation": "independent Python standard-library adapter",
+    "bundled_source_data": false,
+    "bundled_credentials": false,
+    "bundled_third_party_sdk": false,
+    "optional_protocol": "dependency-free JSON-RPC stdio"
+  },
+  "template_policy": {
+    "candidate_bound_assets": 13,
+    "source_shell_policy": "preserve source DOCX package; candidate status requires controller review",
+    "visual_rendering": "not run by default; only required for an explicit visual-risk trigger"
+  },
+  "external_actions": {
+    "commit": false,
+    "push": false,
+    "pull_request": false,
+    "tag": false,
+    "release": false
+  },
+  "review_documents": [
+    "RELEASE_NOTES_v0.8.0.md",
+    "TEST_REPORT_v0.8.0.md",
+    "docs/current-law-public-adaptation-v0.8.md",
+    "OPEN_SOURCE_BOUNDARY.md"
+  ]
+}

@@ -24,6 +24,8 @@ class ResearchV070Tests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as td:
    p=Path(td)/'a.json';p.write_text(json.dumps({'authorities':[rec]},ensure_ascii=False),encoding='utf-8');self.run_script(LAW/'scripts/validate_authority_records.py',str(p),expected=1)
  def test_cn_law_first_party_boundary(self):self.assertIn('PASS',self.run_script(LAW/'scripts/check_first_party_boundary.py').stdout)
+ def test_cn_law_hub_is_compatibility_only_in_public_manifest(self):
+  manifest=json.loads((ROOT/'legalos.manifest.json').read_text(encoding='utf-8'));route=next(x for x in manifest['routes'] if x['id']=='T-05');self.assertEqual(route['executor']['skill_by_intake_type']['current-law-research'],'cn-legal-research');self.assertEqual(next(x for x in manifest['skills'] if x['name']=='cn-law-hub')['status'],'compatibility')
  def test_case_skill_has_dual_axis_and_fork_variables(self):
   s=(CASE/'SKILL.md').read_text(encoding='utf-8');self.assertIn('A/B/C/D',s);self.assertIn('裁判分叉变量',s);self.assertIn('胜诉率',s)
  def test_litigation_has_research_handoff(self):

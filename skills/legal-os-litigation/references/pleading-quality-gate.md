@@ -4,9 +4,12 @@ Pass only when each material fact and requested relief/defence is supported by s
 
 For a claimant's initial complaint, arbitration application, payment-order application or equivalent first request, also confirm that:
 
+- the current procedural or substantive objective and requested relief or defence scope are confirmed; necessary facts, amount basis, procedural information and logical links are present, and minimum disclosure has not become a material omission;
 - the document maintains one represented-party stance and closes the supported chain from performance to due obligation, breach and relief;
 - it does not invent or volunteer a hypothetical opponent defence, evidence roadmap, proof deficiency, burden-allocation plan or adjudicator investigation plan;
 - it does not present an unverified favourable fact as established or disclose internal risk, fallback or response strategy;
+- related procedural documents in the same matter are substantively consistent in party identity, dates, amounts, legal relationship, performance and core facts; any change caused by new evidence, further verification, changed relief, procedure or correction has a recorded difference and legal effect;
+- internal pending, unverified, evidence-gap or drafting-process labels do not enter the external artifact, while complete internal analysis is preserved rather than compressed into a favourable-only account;
 - every adverse proposition, compatible alternative position or conditional formulation admitted to the external document satisfies R14 and has a recorded source and function;
 - case use is necessary, source-verified and claim-serving, while directly relevant contrary material remains recorded in the internal authority package;
 - investigation, evidence-production, hearing and evidence-comment functions have not been mixed into the initial pleading unless the selected procedure expressly requires them.

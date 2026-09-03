@@ -7,7 +7,8 @@ The prior public repository had a first-party case Skill but treated current-law
 ## First-party split
 
 - `cn-case-hub`: cases, program chains, dual-axis relevance/direction, decision-fork variables.
-- `cn-law-hub`: authority identity, effect, version history, article/pinpoint and temporal application.
+- `cn-legal-research`: current-law search, detail, article, source access and official-source retrieval; it is the current T-05 default.
+- `cn-law-hub`: authority identity, effect, version history, article/pinpoint and temporal-application compatibility records; it is not the current default executor.
 - `legal-os-litigation`: consumes verified outputs and converts them into matter evidence/argument/procedural actions.
 
 ## New and existing matters

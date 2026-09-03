@@ -12,7 +12,7 @@ The Litigation Workspace separates intake/routing from merits, evidence and lega
 
 ## v0.7.0 research handoff
 
-`cn-case-hub` supplies verified core cases, dual-axis grades and decision-fork variables. `cn-law-hub` supplies current-law version/effect/time applicability. `legal-os-litigation` maps those outputs to the matter's confirmed/disputed facts, evidence, gaps, opponent attacks and concrete litigation actions. High-relevance adverse cases must be distinguished or carried as risk.
+`cn-case-hub` supplies verified core cases, dual-axis grades and decision-fork variables. The T-05 default `cn-legal-research` adapter supplies current-law search, version/effect/time-applicability source material and article-level retrieval. `cn-law-hub` is a compatibility path for legacy metadata/query plans and authority records. `legal-os-litigation` maps those outputs to the matter's confirmed/disputed facts, evidence, gaps, opponent attacks and concrete litigation actions. High-relevance adverse cases must be distinguished or carried as risk.
 
 ## Hard boundaries
 

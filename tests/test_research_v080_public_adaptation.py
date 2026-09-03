@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LAW = ROOT / "skills/cn-law-hub"
+RESEARCH = ROOT / "skills/cn-legal-research"
 
 
 class PublicLawResearchAdaptationTests(unittest.TestCase):
@@ -104,6 +105,45 @@ class PublicLawResearchAdaptationTests(unittest.TestCase):
     def test_public_boundary_stays_first_party_and_private_free(self):
         result = self.run_script("check_first_party_boundary.py")
         self.assertIn("PASS", result.stdout)
+
+    def run_research_script(self, script: str, *args: str, expected: int = 0):
+        result = subprocess.run(
+            [sys.executable, str(RESEARCH / "scripts" / script), *args],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
+        return result
+
+    def test_current_law_default_is_the_full_adapter(self):
+        manifest = json.loads((ROOT / "legalos.manifest.json").read_text(encoding="utf-8"))
+        route = next(item for item in manifest["routes"] if item["id"] == "T-05")
+        self.assertEqual(route["executor"]["skill_by_intake_type"]["current-law-research"], "cn-legal-research")
+        self.assertEqual(next(item for item in manifest["skills"] if item["name"] == "cn-law-hub")["status"], "compatibility")
+
+    def test_public_adapter_boundary_and_registry(self):
+        result = self.run_research_script("check_first_party_boundary.py")
+        self.assertIn("PASS", result.stdout)
+        result = subprocess.run(
+            [sys.executable, "-c", "from source_registry import OFFICIAL_SOURCES; print(len(OFFICIAL_SOURCES)); assert all(s.official_url.startswith('https://') for s in OFFICIAL_SOURCES)"],
+            cwd=str(RESEARCH / "scripts"),
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(result.stdout.strip(), "10")
+
+    def test_public_adapter_mcp_protocol_is_offline(self):
+        request = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}}) + "\n"
+        result = subprocess.run(
+            [sys.executable, str(RESEARCH / "scripts/mcp_server.py"), "--once"],
+            input=request,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertTrue(any(tool["name"] == "search_official_source" for tool in payload["result"]["tools"]))
 
 
 if __name__ == "__main__":

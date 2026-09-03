@@ -7,9 +7,11 @@ class ManifestValidationTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls):cls.manifest=json.loads((ROOT/'legalos.manifest.json').read_text(encoding='utf-8'))
  def test_current_manifest_is_consistent(self):self.assertEqual(validate_manifest(ROOT),[])
- def test_has_fourteen_skills_and_twelve_routes(self):self.assertEqual(len(self.manifest['skills']),14);self.assertEqual(len(self.manifest['routes']),12)
+ def test_has_fifteen_skills_and_twelve_routes(self):self.assertEqual(len(self.manifest['skills']),15);self.assertEqual(len(self.manifest['routes']),12)
  def test_t05_dispatches_case_and_current_law(self):
-  r=next(x for x in self.manifest['routes'] if x['id']=='T-05');self.assertEqual(r['executor']['skill_by_intake_type'],{'current-law-research':'cn-law-hub','case-research':'cn-case-hub'})
+  r=next(x for x in self.manifest['routes'] if x['id']=='T-05');self.assertEqual(r['executor']['skill_by_intake_type'],{'current-law-research':'cn-legal-research','case-research':'cn-case-hub'})
+ def test_cn_law_hub_is_compatibility_only(self):
+  skill=next(x for x in self.manifest['skills'] if x['name']=='cn-law-hub');self.assertEqual(skill.get('status'),'compatibility');self.assertNotEqual(self.manifest['routes'][4]['executor']['skill_by_intake_type']['current-law-research'],'cn-law-hub')
  def test_t12_uses_learning_maintenance(self):
   r=next(x for x in self.manifest['routes'] if x['id']=='T-12');self.assertEqual(r['executor']['skill'],'legal-os-learning-maintenance')
  def test_missing_route_is_reported(self):

@@ -14,7 +14,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/release-v0.8.0-blue" alt="v0.8.0 public prerelease">
-  <img src="https://img.shields.io/badge/Skills-14-2563eb" alt="14 Skills">
+  <img src="https://img.shields.io/badge/Skills-15-2563eb" alt="15 Skills">
   <img src="https://img.shields.io/badge/routes-12-0f766e" alt="12 routes">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
@@ -32,7 +32,7 @@
 
 ## 当前版本
 
-**v0.8.0 公开适配版（公开预发布）**。当前公开包包含 **14 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
+**v0.8.0 公开适配版（公开候选）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
 
 ## Legal OS 是什么
 
@@ -57,8 +57,8 @@ Legal OS 不是一组零散提示词，也不是替代律师判断的无人值�
 
 ### v0.8.0 重点升级
 
-- **研究更可核验**：`cn-case-hub` 负责官方类案研究，`cn-law-hub` 负责现行法、效力、版本链和时间适用，并为十个主要官方来源生成可审计查询计划；
-- **公开适配更安全**：`cn-law-hub` 的公开实现只包含来源登记、查询计划和 authority record 核验，不捆绑来源爬虫、第三方 MCP 或商业数据库 SDK；外部官方站点仍需在实际工作环境中按权限访问；
+- **研究更可核验**：`cn-legal-research` 作为 T-05 现行法检索默认执行器，覆盖官方来源搜索、详情、预览、条文、下载、跨法规搜索和十个主要来源适配；`cn-case-hub` 负责官方类案研究；
+- **公开适配更安全**：`cn-legal-research` 使用独立的 Python 标准库适配器，运行时才访问登记的官方 HTTPS 来源，不捆绑法规数据、缓存、凭据或第三方 SDK；`cn-law-hub` 仅保留为兼容/过渡的元数据、查询计划和 authority record 能力，不再是默认入口；
 - **研究能回到案件**：把裁判变量连接到本案事实、证据缺口、补证动作和诉讼策略，而不把检索样本包装成胜诉率；
 - **交付更可控**：统一入口、模板运行时、Office 源文件质量门和法律质量门共同约束正式成果；
 - **改进可持续**：`legal-os-learning-maintenance` 把可复用流程改进沉淀为规则，同时将具体事项事实留在事项范围内。
@@ -81,7 +81,7 @@ flowchart LR
 
 系统入口为 `legal-os-unified-intake`。它识别事项类型、代表角色、风险、材料缺口、输出对象和授权边界，选择一个主工作流，并只组合必要辅助模块。
 
-## 14 个可安装 Skills
+## 15 个可安装 Skills
 
 | Skill | 角色 | 主要能力 |
 |---|---|---|
@@ -89,7 +89,8 @@ flowchart LR
 | [`legal-os-contract`](skills/legal-os-contract/) | Primary | 合同审核、最小必要修改、tracked-changes DOCX 与质量门 |
 | [`legal-os-litigation`](skills/legal-os-litigation/) | Primary | 诉讼/仲裁分析、证据映射、研究回流、诉辩文书与证据目录 |
 | [`cn-case-hub`](skills/cn-case-hub/) | Primary/Auxiliary | 官方案例核验、双轴类案矩阵、程序链、裁判分叉变量 |
-| [`cn-law-hub`](skills/cn-law-hub/) | Primary/Auxiliary | 现行法、版本、效力、条文、时间适用核验 |
+| [`cn-legal-research`](skills/cn-legal-research/) | T-05 Default/Auxiliary | 官方现行法搜索、详情、预览、条文、下载、跨法规搜索和来源适配 |
+| [`cn-law-hub`](skills/cn-law-hub/) | Compatibility | 兼容/过渡的官方来源元数据、查询计划和 authority record 核验；不是默认入口 |
 | [`legal-os-correspondence`](skills/legal-os-correspondence/) | Primary | 律师函、催款/履约通知、回复函、情况说明 |
 | [`legal-os-business-communication`](skills/legal-os-business-communication/) | Primary | 微信、邮件、会议/电话口径与承诺风险控制 |
 | [`legal-os-data-verification`](skills/legal-os-data-verification/) | Primary/Auxiliary | 金额、付款、发票、日期节点、数据冲突 |
@@ -132,7 +133,11 @@ flowchart LR
 ```
 
 ```text
-使用 $cn-law-hub 核验这条规定当前是否有效、历史版本、适用时间以及准确条文。
+使用 $cn-legal-research 核验这条规定当前是否有效、历史版本、适用时间以及准确条文；输出必须回到实际访问的官方原文。
+```
+
+```text
+使用 $cn-law-hub 生成兼容查询计划或核验 authority record；它不替代 cn-legal-research 的默认检索入口。
 ```
 
 ```text
@@ -168,6 +173,7 @@ python3 -m unittest discover -s tests -v
 - [能力矩阵](docs/capability-matrix.md)
 - [统一入口与路由](docs/unified-intake-routing.md)
 - [v0.8.0 现行法公开适配](docs/current-law-public-adaptation-v0.8.md)
+- [公开候选清单](PUBLIC_CANDIDATE_MANIFEST.json)
 - [v0.7.0 案例/现行法研究架构](docs/case-and-law-research-v0.7.md)
 - [诉讼工作空间](docs/litigation-workspace.md)
 - [证据工作空间](docs/evidence-workspace.md)

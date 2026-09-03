@@ -1,0 +1,7 @@
+Legal OS cn-legal-research public adapter
+
+This directory contains an independently authored Python-standard-library adapter for accessing registered official sources. It does not include downloaded legislation, cached responses, credentials, login state, third-party SDKs, or copied third-party crawler source code.
+
+Official websites, legislation, treaty texts, policy documents, and other source materials remain subject to their own ownership, licensing, terms of use, and access controls. The source registry is an attribution and routing record; it is not a claim that Legal OS owns or redistributes those materials.
+
+The repository Apache-2.0 license applies to original repository code and documentation to the extent permitted by law. Nothing in this notice grants permission to bypass access controls or to redistribute external source content.

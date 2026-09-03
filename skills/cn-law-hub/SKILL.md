@@ -3,7 +3,9 @@ name: cn-law-hub
 description: Legal OS 第一方中国现行法与条约研究核验 Skill。用于设计官方法源查询、核验法律、行政法规、司法解释、部门规章、条约及其他规范的效力、版本、生效时间和具体条文，并生成可审计的 authority record。以官方来源和实际访问记录为依据，不依赖第三方 Skill、MCP、商业法规数据库 SDK 或复制的外部爬虫代码。
 ---
 
-# 中国现行法研究与核验（Legal OS first-party）
+# 中国现行法研究与核验（Legal OS compatibility adapter）
+
+> 兼容/过渡说明：当前公开包的 T-05 `current-law-research` 默认执行器是 `cn-legal-research`。本 Skill 仅为旧调用方保留公开元数据、查询计划和 authority-record 校验能力，不是默认检索入口。
 
 ## 职责
 

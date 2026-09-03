@@ -10,8 +10,10 @@ For legal DOCX and ordinary editable Excel, use the shared Office source policy:
 
 ## T-05 research dispatch in v0.8.0
 
-- `current-law-research` → `cn-law-hub` (official-source query plan and authority-record validation);
+- `current-law-research` → `cn-legal-research` (default official-source search, detail, preview, article, download and source-adapter execution);
 - `case-research` → `cn-case-hub`.
+
+`cn-law-hub` may be selected only explicitly for compatibility metadata, query-plan generation or authority-record validation. It is not an alternative default route.
 
 When legal/case research is auxiliary to a contract or litigation matter, retain the substantive route as primary. Do not turn T-05 into a competing primary route merely because research is needed.
 

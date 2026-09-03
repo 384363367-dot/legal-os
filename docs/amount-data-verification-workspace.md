@@ -5,5 +5,5 @@ Generic source-locked verification for amount reconciliation, payment records, d
 - preserve source values/locators;
 - separate formulas/derived calculations from legal conclusions;
 - maintain a conflict/gap ledger;
-- route contract meaning to contract, procedure/strategy/evidence to litigation, and current law to `cn-law-hub`;
+- route contract meaning to contract, procedure/strategy/evidence to litigation, and current law to the T-05 default `cn-legal-research` adapter;
 - do not let arithmetic status authorize external action.

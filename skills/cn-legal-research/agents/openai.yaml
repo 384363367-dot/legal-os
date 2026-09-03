@@ -1,0 +1,6 @@
+interface:
+  display_name: "Legal OS 中国官方法源检索"
+  short_description: "官方来源搜索、详情、条文定位、下载与效力核验"
+  default_prompt: "Use $cn-legal-research to search and verify Chinese official legal sources with explicit URLs, status, dates, and article-level locations."
+policy:
+  allow_implicit_invocation: false

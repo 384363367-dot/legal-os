@@ -7,6 +7,8 @@ description: Source-locked Chinese formal-correspondence workflow for lawyer let
 
 Route formal correspondence through a source-locked workflow. Keep the public Skill generic; keep case facts, private evidence, internal strategy, and sending records in the private matter workspace.
 
+For external wording, apply the public [external-expression boundary](../legal-os-unified-intake/references/external-expression-boundary.md) by receiving audience. It limits unnecessary counterparty disclosure while preserving truthful and mandatory procedural content; it does not compress internal or client analysis.
+
 ## Office source policy
 
 For a standard legal DOCX, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any helper. Source structure is primary; select `off`, `conditional`, or `final` under the shared runtime-aware policy. A formal adoptable DOCX may receive one final visual QA pass when reliable runtime capability exists, and an explicit user instruction not to render remains a hard stop.
@@ -17,7 +19,7 @@ For a standard legal DOCX, apply [the shared Office source policy](../legal-os-u
 2. **Collect source material** — read the relevant contract, notices, correspondence, delivery/payment/acceptance records, evidence register, litigation analysis, and current legal research. Do not infer missing facts.
 3. **Build the fact and deadline ledger** — record each material fact, amount, date, obligation, breach/status, deadline, calculation basis, and source location. Distinguish confirmed, user-stated, document-stated, inferred, and unresolved items.
 4. **Choose the document type and template** — identify lawyer letter, payment/performance notice, reply letter, or situation statement. Use `legal-os-template-runtime` to resolve and hash-check one approved template. Stop with `TEMPLATE_REQUIRED` rather than inventing a layout.
-5. **Draft the external text** — preserve the fixed visual shell, but expand the body to match the actual chronology, breach, demand, response options, contractual remedies, verified legal consequences, dispute route, costs, preservation measures and rights reservation. Include only necessary, supportable material; do not turn possible or discretionary consequences into certain threats.
+5. **Draft the external text** — preserve the fixed visual shell, but expand the body to match the actual chronology, breach, demand and any verified consequence or remedy necessary for the current objective. Include a dispute route, cost item, preservation measure or rights reservation only when required by law/contract/procedure, actually relevant, or supported by the current objective. Do not volunteer an unraised defence, legal roadmap, evidence reserve or fallback; do not turn possible or discretionary consequences into certain threats.
 6. **Run the quality gate** — verify facts, evidence, current law when cited, recipient and service information, deadline computation, attachments, expression boundaries, template fidelity, formatting, and authorization states.
 7. **Release by authorization** — label draft, internal review, or external clean version. Drafting does not authorize sending, service, filing, signing, or contacting a counterparty.
 
@@ -28,11 +30,13 @@ Stop for review when sender, recipient, contract/project, amount, date, obligati
 ## Document controls
 
 - Keep internal analysis, negotiation posture, escalation options, and risk ratings out of the external version.
+- Apply the public external-expression boundary by audience; counterparties receive the necessary issue and response, while internal/client analysis remains complete.
 - Map each material assertion and demand to supplied material; legal propositions must cite current verified authority when used.
 - Treat deadline, delivery, attachment, and recipient details as substantive controls, not formatting details.
 - Do not use a template or old memory to fill a factual or legal gap.
 - Treat template wording as a minimum functional example, not a content ceiling. Add numbered subparts, risk warnings, calculations and attachments when the matter requires them.
 - Check the DOCX source for readable OOXML, complete text, numbering, tables, headers/footers, font and paragraph properties, accessibility, and preservation of unchanged content.
+- For payment or collection letters, verify the necessary fact chain `legal relationship → our performance → payment obligation formed → due → unpaid`; activate special legal modules only when the actual issue requires them.
 
 ## References
 

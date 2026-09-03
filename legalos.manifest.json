@@ -4,7 +4,7 @@
   "product": {
     "name": "Legal OS",
     "public_version": "0.8.0",
-    "release_status": "released",
+    "release_status": "candidate",
     "version_namespace": "public-semver"
   },
   "authority": {
@@ -97,7 +97,15 @@
     },
     {
       "name": "cn-law-hub",
-      "role": "primary-or-auxiliary",
+      "role": "compatibility-auxiliary",
+      "status": "compatibility",
+      "maturity": "candidate"
+    },
+    {
+      "name": "cn-legal-research",
+      "role": "auxiliary",
+      "status": "current-law-default",
+      "default_route": "T-05/current-law-research",
       "maturity": "candidate"
     },
     {
@@ -156,7 +164,7 @@
       "executor": {
         "kind": "bundled-research-family",
         "skill_by_intake_type": {
-          "current-law-research": "cn-law-hub",
+          "current-law-research": "cn-legal-research",
           "case-research": "cn-case-hub"
         }
       }
@@ -283,7 +291,11 @@
     },
     "cn-law-hub": {
       "allow_implicit_invocation": false,
-      "scope": "explicit invocation or router selection for authoritative current-law research"
+      "scope": "explicit compatibility invocation only; not the default current-law executor"
+    },
+    "cn-legal-research": {
+      "allow_implicit_invocation": false,
+      "scope": "T-05 router selection or explicit invocation for bounded official-source search, detail, article, download or source-adapter work"
     },
     "legal-os-learning-maintenance": {
       "allow_implicit_invocation": false,

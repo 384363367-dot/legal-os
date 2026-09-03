@@ -7,7 +7,7 @@ description: Legal OS 第一方中国大陆类案研究 Skill。用于查案例�
 
 ## 职责边界
 
-本 Skill 负责**案例发现、真实性核验、程序链、相关度/方向分类和裁判分叉变量**。它不替代 `cn-law-hub` 的现行法核验，也不替代 `legal-os-litigation` 的本案诉讼策略判断。
+本 Skill 负责**案例发现、真实性核验、程序链、相关度/方向分类和裁判分叉变量**。它不替代 T-05 默认的 `cn-legal-research` 现行法核验，也不替代 `legal-os-litigation` 的本案诉讼策略判断。
 
 运行链：
 
@@ -145,7 +145,7 @@ description: Legal OS 第一方中国大陆类案研究 Skill。用于查案例�
 - 官方原文无法找到：降为 `lead-only`；
 - 案号/法院/日期/结果冲突：并列冲突，停止实体结论；
 - 只有二手摘要：不得标记 `verified-source`；
-- 新旧法可能影响旧案例：先交 `cn-law-hub` 核验；
+- 新旧法可能影响旧案例：先交 T-05 默认的 `cn-legal-research` 核验；仅在读取旧 authority record 或查询计划时使用 `cn-law-hub` 兼容路径；
 - 高相关不利案例未处理：报告不得标记完成；
 - 真实样本不足：不得输出趋势或概率化结论。
 

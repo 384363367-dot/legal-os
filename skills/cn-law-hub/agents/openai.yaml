@@ -1,6 +1,6 @@
 interface:
   display_name: "Legal OS 中国现行法研究"
   short_description: "官方法源版本、效力、条文与时间适用核验"
-  default_prompt: "Use $cn-law-hub to verify authoritative Chinese current law, version history, article text, and temporal application."
+  default_prompt: "Use $cn-law-hub only for compatibility metadata, query plans, or authority records; use $cn-legal-research for default current-law retrieval."
 policy:
   allow_implicit_invocation: false

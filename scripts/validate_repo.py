@@ -12,7 +12,7 @@ NAME_RE=re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 FRONTMATTER_RE=re.compile(r"\A---\s*\n(?P<data>.*?)\n---\s*(?:\n|\Z)",re.DOTALL)
 MARKDOWN_LINK_RE=re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 RESOURCE_RE=re.compile(r"`((?:scripts|references)/[^`\s]+)`")
-SKILL_REFERENCE_RE=re.compile(r"`((?:legal-os|cn-law|cn-case)-[a-z0-9-]+|legal-quality-gate)`")
+SKILL_REFERENCE_RE=re.compile(r"`((?:legal-os|cn-law|cn-case|cn-legal-research)-[a-z0-9-]+|legal-quality-gate)`")
 INTERNAL_DIRECTIVE_RE=re.compile(r"(?:\bFor (?:Claude|Codex):|superpowers:)",re.IGNORECASE)
 def parse_frontmatter(path:Path):
  errors=[];text=path.read_text(encoding='utf-8');m=FRONTMATTER_RE.match(text)
