@@ -1,10 +1,10 @@
 # Legal OS v0.8.0
 
-状态：公开适配版（公开候选，非稳定版；尚未发布）。
+状态：公开适配版（已发布公开预发布版，非稳定版）。
 
 ## 本次范围
 
-v0.8.0 当前候选将现行法研究适配为可审计的官方来源检索层，T-05 的默认执行器为 `cn-legal-research`：
+v0.8.0 将现行法研究适配为可审计的官方来源检索层，T-05 的默认执行器为 `cn-legal-research`：
 
 - 为十个主要官方来源提供机器可读登记、搜索/详情适配和逐源边界记录；
 - 覆盖国家法律法规数据库的搜索、详情、预览、条文、下载和跨法规搜索，并提供国家规章、条约、国务院政策、司法部、党内法规、国防、税务、生态环境和最高人民法院发布栏目适配；
@@ -20,12 +20,18 @@ v0.8.0 当前候选将现行法研究适配为可审计的官方来源检索层�
 - 不把外部官方网站或数据库内容重新分发为 Legal OS 自有数据；
 - 不修改私有 LegalOS 正式版本或私有 runtime。
 
-第三方来源/代码的 NOTICE 和署名不等于再分发许可。当前候选的 `cn-legal-research` 使用独立标准库实现，不复制上游 crawler 源代码；官方内容的权利、访问条款和效力仍需在实际来源页面上逐项核验。
+第三方来源/代码的 NOTICE 和署名不等于再分发许可。本版本的 `cn-legal-research` 使用独立标准库实现，不复制上游 crawler 源代码；官方内容的权利、访问条款和效力仍需在实际来源页面上逐项核验。
+
+## 发布状态
+
+本版本以 `v0.8.0` Tag 作为 GitHub 公开预发布版发布，非稳定版。`legalos.manifest.json`
+的 `release_status` 为 `released`；公开包中的 Skill 和模板成熟度标签继续表示各自的独立成熟度，
+不改变本次发布类型。
 
 ## 使用入口
 
 - [现行法公开适配说明](docs/current-law-public-adaptation-v0.8.md)
 - [能力矩阵](docs/capability-matrix.md)
-- [公开候选清单](PUBLIC_CANDIDATE_MANIFEST.json)
+- [v0.8.0 发布前候选清单（历史验收记录）](PUBLIC_CANDIDATE_MANIFEST.json)
 - [公开边界](OPEN_SOURCE_BOUNDARY.md)
 - [测试报告](TEST_REPORT_v0.8.0.md)

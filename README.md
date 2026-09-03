@@ -32,7 +32,7 @@
 
 ## 当前版本
 
-**v0.8.0 公开适配版（公开候选）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
+**v0.8.0 公开适配版（已发布公开预发布版，非稳定版）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
 
 ## Legal OS 是什么
 
@@ -173,7 +173,7 @@ python3 -m unittest discover -s tests -v
 - [能力矩阵](docs/capability-matrix.md)
 - [统一入口与路由](docs/unified-intake-routing.md)
 - [v0.8.0 现行法公开适配](docs/current-law-public-adaptation-v0.8.md)
-- [公开候选清单](PUBLIC_CANDIDATE_MANIFEST.json)
+- [v0.8.0 发布前候选清单（历史验收记录）](PUBLIC_CANDIDATE_MANIFEST.json)
 - [v0.7.0 案例/现行法研究架构](docs/case-and-law-research-v0.7.md)
 - [诉讼工作空间](docs/litigation-workspace.md)
 - [证据工作空间](docs/evidence-workspace.md)
