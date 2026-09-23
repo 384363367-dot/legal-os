@@ -27,9 +27,11 @@ Use a plan or tracker as the baseline when available. Treat old reports and memo
 3. Identify gaps: silent workstreams, vague updates, missing dates, missing financial context and conflicts.
 4. Apply Green/Amber/Red with a reason. Amber requires a return-to-green action; Red requires escalation and remediation.
 5. Draft the correct audience structure: internal weekly exception report, client/monthly managed-confidence report, ad hoc decision brief, or leadership summary.
-6. Make every action dated and assign an owner. Keep facts, judgments, risks and recommendations visibly separate.
+   For a risk-and-action brief on a major dispute, litigation, regulatory issue or material project exception, use `matter or stage → risk → occurrence path or cause → response → responsible party` where useful. State the adverse outcome as the risk; explain separately why or under what condition it could happen; give a concrete response to that risk. Include owners only when needed, and stages only where real time or procedural stages exist. For leadership, put the conclusion, major risks and decisions first, retain only background needed to understand them, and move or remove routine process details. Apply the shared [semantic deduplication and matter-importance rules](../legal-quality-gate/SKILL.md).
+6. Give an actual scheduled action its supported date and responsible owner; never invent either. Keep facts, judgments, risks and recommendations visibly separate.
 7. For a standard DOCX report or leadership/PPT outline, use `legal-os-template-runtime` to resolve and hash-check the registered template. Preserve the fixed shell while expanding workstreams, risks, decisions and actions to the actual reporting scope.
 8. For a PPT, make the conclusion lead, use one message per page, preserve source and data notes, and provide an editable PPTX plus PNG preview and speaker notes when requested. Use `ppt-master` for the technical pipeline and inspect every exported page.
+   For Chinese infographics, timelines or long-form visual reports with substantial Chinese text, dates, amounts, figures, case numbers or legal terms, typeset final wording in editable native text boxes, SVG/vector text or PPT text on a fixed layout. AI image generation may supply backgrounds and non-text graphics, but must not generate the final Chinese words. Export at adequate native resolution rather than enlarging a low-resolution bitmap. Check each final image for garbling, wrong characters, amounts, figures, dates, line breaks, clipping, blur and character deformation; keep a series consistent in layout, type hierarchy and style.
 9. Run the T-10 quality gate and template-fidelity gate before calling anything final.
 
 ## Audience boundaries
@@ -49,4 +51,4 @@ For a standard legal DOCX report, verify the editable source artifact's structur
 
 ## Output contract
 
-Report the primary route, sources and baseline, covered and missing workstreams, RAG reasons, actions with owners and dates, unresolved verification items, output versions, QC result and external/public boundary. Keep private paths, client identifiers, process traces and internal notes out of copyable external materials.
+Report the primary route, sources and baseline, covered and missing workstreams, RAG reasons, actual scheduled actions with supported owners and dates, unresolved verification items, output versions, QC result and external/public boundary. Keep private paths, client identifiers, process traces and internal notes out of copyable external materials.

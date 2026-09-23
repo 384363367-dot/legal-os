@@ -1,5 +1,5 @@
 from __future__ import annotations
-import copy,json,sys,unittest
+import copy,hashlib,json,subprocess,sys,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.validate_manifest import validate_manifest
@@ -18,4 +18,22 @@ class ManifestValidationTests(unittest.TestCase):
   m=copy.deepcopy(self.manifest);m['routes']=m['routes'][:-1];self.assertTrue(any('T-01 through T-12' in e for e in validate_manifest(ROOT,m)))
  def test_invocation_policy_must_cover_every_skill(self):
   m=copy.deepcopy(self.manifest);m['invocation_policy'].pop('cn-law-hub');self.assertTrue(any('every and only' in e for e in validate_manifest(ROOT,m)))
+ def test_package_manifest_and_checksums_match_current_files(self):
+  package=json.loads((ROOT/'PACKAGE_MANIFEST.json').read_text(encoding='utf-8'))
+  files=package['files'];self.assertEqual(package['file_count'],len(files))
+  expected={item['path'] for item in files}
+  self.assertEqual(len(expected),len(files))
+  if (ROOT/'.git').exists():
+   listed=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=ROOT).decode().split('\0')
+   self.assertEqual(expected,set(filter(None,listed)) - {'PACKAGE_MANIFEST.json','SHA256SUMS.txt'})
+  for item in files:
+   path=ROOT/item['path'];self.assertTrue(path.is_file(),item['path'])
+   self.assertEqual(path.stat().st_size,item['size'],item['path'])
+   self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),item['sha256'],item['path'])
+  sums={}
+  for line in (ROOT/'SHA256SUMS.txt').read_text(encoding='utf-8').splitlines():
+   if line.strip():
+    digest,path=line.split('  ',1);self.assertNotIn(path,sums);sums[path]=digest
+  self.assertEqual(set(sums),expected|{'PACKAGE_MANIFEST.json'})
+  for path,digest in sums.items():self.assertEqual(hashlib.sha256((ROOT/path).read_bytes()).hexdigest(),digest,path)
 if __name__=='__main__':unittest.main()

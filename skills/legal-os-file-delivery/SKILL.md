@@ -7,6 +7,8 @@ description: Source-locked Chinese legal file-delivery and archive workflow for 
 
 Use T-09 for file form, version, packaging, privacy and traceability. Do not use it to silently rewrite legal content or replace the substantive quality gate of the primary workflow.
 
+For a formal package, apply the shared [external-expression boundary](../legal-os-unified-intake/references/external-expression-boundary.md) to filenames, version labels, attachments and other finished-artifact surfaces before delivery.
+
 For legal DOCX and ordinary editable Excel, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any conversion or preview helper. Visual QA follows the shared runtime-aware mode; PDF, print and inherently visual deliverables remain governed by their dedicated workflow and explicit user requirements.
 
 ## Intake and inventory

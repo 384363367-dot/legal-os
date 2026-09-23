@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/release-v0.8.0-blue" alt="v0.8.0 public prerelease">
+  <img src="https://img.shields.io/badge/release-v0.8.1-blue" alt="v0.8.1 public prerelease">
   <img src="https://img.shields.io/badge/Skills-15-2563eb" alt="15 Skills">
   <img src="https://img.shields.io/badge/routes-12-0f766e" alt="12 routes">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
@@ -32,7 +32,7 @@
 
 ## 当前版本
 
-**v0.8.0 公开适配版（已发布公开预发布版，非稳定版）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
+**v0.8.1 已发布公开预发布版（非稳定版）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
 
 ## Legal OS 是什么
 
@@ -54,6 +54,12 @@ Legal OS 不是一组零散提示词，也不是替代律师判断的无人值�
 | 把正式文书做出来 | 合同审核、诉讼/仲裁、律师函与正式函件、业务沟通、报告和演示结构 |
 | 把数字与文件交付稳住 | 金额/付款/日期核验、模板解析、Office 源文件检查、版本与归档 |
 | 把风险留在可控范围 | 证据回流、法律质量门、事实与策略分层、外部动作单独授权 |
+
+### v0.8.1 规则维护
+
+- 正式长文集中叙述核心事实和风险，领导报告优先呈现结论、重大风险与决策事项；
+- 合同明确不能修改时，可直接形成审批审核意见及必要的履约建议；
+- 正式成果的标题、文件名和附件等交付位置与正文一同接受表达检查。
 
 ### v0.8.0 重点升级
 
@@ -165,7 +171,7 @@ python3 -m unittest discover -s tests -v
 ./install.sh --dry-run
 ```
 
-具体命令、环境和结果见 [`TEST_REPORT_v0.8.0.md`](TEST_REPORT_v0.8.0.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
+具体命令、环境和结果见 [`TEST_REPORT_v0.8.1.md`](TEST_REPORT_v0.8.1.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
 
 ## 文档导航
 
@@ -173,6 +179,7 @@ python3 -m unittest discover -s tests -v
 - [能力矩阵](docs/capability-matrix.md)
 - [统一入口与路由](docs/unified-intake-routing.md)
 - [v0.8.0 现行法公开适配](docs/current-law-public-adaptation-v0.8.md)
+- [v0.8.1 规则维护说明](RELEASE_NOTES_v0.8.1.md)
 - [v0.8.0 发布前候选清单（历史验收记录）](PUBLIC_CANDIDATE_MANIFEST.json)
 - [v0.7.0 案例/现行法研究架构](docs/case-and-law-research-v0.7.md)
 - [诉讼工作空间](docs/litigation-workspace.md)

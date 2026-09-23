@@ -13,6 +13,7 @@
 - Every claim in a formal document maps to evidence or is removed.
 - Evidence catalog proof items correspond to claims, defenses, or disputed issues.
 - Communications, demand letters, meeting notes, and negotiation records are not overstated as proof of completion, acceptance, or debt confirmation unless they actually prove that point.
+- Cost lists, quotations, payment requests, internal statistics, discussions and unilateral statements prove only what they record or assert. Confirm actual performance, acceptance or debt only when the contract, delivery, acceptance, payment, signed record, system record or another adequate evidence chain supports that further fact.
 - Page numbers are left blank or marked pending if not confirmed.
 
 ## 3. Legal Authority Gate

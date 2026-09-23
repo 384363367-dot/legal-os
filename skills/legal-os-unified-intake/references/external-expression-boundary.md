@@ -19,4 +19,6 @@ Before an external version is labelled ready, confirm:
 5. admissions, waivers, concessions, settlement effects, termination effects and new commitments have a separate authorization decision; and
 6. internal labels such as pending, unverified, evidence gap and drafting note do not leak into the external artifact.
 
+For external, submission, approval, signature, archive or other formal delivery, inspect the whole finished artifact: body, title, subtitle, headers, footers, filename, version label, attachment names, contents page and cover. Remove labels that describe internal collaboration or generation rather than a formal document attribute (for example, “简版”, “内部版”, “给我先看”, “优化版”, “压缩版”, “AI生成”, “临时”, or “草稿供讨论”). A genuine “草案”, “送审稿” or “修订稿” may remain when its formal purpose and version status call for it; judge use and context rather than banning a word mechanically.
+
 Minimum necessary disclosure does not mean minimum necessary reasoning. Preserve the complete internal analysis in the appropriate internal artifact and keep the external selection traceable to its source and function.
