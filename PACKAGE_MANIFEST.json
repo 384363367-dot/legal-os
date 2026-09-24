@@ -4,8 +4,8 @@
     "official_asf_license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "original_banner_git_blob": "16a43b80e86098b387a285c4afac46d7d1b47cdb"
   },
-  "package_version": "0.8.1",
-  "file_count": 197,
+  "package_version": "0.8.2",
+  "file_count": 199,
   "files": [
     {
       "mode": "0644",
@@ -22,8 +22,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "2c62571f6401ca68ff5651b54b824a6e98ac1a1161d746d4c2be60e47b8b431d",
-      "size": 18477
+      "sha256": "8be0409bcf8531ff13887a45cdac2338da2a52f71f5fb0f2aecf6d22409acaf4",
+      "size": 19442
     },
     {
       "mode": "0644",
@@ -52,8 +52,8 @@
     {
       "mode": "0644",
       "path": "README.md",
-      "sha256": "f8048e6c732acd822435d4fb7262bc0cee72da9c5c249c17af181fbe60272a82",
-      "size": 10803
+      "sha256": "69fdc267f77a7a3169e039782cc3c404eca40da3497f63ff47a90e2b5c6ed185",
+      "size": 10909
     },
     {
       "mode": "0644",
@@ -72,6 +72,12 @@
       "path": "RELEASE_NOTES_v0.8.1.md",
       "sha256": "a738120d84b4c7a8de5eff47b34b4934c59806f4b19c4d4155add508e77d6f8d",
       "size": 1182
+    },
+    {
+      "mode": "0644",
+      "path": "RELEASE_NOTES_v0.8.2.md",
+      "sha256": "1ac55e9b92f95912fffbf095494858dde9f07566773c1656746e61ea00ed3dbf",
+      "size": 1326
     },
     {
       "mode": "0644",
@@ -96,6 +102,12 @@
       "path": "TEST_REPORT_v0.8.1.md",
       "sha256": "350617fdc1abc77c3c3461e84ae6663d8f742d5242fa2273b95afce39bb0fd72",
       "size": 2028
+    },
+    {
+      "mode": "0644",
+      "path": "TEST_REPORT_v0.8.2.md",
+      "sha256": "42d8d5eb1585cd5b7c218aaa0493076f09c7268bdd5356df47fd508ff2cd00c2",
+      "size": 1944
     },
     {
       "mode": "0644",
@@ -124,7 +136,7 @@
     {
       "mode": "0644",
       "path": "docs/capability-matrix.md",
-      "sha256": "7b9beb0b822f9e79d6a9f8112579050eafcae92ccdd020f92e372b66dc56dc55",
+      "sha256": "084f77a1552590068bca2217b18be8e8b07c79e8e47332773da8a7dce68c1b85",
       "size": 3089
     },
     {
@@ -232,7 +244,7 @@
     {
       "mode": "0644",
       "path": "legalos.manifest.json",
-      "sha256": "f982cdb0d4c6d8d9e5a27017e1670c8147f11b0bcf414cb06a4c73f6b7441fac",
+      "sha256": "8d1991a2b1c2a1fa4f743a0bc943511f69cebf5a17259d39e1705b2ae41ca073",
       "size": 9450
     },
     {
@@ -982,8 +994,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-unified-intake/references/external-expression-boundary.md",
-      "sha256": "4a53c1446c5a6b235714588cec73e2566cb6739ee0c1fb70ca6dea593d591f24",
-      "size": 2738
+      "sha256": "1fd00c856849ed0a60b2aba8eb0bade447fcd818949ab4c552549f886493edce",
+      "size": 2826
     },
     {
       "mode": "0644",
@@ -1180,8 +1192,8 @@
     {
       "mode": "0644",
       "path": "tests/test_v081_rule_regressions.py",
-      "sha256": "994a82273c4008099eb40592b02a11ad0865ebf773e6d834be6e2678a03c5199",
-      "size": 5052
+      "sha256": "57adb8975296752d4be6cb206796fa4a2eaa9c35dbd1f215c54e0c998b003335",
+      "size": 5329
     },
     {
       "mode": "0644",

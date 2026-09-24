@@ -57,15 +57,17 @@ class V081RuleRegressions(unittest.TestCase):
         self.assertIn("修订交付时运行红线硬门", policy)
         self.assertIn("仅在拟修订或谈判时形成事项级 negotiation policy", policy)
 
-    def test_finished_artifact_surfaces_and_formal_version_exception(self):
+    def test_finished_word_artifact_has_no_version_or_process_labels_anywhere(self):
         policy = rule(EXPRESSION)
         for surface in ("body", "title", "subtitle", "headers", "footers", "filename", "version label", "attachment names", "contents page", "cover"):
             self.assertIn(surface, policy)
-        for label in ("简版", "内部版", "AI生成", "临时", "草稿供讨论"):
+        for label in ("简版", "内部版", "AI生成", "临时", "草稿供讨论", "草案", "送审稿", "修订稿"):
             self.assertIn(label, policy)
-        for formal_label in ("草案", "送审稿", "修订稿"):
-            self.assertIn(formal_label, policy)
-        self.assertIn("judge use and context rather than banning a word mechanically", policy)
+        self.assertIn("A finished Word artifact must contain no historical version labels", policy)
+        self.assertIn("internal communication or opinions, descriptions of modifications or deletions", policy)
+        self.assertIn("in any of these locations", policy)
+        self.assertIn("preserve substantive facts and legally necessary procedural dates", policy)
+        self.assertNotIn("may remain when its formal purpose", policy)
         self.assertIn("external-expression-boundary.md", rule(DELIVERY))
         self.assertIn("external-expression-boundary.md", rule(QUALITY))
 
