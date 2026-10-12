@@ -26,6 +26,198 @@
       },
       "additionalProperties": false
     },
+    "contract_protection_review": {
+      "type": "object",
+      "required": ["schema_version", "artifact_sha256", "reviewer", "reviewed_at", "review_scope", "status", "all_supported_core_risks_mapped", "core_risks_status", "risk_mappings"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "reviewer": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "minLength": 10},
+        "review_scope": {"type": "string", "minLength": 1},
+        "status": {"const": "approved"},
+        "all_supported_core_risks_mapped": {"const": true},
+        "core_risks_status": {"enum": ["identified", "none"]},
+        "no_core_risks_rationale": {"type": "string", "minLength": 1},
+        "risk_mappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["risk_id", "core_risk", "intended_protection", "first_pass_agreed_protection", "final_clause_refs", "final_clause_excerpt_or_absence_reason", "cross_references_complete", "outcome", "review_judgment"],
+            "properties": {
+              "risk_id": {"type": "string", "minLength": 1},
+              "core_risk": {"type": "string", "minLength": 1},
+              "intended_protection": {"type": "string", "minLength": 1},
+              "first_pass_agreed_protection": {"type": "string", "minLength": 1},
+              "final_clause_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+              "final_clause_excerpt_or_absence_reason": {"type": "string", "minLength": 1},
+              "cross_references_complete": {"const": true},
+              "outcome": {"enum": ["preserved", "approved_compromise", "missing", "unresolved", "weakened"]},
+              "review_judgment": {"type": "string", "minLength": 1},
+              "compromise": {
+                "type": "object",
+                "required": ["approval_source", "approval_ref", "approved_by", "approved_at", "proportionality_reason", "retained_protection_or_rationale"],
+                "properties": {
+                  "approval_source": {"enum": ["current-user-instruction", "matter-document", "approved-negotiation-policy"]},
+                  "approval_ref": {"type": "string", "minLength": 1},
+                  "approved_by": {"type": "string", "minLength": 1},
+                  "approved_at": {"type": "string", "minLength": 10},
+                  "proportionality_reason": {"type": "string", "minLength": 1},
+                  "retained_protection_or_rationale": {"type": "string", "minLength": 1}
+                },
+                "additionalProperties": false
+              }
+            },
+            "allOf": [
+              {
+                "if": {"properties": {"outcome": {"const": "approved_compromise"}}, "required": ["outcome"]},
+                "then": {"required": ["compromise"]}
+              },
+              {
+                "if": {"properties": {"outcome": {"const": "preserved"}}, "required": ["outcome"]},
+                "then": {"properties": {"final_clause_refs": {"minItems": 1}}}
+              }
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"core_risks_status": {"const": "identified"}}, "required": ["core_risks_status"]},
+          "then": {"properties": {"risk_mappings": {"minItems": 1}}}
+        },
+        {
+          "if": {"properties": {"core_risks_status": {"const": "none"}}, "required": ["core_risks_status"]},
+          "then": {"required": ["no_core_risks_rationale"], "properties": {"risk_mappings": {"maxItems": 0}}}
+        }
+      ],
+      "additionalProperties": false
+    },
+    "amount_review": {
+      "type": "object",
+      "required": ["schema_version", "artifact_sha256", "reviewer", "reviewed_at", "scope", "status", "artifact_amounts_reconciled", "conclusion_review", "chains"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "reviewer": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "minLength": 10},
+        "scope": {"type": "string", "minLength": 1},
+        "status": {"enum": ["verified", "unable-to-verify", "failed"]},
+        "artifact_amounts_reconciled": {"const": true},
+        "conclusion_review": {"type": "string", "minLength": 1},
+        "chains": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["chain_id", "currency", "rounding", "original_amount", "initially_included_factor_ids", "adjustments", "payments", "offsets", "reported_totals"],
+            "properties": {
+              "chain_id": {"type": "string", "minLength": 1},
+              "currency": {"type": "string", "minLength": 1},
+              "rounding": {
+                "type": "object",
+                "required": ["decimal_places", "mode"],
+                "properties": {
+                  "decimal_places": {"type": "integer", "minimum": 0, "maximum": 6},
+                  "mode": {"enum": ["half-up", "half-even", "down", "up"]}
+                },
+                "additionalProperties": false
+              },
+              "original_amount": {
+                "type": "object",
+                "required": ["value", "source_ref", "evidence_status"],
+                "properties": {
+                  "value": {"type": ["number", "null"]},
+                  "source_ref": {"type": "string"},
+                  "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]}
+                },
+                "additionalProperties": false
+              },
+              "initially_included_factor_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+              "adjustments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["adjustment_id", "factor_id", "source_ref", "nature", "evidence_status", "basis_from", "basis_amount", "kind", "deduction_amount", "resulting_amount"],
+                  "properties": {
+                    "adjustment_id": {"type": "string", "minLength": 1, "not": {"const": "original_amount"}},
+                    "factor_id": {"type": "string", "minLength": 1},
+                    "source_ref": {"type": "string", "minLength": 1},
+                    "nature": {"type": "string", "minLength": 1},
+                    "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]},
+                    "basis_from": {"type": "string", "minLength": 1},
+                    "basis_amount": {"type": "number"},
+                    "kind": {"enum": ["percentage", "fixed"]},
+                    "rate": {"type": "number", "minimum": 0},
+                    "fixed_amount": {"type": "number", "minimum": 0},
+                    "deduction_amount": {"type": "number", "minimum": 0},
+                    "resulting_amount": {"type": "number"}
+                  },
+                  "allOf": [
+                    {
+                      "if": {"properties": {"kind": {"const": "percentage"}}, "required": ["kind"]},
+                      "then": {"required": ["rate"], "not": {"required": ["fixed_amount"]}}
+                    },
+                    {
+                      "if": {"properties": {"kind": {"const": "fixed"}}, "required": ["kind"]},
+                      "then": {"required": ["fixed_amount"], "not": {"required": ["rate"]}}
+                    }
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "payments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["record_id", "factor_id", "source_ref", "evidence_status", "amount"],
+                  "properties": {
+                    "record_id": {"type": "string", "minLength": 1},
+                    "factor_id": {"type": "string", "minLength": 1},
+                    "source_ref": {"type": "string", "minLength": 1},
+                    "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]},
+                    "amount": {"type": "number", "minimum": 0}
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "offsets": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["offset_id", "factor_id", "source_ref", "nature", "evidence_status", "amount"],
+                  "properties": {
+                    "offset_id": {"type": "string", "minLength": 1},
+                    "factor_id": {"type": "string", "minLength": 1},
+                    "source_ref": {"type": "string", "minLength": 1},
+                    "nature": {"type": "string", "minLength": 1},
+                    "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]},
+                    "amount": {"type": "number", "minimum": 0}
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "reported_totals": {
+                "type": "object",
+                "required": ["gross", "adjustments_total", "adjusted_gross", "paid_total", "offsets_total", "net_total"],
+                "properties": {
+                  "gross": {"type": "number"},
+                  "adjustments_total": {"type": "number"},
+                  "adjusted_gross": {"type": "number"},
+                  "paid_total": {"type": "number"},
+                  "offsets_total": {"type": "number"},
+                  "net_total": {"type": "number"}
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
     "notes": {"type": "string"}
   },
   "additionalProperties": false

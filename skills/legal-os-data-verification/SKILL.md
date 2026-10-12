@@ -36,6 +36,10 @@ Use simple auditable formulas. For the standard two-way demo schema:
 
 Do not silently apply rounding, tax inclusion, or a currency conversion. Make the rounding/tolerance rule visible and pause when the source uses a different formula structure. A numerical match is not proof of legal entitlement.
 
+For a multi-step claim or contract amount, keep one traceable chain from the source amount through each adjustment to the reported balance. Preserve the original amount and record, for every adjustment, its evidence-based `factor_id`, source locator, nature, explicit calculation basis, rate or fixed amount, deduction, and resulting remaining balance. The basis reference may identify the original amount or an earlier adjustment result; calculate the deduction from that stated basis, then subtract it from the immediately preceding remaining balance. This supports distinct sequential factors that use different agreed bases while keeping each balance auditable. Record factors already included in the starting amount. Reuse the same factor identity across adjustments, payments, and offsets so a factor already included or applied cannot be deducted again. A matching percentage or label alone does not prove that two factors are the same: distinct source-backed factors may apply sequentially, including on different stated bases, when their nature and source are recorded.
+
+When any source amount or basis changes, recalculate every dependent deduction, adjusted gross amount, payment total, offset total, net balance, and conclusion. The existing release gate can verify the recorded arithmetic chain and its hash-bound sign-off, including stated bases, rates/fixed deductions, remaining balance, payments, offsets, rollups, and the reviewer’s confirmation that final artifact amounts and conclusions were reconciled (`artifact_amounts_reconciled=true` with a `conclusion_review`). It does not decide whether a deduction is legally available or whether the selected basis is contractually correct. If a required source, evidence status, or calculation basis is missing or conflicting, record `unable-to-verify` and stop the formal amount conclusion instead of substituting zero or a default `PASS`.
+
 ### 4. Check date nodes
 
 Record trigger date, due date, source-stated days, date basis, calendar status, and human review note. A `TODAY()`-style calendar flag may say `已到期`, `今日到期`, `未到期`, or `待核`, but it must be labelled as a calendar prompt only. Do not call it a statutory deadline, limitation period, procedural period, or waiver date without current-law and source verification.
@@ -54,6 +58,7 @@ Before delivery, verify:
 - evidence status is not silently treated as confirmed;
 - all conflicts and gaps are resolved or explicitly escalated;
 - dates and calculation bases are source-backed;
+- when a formal deliverable relies on multi-step calculated amounts, its human sign-off includes the hash-bound `amount_review` record and the existing release gate is run with `--amount-review-required`; arithmetic verification does not replace review of the legal nature or claim basis;
 - external output, filing, settlement, admission, waiver, termination, or other high-impact action has separate authorization.
 
 If any blocking condition remains, return `暂停交付` or `需复核`, state the exact gap, and stop rather than smoothing the result.

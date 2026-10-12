@@ -16,6 +16,11 @@
 - Cost lists, quotations, payment requests, internal statistics, discussions and unilateral statements prove only what they record or assert. Confirm actual performance, acceptance or debt only when the contract, delivery, acceptance, payment, signed record, system record or another adequate evidence chain supports that further fact.
 - Page numbers are left blank or marked pending if not confirmed.
 
+## 2.1 Contract Protection and Amount Chain
+
+- Confirm Contract Final meets the substantive risk-mapping and approved-compromise controls in the Contract Skill, with its review record bound to the final artifact.
+- For a formal amount conclusion, confirm the Data Verification amount-chain review is present when required and matches the final artifact; arithmetic review does not establish legal entitlement.
+
 ## 3. Legal Authority Gate
 
 - Chinese legal authorities are current and effective.
