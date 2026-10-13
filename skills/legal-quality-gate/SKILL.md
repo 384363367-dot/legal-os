@@ -32,6 +32,20 @@ For legal DOCX and ordinary editable Excel, apply [the shared Office source poli
 9. Build the authority package for every material formal legal proposition. Laws and rules require current effective status; cases require an actually accessed, identifiable official/court source and `current_status=verified-source`. Model memory and secondary summaries are leads only.
 10. Run the release lock. Final, filing, publishing, R2 and R3 outputs require a matter manifest and a sign-off whose matter ID, exact artifact path, SHA-256, risk level and permitted use match the current artifact. Contract Final follows [the Contract Skill's dual review](../legal-os-contract/SKILL.md); redline `PASS` confirms script checks only and never substitutes for its substantive protection review. Amount-sensitive Final follows [the Data Verification Skill](../legal-os-data-verification/SKILL.md) and its existing-gate amount review.
 
+An `internal-draft` with a structurally valid amount review may keep source gaps or an `unable-to-verify` conclusion as warnings and remain `DRAFT_ONLY`. Malformed review structure, invalid values, duplicate/reapplied factors, broken calculation dependencies, wrong arithmetic, stale totals, file-integrity failures and independent privacy/sign-off hard gates remain `BLOCKED`. If an R0/R1 Draft supplies an optional `--signoff`, the gate still inspects any included amount record; it does not silently ignore malformed or incorrect calculations.
+
+When a previously reviewed artifact changes, use the exact old sign-off to produce a guarded rebound copy or a review candidate with:
+
+```bash
+python skills/legal-quality-gate/scripts/rebind_signoff.py \
+  --signoff SIGNOFF.json --old-artifact OLD.docx --new-artifact NEW.docx \
+  --out-signoff SIGNOFF.rebound.json \
+  [--scope "permitted change scope" --semantic-review "human review conclusion" \
+   --reviewed-by "reviewer" --reviewed-at "ISO-8601 time"]
+```
+
+The tool protects all input files and does not create an approval. It reuses the prior approval only when the exact old sign-off and artifact are still valid and DOCX package comparison proves the only difference is direct `w:b`/`w:bCs`/`w:i`/`w:iCs` or `w:jc` formatting in `word/document.xml`; the ordinary release gate independently recomputes that proof and verifies the old sign-off file hash. Color, font size, strike-through, relationships, numbering, instructions, comments, headers/footers, structure and unknown package changes go to a `pending` candidate. Content candidates require a readable diff plus human scope, semantic review, reviewer and time; affected nested review hashes remain stale until the affected review is redone.
+
 ## Machine release lock
 
 Use `scripts/release_gate.py` and the schemas in `references/schemas/`. A failed gate means `BLOCKED`; a passing `internal-draft` means `DRAFT_ONLY`. Only a passing final intent returns `RELEASE`. When amount review is required, use `--amount-review-required`; missing or inconsistent review evidence blocks release. Source/factor identity and calculation-basis rules remain in Data Verification. Filenames, prior approvals, narrative explanations and old reports cannot override the exit code.

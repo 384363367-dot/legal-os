@@ -14,6 +14,66 @@
     "reviewed_at": {"type": "string", "minLength": 10},
     "status": {"enum": ["approved", "rejected", "pending"]},
     "permitted_use": {"enum": ["internal-draft", "internal-final", "external-final", "filing", "publishing"]},
+    "rebind_candidate": {
+      "type": "object",
+      "required": ["schema_version", "classification", "old_artifact_path", "old_artifact_sha256", "new_artifact_path", "new_artifact_sha256", "created_at", "changed_parts", "diff_summary", "requires_affected_review"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "classification": {"enum": ["identical", "format-only", "content-change", "manual-review-required"]},
+        "old_artifact_path": {"type": "string", "minLength": 1},
+        "old_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "new_artifact_path": {"type": "string", "minLength": 1},
+        "new_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "created_at": {"type": "string", "minLength": 10},
+        "changed_parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["part", "old_sha256", "new_sha256"],
+            "properties": {
+              "part": {"type": "string", "minLength": 1},
+              "old_sha256": {"type": ["string", "null"]},
+              "new_sha256": {"type": ["string", "null"]}
+            },
+            "additionalProperties": false
+          }
+        },
+        "diff_summary": {"type": "string", "minLength": 1},
+        "redline_gate_status": {"enum": ["PASS", "FAIL", "not-applicable"]},
+        "scope": {"type": "string", "minLength": 1},
+        "semantic_review": {"type": "string", "minLength": 1},
+        "reviewed_by": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "minLength": 10},
+        "requires_affected_review": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"classification": {"enum": ["content-change", "manual-review-required"]}}, "required": ["classification"]},
+          "then": {"required": ["scope", "semantic_review", "reviewed_by", "reviewed_at"]}
+        }
+      ],
+      "additionalProperties": false
+    },
+    "rebind_record": {
+      "type": "object",
+      "required": ["schema_version", "classification", "old_artifact_path", "old_artifact_sha256", "old_signoff_path", "old_signoff_sha256", "new_artifact_path", "new_artifact_sha256", "created_at", "changed_parts", "visual_property_changes", "diff_summary", "requires_affected_review"],
+      "properties": {
+        "schema_version": {"const": "1.0"},
+        "classification": {"enum": ["identical", "format-only"]},
+        "old_artifact_path": {"type": "string", "minLength": 1},
+        "old_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "old_signoff_path": {"type": "string", "minLength": 1},
+        "old_signoff_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "new_artifact_path": {"type": "string", "minLength": 1},
+        "new_artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "created_at": {"type": "string", "minLength": 10},
+        "changed_parts": {"type": "array", "items": {"type": "object", "required": ["part", "old_sha256", "new_sha256"], "properties": {"part": {"type": "string", "minLength": 1}, "old_sha256": {"type": "string", "minLength": 1}, "new_sha256": {"type": "string", "minLength": 1}}, "additionalProperties": false}},
+        "visual_property_changes": {"type": "array", "items": {"type": "object", "required": ["node_property", "old_value", "new_value"], "properties": {"node_property": {"type": "string", "minLength": 1}, "old_value": {"type": "string"}, "new_value": {"type": "string"}}, "additionalProperties": false}},
+        "diff_summary": {"type": "string", "minLength": 1},
+        "requires_affected_review": {"const": false}
+      },
+      "additionalProperties": false
+    },
     "checks": {
       "type": "object",
       "required": ["facts", "authority", "strategy", "format", "privacy"],
@@ -28,13 +88,18 @@
     },
     "contract_protection_review": {
       "type": "object",
-      "required": ["schema_version", "artifact_sha256", "reviewer", "reviewed_at", "review_scope", "status", "all_supported_core_risks_mapped", "core_risks_status", "risk_mappings"],
+      "required": ["review_scope"],
       "properties": {
         "schema_version": {"const": "1.0"},
         "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "reviewer": {"type": "string", "minLength": 1},
         "reviewed_at": {"type": "string", "minLength": 10},
         "review_scope": {"type": "string", "minLength": 1},
+        "review_round": {"enum": ["single", "subsequent"]},
+        "review_path": {"enum": ["full", "light"]},
+        "reviewed_source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "reviewed_diff_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "semantic_review": {"type": "string", "minLength": 1},
         "status": {"const": "approved"},
         "all_supported_core_risks_mapped": {"const": true},
         "core_risks_status": {"enum": ["identified", "none"]},
@@ -43,7 +108,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["risk_id", "core_risk", "intended_protection", "first_pass_agreed_protection", "final_clause_refs", "final_clause_excerpt_or_absence_reason", "cross_references_complete", "outcome", "review_judgment"],
+            "required": ["risk_id", "core_risk", "intended_protection", "final_clause_refs", "final_clause_excerpt_or_absence_reason", "cross_references_complete", "outcome", "review_judgment"],
             "properties": {
               "risk_id": {"type": "string", "minLength": 1},
               "core_risk": {"type": "string", "minLength": 1},
@@ -84,6 +149,24 @@
       },
       "allOf": [
         {
+          "if": {"properties": {"review_round": {"const": "single"}}, "required": ["review_round"]},
+          "then": {},
+          "else": {"properties": {"risk_mappings": {"items": {"required": ["first_pass_agreed_protection"]}}}}
+        },
+        {
+          "if": {"properties": {"review_path": {"const": "light"}}, "required": ["review_path"]},
+          "then": {
+            "required": ["core_risks_status", "no_core_risks_rationale"],
+            "properties": {
+              "core_risks_status": {"const": "none"},
+              "risk_mappings": {"maxItems": 0}
+            }
+          },
+          "else": {
+            "required": ["schema_version", "artifact_sha256", "reviewer", "reviewed_at", "status", "all_supported_core_risks_mapped", "risk_mappings"]
+          }
+        },
+        {
           "if": {"properties": {"core_risks_status": {"const": "identified"}}, "required": ["core_risks_status"]},
           "then": {"properties": {"risk_mappings": {"minItems": 1}}}
         },
@@ -96,7 +179,7 @@
     },
     "amount_review": {
       "type": "object",
-      "required": ["schema_version", "artifact_sha256", "reviewer", "reviewed_at", "scope", "status", "artifact_amounts_reconciled", "conclusion_review", "chains"],
+        "required": ["schema_version", "artifact_sha256", "scope", "status", "artifact_amounts_reconciled", "conclusion_review", "chains"],
       "properties": {
         "schema_version": {"const": "1.0"},
         "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
@@ -104,8 +187,9 @@
         "reviewed_at": {"type": "string", "minLength": 10},
         "scope": {"type": "string", "minLength": 1},
         "status": {"enum": ["verified", "unable-to-verify", "failed"]},
-        "artifact_amounts_reconciled": {"const": true},
+        "artifact_amounts_reconciled": {"type": "boolean"},
         "conclusion_review": {"type": "string", "minLength": 1},
+        "review_note": {"type": "string", "minLength": 1},
         "chains": {
           "type": "array",
           "minItems": 1,
@@ -143,16 +227,16 @@
                   "properties": {
                     "adjustment_id": {"type": "string", "minLength": 1, "not": {"const": "original_amount"}},
                     "factor_id": {"type": "string", "minLength": 1},
-                    "source_ref": {"type": "string", "minLength": 1},
-                    "nature": {"type": "string", "minLength": 1},
+                    "source_ref": {"type": "string"},
+                    "nature": {"type": "string"},
                     "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]},
                     "basis_from": {"type": "string", "minLength": 1},
-                    "basis_amount": {"type": "number"},
+                    "basis_amount": {"type": ["number", "null"]},
                     "kind": {"enum": ["percentage", "fixed"]},
-                    "rate": {"type": "number", "minimum": 0},
-                    "fixed_amount": {"type": "number", "minimum": 0},
-                    "deduction_amount": {"type": "number", "minimum": 0},
-                    "resulting_amount": {"type": "number"}
+                    "rate": {"type": ["number", "null"], "minimum": 0},
+                    "fixed_amount": {"type": ["number", "null"], "minimum": 0},
+                    "deduction_amount": {"type": ["number", "null"], "minimum": 0},
+                    "resulting_amount": {"type": ["number", "null"]}
                   },
                   "allOf": [
                     {
@@ -175,9 +259,9 @@
                   "properties": {
                     "record_id": {"type": "string", "minLength": 1},
                     "factor_id": {"type": "string", "minLength": 1},
-                    "source_ref": {"type": "string", "minLength": 1},
+                    "source_ref": {"type": "string"},
                     "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]},
-                    "amount": {"type": "number", "minimum": 0}
+                    "amount": {"type": ["number", "null"], "minimum": 0}
                   },
                   "additionalProperties": false
                 }
@@ -190,10 +274,10 @@
                   "properties": {
                     "offset_id": {"type": "string", "minLength": 1},
                     "factor_id": {"type": "string", "minLength": 1},
-                    "source_ref": {"type": "string", "minLength": 1},
-                    "nature": {"type": "string", "minLength": 1},
+                    "source_ref": {"type": "string"},
+                    "nature": {"type": "string"},
                     "evidence_status": {"enum": ["confirmed", "missing", "conflicted", "unverified"]},
-                    "amount": {"type": "number", "minimum": 0}
+                    "amount": {"type": ["number", "null"], "minimum": 0}
                   },
                   "additionalProperties": false
                 }
@@ -202,12 +286,12 @@
                 "type": "object",
                 "required": ["gross", "adjustments_total", "adjusted_gross", "paid_total", "offsets_total", "net_total"],
                 "properties": {
-                  "gross": {"type": "number"},
-                  "adjustments_total": {"type": "number"},
-                  "adjusted_gross": {"type": "number"},
-                  "paid_total": {"type": "number"},
-                  "offsets_total": {"type": "number"},
-                  "net_total": {"type": "number"}
+                  "gross": {"type": ["number", "null"]},
+                  "adjustments_total": {"type": ["number", "null"]},
+                  "adjusted_gross": {"type": ["number", "null"]},
+                  "paid_total": {"type": ["number", "null"]},
+                  "offsets_total": {"type": ["number", "null"]},
+                  "net_total": {"type": ["number", "null"]}
                 },
                 "additionalProperties": false
               }
@@ -216,6 +300,15 @@
           }
         }
       },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "verified"}}, "required": ["status"]},
+          "then": {
+            "required": ["reviewer", "reviewed_at"],
+            "properties": {"artifact_amounts_reconciled": {"const": true}}
+          }
+        }
+      ],
       "additionalProperties": false
     },
     "notes": {"type": "string"}

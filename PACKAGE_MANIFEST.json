@@ -5,7 +5,7 @@
     "original_banner_git_blob": "16a43b80e86098b387a285c4afac46d7d1b47cdb"
   },
   "package_version": "0.8.2",
-  "file_count": 199,
+  "file_count": 205,
   "files": [
     {
       "mode": "0644",
@@ -22,8 +22,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "8960552de5d360a2abe947f8377033d55a95486bedc9ebd5b6213ed13dd7e556",
-      "size": 20055
+      "sha256": "833de1b3ba82cc440aa09687a1836f44cd4be48e8f8d2f25a4517062988eeba8",
+      "size": 21418
     },
     {
       "mode": "0644",
@@ -118,8 +118,8 @@
     {
       "mode": "0644",
       "path": "docs/amount-data-verification-workspace.md",
-      "sha256": "7658afb1d6c16ca6cf2c25887accd4bc3dd901a0361331d8ec5349bc87d4864b",
-      "size": 493
+      "sha256": "9f9e8e0c7a2bf9fc0e5e9164b9958fa680c7e16d4f508fbc52ac761927736ea4",
+      "size": 2781
     },
     {
       "mode": "0644",
@@ -586,8 +586,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-contract/SKILL.md",
-      "sha256": "c3df2fa6eff7a98f56b881fcbb6ce2efb33f6b0475476fe22f1912b9ca9d0fb4",
-      "size": 9534
+      "sha256": "e37ebd557ec96faac52c75dadae880f3b1ee84b7f46ed0b2a137d1e2481a94b1",
+      "size": 11787
     },
     {
       "mode": "0644",
@@ -640,14 +640,20 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-contract/references/schemas/review-signoff.schema.json",
-      "sha256": "a49765721a761cd2b1a0307eb72221ee5810fcfb27d3e9a4bb921bd0c8b17350",
-      "size": 11392
+      "sha256": "290b0f3711eafdf9176e43df4047894cdd1c0903b8ddde2a36b355ef8cd9e6c8",
+      "size": 16487
     },
     {
       "mode": "0644",
       "path": "skills/legal-os-contract/scripts/minimal_redline.py",
       "sha256": "78a0d25325299bdec0d7e6e07e533305f9bfc2afd6159752ad062b7703be3797",
       "size": 11751
+    },
+    {
+      "mode": "0644",
+      "path": "skills/legal-os-contract/scripts/rebind_signoff.py",
+      "sha256": "5dff01becd2f176a2cd241f4badb2ca96558f8fe7026eacfca7a8c61e861fce5",
+      "size": 22701
     },
     {
       "mode": "0644",
@@ -658,14 +664,14 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-contract/scripts/redline_quality_gate.py",
-      "sha256": "ad56c48b4e41b7d0f56dc7cdfbf4de1c707c3773be8c0fcc075007961001e3a3",
-      "size": 24823
+      "sha256": "b5827501824b87ee86b15033e5aab0ece09d0de94fa21027eea7eed3d2d00f93",
+      "size": 25581
     },
     {
       "mode": "0644",
       "path": "skills/legal-os-contract/scripts/release_gate.py",
-      "sha256": "5201c69b11ee6e6f4291fbc8fea753c09dab0844c2d6ab068bfba8d8ac24ee41",
-      "size": 29850
+      "sha256": "0585a35837adf782d2d5c4f84ec88b220d0ecd49924a767c0948838bcadf9aff",
+      "size": 52954
     },
     {
       "mode": "0644",
@@ -742,8 +748,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-data-verification/SKILL.md",
-      "sha256": "9080e46bf8f4109b0a7df1c9d00bc21a890d481224f885b86548c9feff2d8cc3",
-      "size": 8342
+      "sha256": "6bd77db27f1e16685efb16ae3c6e7a6a3ef5ce02a046f18a6b761d0c82f195d9",
+      "size": 10585
     },
     {
       "mode": "0644",
@@ -752,10 +758,16 @@
       "size": 245
     },
     {
-      "mode": "0644",
+      "mode": "0600",
       "path": "skills/legal-os-data-verification/assets/templates/Legal_OS_v1.7_Amount_Data_Verification_Workspace.xlsx",
-      "sha256": "5653e3bc88231e29603af1b9109fef75cc5962ac5b848503ac9c61400d263634",
-      "size": 15201
+      "sha256": "33ca066734c75a33b6e41ff68284ce198ca71411f03dd0848283594edf8b54cf",
+      "size": 15910
+    },
+    {
+      "mode": "0644",
+      "path": "skills/legal-os-data-verification/scripts/export_amount_review.py",
+      "sha256": "c0a0da25ae9b8fca022806c963fc04939f432fea2a07cb508efaa53bc2ddfd4f",
+      "size": 29659
     },
     {
       "mode": "0644",
@@ -952,7 +964,7 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-template-runtime/references/template-catalog.json",
-      "sha256": "cd68cdb2507060ff419f08d40eb0eb4a9fc02c56ceed1e6af0d4c33523307820",
+      "sha256": "82a983ec91fa6f2ff5c649eeffc410660293d66d4596d404f36b064fdca891e8",
       "size": 11705
     },
     {
@@ -1036,8 +1048,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-quality-gate/SKILL.md",
-      "sha256": "31a48c954a12d8f3051e4cc11986afc5b9cfa9a019d743f636e7881f24dacaf7",
-      "size": 7769
+      "sha256": "83a2c100c0e45e30fc13afd2c5b118dc4caf8b84202ac8399a6c7b6bd6917c5a",
+      "size": 9526
     },
     {
       "mode": "0644",
@@ -1048,8 +1060,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-quality-gate/references/checklist.md",
-      "sha256": "88c6a8392bca0aa0c83cebca6ea15cac5b5477560006b7e5afee6d6a4ba6dfb5",
-      "size": 3358
+      "sha256": "9771ead3eb868c06f83ec59fd9e9d85ffa585e831272209e7e7a805b7a0f7a49",
+      "size": 4107
     },
     {
       "mode": "0644",
@@ -1072,20 +1084,38 @@
     {
       "mode": "0644",
       "path": "skills/legal-quality-gate/references/schemas/review-signoff.schema.json",
-      "sha256": "a49765721a761cd2b1a0307eb72221ee5810fcfb27d3e9a4bb921bd0c8b17350",
-      "size": 11392
+      "sha256": "290b0f3711eafdf9176e43df4047894cdd1c0903b8ddde2a36b355ef8cd9e6c8",
+      "size": 16487
+    },
+    {
+      "mode": "0644",
+      "path": "skills/legal-quality-gate/scripts/rebind_signoff.py",
+      "sha256": "5dff01becd2f176a2cd241f4badb2ca96558f8fe7026eacfca7a8c61e861fce5",
+      "size": 22701
     },
     {
       "mode": "0644",
       "path": "skills/legal-quality-gate/scripts/release_gate.py",
-      "sha256": "5201c69b11ee6e6f4291fbc8fea753c09dab0844c2d6ab068bfba8d8ac24ee41",
-      "size": 29850
+      "sha256": "0585a35837adf782d2d5c4f84ec88b220d0ecd49924a767c0948838bcadf9aff",
+      "size": 52954
+    },
+    {
+      "mode": "0644",
+      "path": "skills/legal-quality-gate/tests/test_amount_workbook_export.py",
+      "sha256": "15a07aa6602ab2959524bbf1c032b9b4574252f95c9d1e4a2782201184980c92",
+      "size": 27076
     },
     {
       "mode": "0644",
       "path": "skills/legal-quality-gate/tests/test_quality_release_gate.py",
-      "sha256": "1bf12209a2474ef39d43fb2e63545eb627139556f76c042ffae0c57d6cfd213f",
-      "size": 34879
+      "sha256": "cda371b80728dfd04b7b29c57e8db9bd557d8fca9cc55e788989094b36f9446e",
+      "size": 51409
+    },
+    {
+      "mode": "0644",
+      "path": "skills/legal-quality-gate/tests/test_rebind_signoff.py",
+      "sha256": "385ac78bcb6f7396650e5013ac397ae476d68617f86b3596d94246fb167f1528",
+      "size": 20017
     },
     {
       "mode": "0644",
@@ -1122,6 +1152,12 @@
       "path": "tests/test_cn_legal_research_runtime.py",
       "sha256": "2205d4cd37a7f91fcf21a18585495971a3977c3a2c52198276918fb7d92c0ef1",
       "size": 8245
+    },
+    {
+      "mode": "0644",
+      "path": "tests/test_gate_mirror_consistency.py",
+      "sha256": "e07e67b01312dd55c3bb9744622c1912d853b59f057ff59e24389e40a3027bcf",
+      "size": 1454
     },
     {
       "mode": "0644",

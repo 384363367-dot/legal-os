@@ -40,6 +40,22 @@ For a multi-step claim or contract amount, keep one traceable chain from the sou
 
 When any source amount or basis changes, recalculate every dependent deduction, adjusted gross amount, payment total, offset total, net balance, and conclusion. The existing release gate can verify the recorded arithmetic chain and its hash-bound sign-off, including stated bases, rates/fixed deductions, remaining balance, payments, offsets, rollups, and the reviewer’s confirmation that final artifact amounts and conclusions were reconciled (`artifact_amounts_reconciled=true` with a `conclusion_review`). It does not decide whether a deduction is legally available or whether the selected basis is contractually correct. If a required source, evidence status, or calculation basis is missing or conflicting, record `unable-to-verify` and stop the formal amount conclusion instead of substituting zero or a default `PASS`.
 
+For the registered amount workspace, record a calculation chain once in the existing `原始记录_输入` sheet; do not create a second amount ledger. Keep the original amount in J and paid/received amount in K. Use N:X for chain ID, row type, factor ID, calculation basis, factor type/value, initially included factors, rounding, and (only when an original row's K is non-zero) a separate payment locator and evidence status. Fixed adjustments and offsets use J; percentage adjustments use S as a decimal rate; dedicated payment rows use K. If the original row's K is non-zero, W:X are required because B/L may describe only the quoted or contractual amount, not proof of payment. Do not also enter that same payment as a second row.
+
+When the exporter reads a numeric input marked `待核`, it writes a `null` calculation value and an unresolved gap; it does not treat the marker as zero. Other non-numeric input remains a blocking data error.
+
+For an original ledger row, blank column K does not establish that no payment occurred. If K is blank and there are no dedicated payment rows, the export keeps payment and net totals `null` with an unresolved gap; enter an explicit `0` only after the source and human review confirm no payment. If dedicated payment rows are the chosen record path, K may remain blank and the exporter uses those rows once without adding a duplicate blank-K entry.
+
+Generate the existing sign-off `amount_review` record with the bundled script:
+
+```bash
+python skills/legal-os-data-verification/scripts/export_amount_review.py \
+  --workbook WORKSPACE.xlsx --artifact FINAL.docx \
+  --signoff SIGNOFF.json --out-signoff SIGNOFF.amount.json
+```
+
+The script reads the existing ledger and writes a separate sign-off copy. It reuses an existing amount reviewer, time and conclusion only when the source/calculation chain exactly matches that already reviewed. It never invents source locators, legal bases or approval. Missing payment proof, incomplete source fields, or a changed chain stays `unable-to-verify`; a changed chain is marked as requiring affected review even when the deliverable file hash did not change. Final release still requires a human-reviewed `verified` record and the ordinary release gate.
+
 ### 4. Check date nodes
 
 Record trigger date, due date, source-stated days, date basis, calendar status, and human review note. A `TODAY()`-style calendar flag may say `已到期`, `今日到期`, `未到期`, or `待核`, but it must be labelled as a calendar prompt only. Do not call it a statutory deadline, limitation period, procedural period, or waiver date without current-law and source verification.

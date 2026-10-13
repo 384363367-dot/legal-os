@@ -180,7 +180,7 @@
       "document_type": "amount-node-verification-workbook",
       "skill": "legal-os-data-verification",
       "relative_path": "assets/templates/Legal_OS_v1.7_Amount_Data_Verification_Workspace.xlsx",
-      "sha256": "5653e3bc88231e29603af1b9109fef75cc5962ac5b848503ac9c61400d263634",
+      "sha256": "33ca066734c75a33b6e41ff68284ce198ca71411f03dd0848283594edf8b54cf",
       "priority": 100,
       "font_profile": "workbook-defined"
     },

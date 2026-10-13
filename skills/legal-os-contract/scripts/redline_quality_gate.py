@@ -371,9 +371,16 @@ def fragments(path: Path, author: str) -> list[dict[str, object]]:
                 continue
             kind = "insert" if node.tag == qn("ins") else "delete"
             text = change_text(node, kind)
+            paragraph = node
+            while paragraph is not None and paragraph.tag != qn("p"):
+                paragraph = paragraph.getparent()
+            context_before = collect_text(paragraph, "reject", author) if paragraph is not None else ""
+            context_after = collect_text(paragraph, "accept", author) if paragraph is not None else ""
             records.append({
                 "kind": kind,
                 "text": text,
+                "context_before": context_before,
+                "context_after": context_after,
                 "length": len(text),
             })
     return records
@@ -543,6 +550,15 @@ def main() -> int:
         "original": str(args.original),
         "redline": str(args.redline),
         "hashes": {"original": source_hash, "redline": redline_hash},
+        "change_text": [
+            {
+                "kind": str(item["kind"]),
+                "text": str(item["text"]),
+                "context_before": str(item["context_before"]),
+                "context_after": str(item["context_after"]),
+            }
+            for item in parts
+        ],
         "author": args.author,
         "track_revisions": track,
         "source_matches_rejected_view": source_matches_rejected,

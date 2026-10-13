@@ -19,7 +19,10 @@
 ## 2.1 Contract Protection and Amount Chain
 
 - Confirm Contract Final meets the substantive risk-mapping and approved-compromise controls in the Contract Skill, with its review record bound to the final artifact.
-- For a formal amount conclusion, confirm the Data Verification amount-chain review is present when required and matches the final artifact; arithmetic review does not establish legal entitlement.
+- For R0/R1 contract light review, verify an actual source-bound redline and a human judgment of the specific change's nature, scope, legal effect and core-risk impact; protected legal domains remain on full review.
+- For internal drafts, source gaps and `unable-to-verify` amount records remain warnings and the result stays `DRAFT_ONLY`; malformed records, definite arithmetic/factor errors and independent hard-gate failures remain `BLOCKED`.
+- For a formal amount conclusion, confirm the Data Verification amount-chain review is present when required, matches the final artifact and has been reconciled by a human; when `--amount-review-required` is active, a missing record blocks Final. Arithmetic review does not establish legal entitlement.
+- When a prior sign-off is rebound, confirm its exact old artifact/sign-off proof and independently rerun the ordinary release gates; content-change candidates and stale hashes are not releasable.
 
 ## 3. Legal Authority Gate
 
