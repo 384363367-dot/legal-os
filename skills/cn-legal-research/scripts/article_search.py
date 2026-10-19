@@ -7,7 +7,7 @@ import json
 import sys
 from typing import Any
 
-from document_parser import extract_docx_paragraphs, split_into_articles
+from document_parser import article_number, extract_docx_paragraphs, split_into_articles
 from download import fetch_detail, get_download_url, parse_detail, search_laws
 from research_runtime import OfficialClient, SourceAccessError, SourceBoundaryError
 
@@ -39,16 +39,21 @@ def search_articles(
     if not keyword.strip():
         raise ValueError("keyword must not be empty")
     active = client or OfficialClient("npc-law")
-    page = max(1, offset // max(1, max_laws) + 1)
+    page_size = max(1, min(max_laws, 100))
+    page = max(1, offset // page_size + 1)
     raw = search_laws(
         law_keyword or keyword,
         page=page,
-        size=max(1, min(max_laws, 100)),
+        size=page_size,
         search_range=search_range,
         status_filter=[status] if status is not None else None,
         client=active,
     )
     rows = raw.get("rows", []) if raw.get("code") in (200, "200") else []
+    window = raw.get("query_window", {})
+    page_start = (page - 1) * page_size
+    positions = window.get("accepted_positions", list(range(len(rows))))
+    rows = [row for position, row in zip(positions, rows) if page_start + position >= offset]
     results: list[dict[str, object]] = []
     for row in rows if isinstance(rows, list) else []:
         if not isinstance(row, dict) or not row.get("bbbs"):
@@ -56,12 +61,19 @@ def search_articles(
         law = {"title": row.get("title", ""), "bbbs": row.get("bbbs"), "status": row.get("sxx"), "articles": [], "error": None}
         try:
             info = parse_detail(fetch_detail(str(row["bbbs"]), client=active))
+            if status is not None and (isinstance(info.get("status_code"), bool) or str(info.get("status_code")) != str(status)):
+                law["error"] = {"status": "STATUS_MISMATCH", "message": "Official detail does not confirm the requested status"}
+                law["matched_articles"] = 0
+                law["matched_other_sections"] = 0
+                results.append(law)
+                continue
             url = get_download_url(str(row["bbbs"]), "docx", client=active)
             response = active.request("GET", url)
             sections = split_into_articles(extract_docx_paragraphs(response.content))
             law["metadata"] = info
             law["articles"] = _article_matches(sections, keyword, max(0, context))
-            law["matched_articles"] = sum(1 for item in law["articles"] if item["is_match"])
+            law["matched_articles"] = sum(1 for item in law["articles"] if item["is_match"] and article_number(str(item["label"])) is not None)
+            law["matched_other_sections"] = sum(1 for item in law["articles"] if item["is_match"] and article_number(str(item["label"])) is None)
         except (SourceAccessError, SourceBoundaryError, ValueError, OSError) as exc:
             law["error"] = {"status": "BLOCKED_BY_SOURCE", "message": str(exc)}
             law["matched_articles"] = 0
@@ -72,6 +84,10 @@ def search_articles(
         "search_range": "content" if search_range == 2 else "title",
         "offset": offset,
         "max_laws": max_laws,
+        "query_window": {**window, "scope": "requested_remote_page", "remote_total": raw.get("total", 0)},
+        "status_filter": status,
+        "next_offset": page * page_size if status is None and raw.get("code") in (200, "200") and str(raw.get("total", "")).isdigit() and page * page_size < int(raw["total"]) else None,
+        "pagination_note": "Offsets address remote candidates; status-filtered windows do not promise a continuation cursor.",
         "results": results,
         "matched_laws": sum(1 for law in results if law.get("matched_articles", 0)),
         "verification_note": "每个条文仍须回到对应官方详情/全文核验；下载或解析失败保留为 BLOCKED_BY_SOURCE。",

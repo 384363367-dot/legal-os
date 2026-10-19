@@ -20,3 +20,7 @@ The registry identifies public official entry points and supported authority cat
 All registered URLs use HTTPS. `scripts/source_registry.py` rejects an unregistered host, an insecure scheme, and an authority type not listed for the selected source. A URL that redirects outside the registered host set is rejected by the client.
 
 The source registry does not establish that the underlying official content is freely redistributable. Do not put downloaded responses, official documents, or source caches into this repository.
+
+## Exact delegated endpoints (v0.8.4)
+
+The National Rules Library frontend identifies `https://sousuoht.www.gov.cn` as its API endpoint; only that exact host is included in the gov-rules family. The NPC HTTPS download API may delegate a signed file to `https://flkoss.obs-bj2.cucloud.cn`; that exact host belongs only to the NPC resource transport boundary. It is not a separate authority for legal status or text identity. Parent-domain wildcards, look-alike hosts, non-HTTPS requests and cross-family access remain rejected. Signature parameters must not be published.

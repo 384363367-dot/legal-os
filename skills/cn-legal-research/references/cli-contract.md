@@ -19,3 +19,11 @@ Common options:
 The NPC adapter additionally supports `--preview BBBS`, `--article BBBS [ARTICLE]`, `--grep KEYWORD`, `--download BBBS --output PATH`, and `--urls-only`. Source-specific adapters expose `--category`, `--year`, `--department`, `--status`, `--max-pages`, and `--output-dir` where the selected official source supports them. All result and download paths must be supplied by the caller.
 
 An error from an official source is returned as structured `BLOCKED_BY_SOURCE`/`SOURCE_ERROR` information or a non-zero process exit. The command does not silently substitute a search-engine result or an unregistered mirror.
+
+## Accuracy and bounded windows (v0.8.4)
+
+NPC `--exact` compares complete titles after decoding official highlighting; `--status` verifies official per-row status fields. `total` remains the remote candidate total, while `query_window` describes only the requested page and accepted positions. An empty page is not a whole-database absence finding.
+
+The MoJ public form exposes current regulations. `--status invalid` fails explicitly; query echo, count, page and parsed rows must agree. Title search uses `SearchTitleFront`; content search uses `SearchFront`.
+
+Article search defaults to all statuses. Numbered article matches and other sections are counted separately. `next_offset` is absent at the remote end, and filtered windows do not promise a continuation cursor. Official detail status is rechecked before downloading a requested version.

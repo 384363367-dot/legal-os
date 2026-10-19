@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import re
+from html import unescape
 import json
 import sys
 from pathlib import Path
@@ -59,7 +61,38 @@ def search_laws(
         data=payload,
         headers={"Content-Type": "application/json; charset=utf-8", "Referer": f"{BASE_URL}/search"},
     )
-    return response.json()
+    body = response.json()
+    rows = body.get("rows", [])
+    accepted = []
+    positions = []
+    for position, row in enumerate(rows if isinstance(rows, list) else []):
+        if not isinstance(row, dict):
+            continue
+        title = unescape(re.sub(r"<[^>]*>", "", str(row.get("title") or ""))).strip()
+        if search_type == 1 and title != keyword.strip():
+            continue
+        code = row.get("sxx")
+        valid_code = not isinstance(code, bool) and str(code) in {"1", "2", "3", "4"}
+        if status_filter and (not valid_code or int(code) not in status_filter):
+            continue
+        accepted.append(row)
+        positions.append(position)
+    result = dict(body)
+    if body.get("code") in (200, "200"):
+        result["rows"] = accepted
+    result["query_window"] = {
+        "scope": "requested_remote_page",
+        "page": page,
+        "page_size": size,
+        "remote_total": body.get("total", 0),
+        "remote_rows": len(rows) if isinstance(rows, list) else 0,
+        "verified_rows": len(accepted),
+        "accepted_positions": positions,
+        "exact_title": search_type == 1,
+        "requested_status": status_filter or [],
+        "note": "An empty verified page does not establish that no matching law exists on other pages.",
+    }
+    return result
 
 
 def fetch_detail(bbbs_id: str, *, client: OfficialClient | Any | None = None) -> dict[str, object]:

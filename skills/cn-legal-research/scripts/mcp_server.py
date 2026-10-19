@@ -201,7 +201,7 @@ def handle_message(message: dict[str, Any]) -> dict[str, object] | None:
     if method in {"notifications/initialized", "notifications/cancelled"}:
         return None
     if method == "initialize":
-        return {"jsonrpc": "2.0", "id": request_id, "result": {"protocolVersion": "2024-11-05", "capabilities": {"tools": {}}, "serverInfo": {"name": "legalos-cn-legal-research", "version": "0.1.0"}}}
+        return {"jsonrpc": "2.0", "id": request_id, "result": {"protocolVersion": "2024-11-05", "capabilities": {"tools": {}}, "serverInfo": {"name": "legalos-cn-legal-research", "version": "0.8.4"}}}
     if method == "tools/list":
         return {"jsonrpc": "2.0", "id": request_id, "result": {"tools": TOOLS}}
     if method == "tools/call":

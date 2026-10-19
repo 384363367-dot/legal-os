@@ -175,6 +175,17 @@ def _content_disposition_filename(headers: Mapping[str, str]) -> str | None:
     return plain.group(1).strip() if plain else None
 
 
+class _SourceRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Check the next destination before urllib creates a redirected request."""
+    def __init__(self, validate_url):
+        super().__init__()
+        self.validate_url = validate_url
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        self.validate_url(newurl)
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
 class OfficialClient:
     """HTTPS client constrained to one registered official source."""
 
@@ -204,7 +215,7 @@ class OfficialClient:
             self.opener = opener
         else:
             context = ssl.create_default_context()
-            self.opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=context))
+            self.opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=context), _SourceRedirectHandler(self.validate_url))
 
     def validate_url(self, url: str) -> str:
         source = official_source_for_url(url)

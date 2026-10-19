@@ -11,6 +11,7 @@ import csv
 import json
 import re
 import secrets
+from html.parser import HTMLParser
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any
@@ -293,7 +294,7 @@ def _search_gov_rules(client: OfficialClient, keyword: str, page: int, size: int
     category_name = category or "部门规章"
     title_search: dict[str, object] = {"fieldName": "f_202321360426", "withHighLight": True}
     if keyword:
-        title_search.update({"searchWord": keyword, "searchType": "TERM"})
+        title_search.update({"searchWord": keyword, "searchType": "MATCH"})
     payload = {
         "code": "18258ab0ac9",
         "preference": None,
@@ -410,6 +411,108 @@ def _search_tax(client: OfficialClient, keyword: str, page: int, size: int, cate
     return records[:size]
 
 
+class _MojResults(HTMLParser):
+    """Read result rows and form echo from the current public search form."""
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.inputs: dict[str, str] = {}
+        self.stack: list[tuple[str, str]] = []
+        self.row_depth: int | None = None
+        self.anchor_depth: int | None = None
+        self.current: dict[str, str] = {}
+        self.rows: list[dict[str, str]] = []
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if tag == "input":
+            self.inputs[attributes.get("id", "")] = attributes.get("value", "")
+            return
+        if tag in {"br", "hr", "img", "meta", "link", "source"}:
+            return
+        classes = attributes.get("class", "")
+        self.stack.append((tag, classes))
+        if tag == "li" and "list-item" in classes.split() and self.row_depth is None:
+            self.row_depth = len(self.stack)
+            self.current = {"title": "", "url": "", "publish": "", "effective": ""}
+        if self.row_depth is not None and tag == "a" and "/front/law/detail" in attributes.get("href", "") and not self.current["url"]:
+            self.current["url"] = attributes["href"]
+            self.anchor_depth = len(self.stack)
+
+    def handle_data(self, data):
+        if self.row_depth is None:
+            return
+        if self.anchor_depth is not None:
+            self.current["title"] += data
+        if any("publish-date" in classes.split() for _, classes in self.stack):
+            self.current["publish"] += data
+        if any("implemented-date" in classes.split() for _, classes in self.stack):
+            self.current["effective"] += data
+
+    def handle_endtag(self, tag):
+        if not self.stack:
+            return
+        matching = next((i for i in range(len(self.stack)-1, -1, -1) if self.stack[i][0] == tag), None)
+        if matching is None:
+            return
+        if self.anchor_depth is not None and matching < self.anchor_depth:
+            self.anchor_depth = None
+        if self.row_depth is not None and matching < self.row_depth:
+            if self.current.get("url"):
+                self.rows.append(self.current)
+            self.row_depth = None
+        del self.stack[matching:]
+
+
+def _search_moj(client, keyword, page, size, search_range, filters):
+    status = str(filters.get("status") or "all")
+    if status not in {"all", "effective"}:
+        raise ValueError("MOJ public collection only supports current regulations; invalid status is unsupported")
+    if not keyword.strip() or "ZVING" in keyword:
+        raise ValueError("MOJ search requires a keyword without query operators")
+    mode = "2" if search_range == "content" else "1"
+    query = keyword + "ZVING" + mode
+    path = "SearchFront" if mode == "2" else "SearchTitleFront"
+    response = client.request("GET", "https://xzfg.moj.gov.cn/" + path,
+                              params={"SiteID": "122", "Query": keyword, "Type": mode,
+                                      "QueryAll": query, "PageIndex": page})
+    parsed = _MojResults()
+    parsed.feed(response.text)
+    if parsed.inputs.get("QueryAll") != query or parsed.inputs.get("pageIndex") != str(page):
+        raise SourceAccessError("MOJ response did not confirm the requested query and page")
+    if not parsed.inputs.get("law-total", "").isdigit():
+        raise SourceAccessError("MOJ response is missing a verifiable result count")
+    collection = re.search(r"现行有效\s*<span[^>]*>\s*\d+\s*</span>\s*部", response.text)
+    if not collection:
+        raise SourceAccessError("MOJ response did not confirm the current-regulations collection")
+    remote_total = int(parsed.inputs["law-total"])
+    if (remote_total == 0 and parsed.rows) or (remote_total > 0 and not parsed.rows):
+        raise SourceAccessError("MOJ count and parsed rows disagree; this is not a verified empty result")
+    source = source_for_id("moj-regulations")
+    records = []
+    for item in parsed.rows:
+        title = clean_text(item["title"])
+        if search_range == "title" and keyword not in title:
+            continue
+        url = _registered_detail_url(item["url"], response.url, source)
+        if not url:
+            continue
+        def date(value):
+            found = re.search(r"\d{4}-\d{2}-\d{2}", value)
+            return found.group() if found else ""
+        records.append({"source_id": source.id, "source_name": source.name, "category": "行政法规",
+                        "title": title, "detail_url": url, "source_url": url,
+                        "promulgated_date": date(item["publish"]), "effective_date": date(item["effective"]),
+                        "issuing_body": "", "document_number": "", "status": "现行有效",
+                        "status_basis": "official current-regulations collection",
+                        "query_window": {"page": page, "remote_total": int(parsed.inputs["law-total"]),
+                                         "scope": "requested_remote_page"}})
+        if len(records) >= size:
+            break
+    if remote_total > 0 and not records:
+        raise SourceAccessError("MOJ returned candidates but no verifiable matching records")
+    return records
+
+
 def _html_pattern(source_id: str) -> str | None:
     return {
         "mfa-treaty": r"(?:detail\.jsp|detail/)",
@@ -496,6 +599,8 @@ def search_source(
             client=active_client,
         )
         return collect_search_records(raw, source=source, limit=size)
+    if source_id == "moj-regulations":
+        return _search_moj(active_client, keyword, max(1, page), size, search_range, filters)
     if source_id == "gov-rules":
         return _search_gov_rules(active_client, keyword, page, size, str(filters.get("category") or ""))
     if source_id == "tax-rules":

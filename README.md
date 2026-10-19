@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/release-v0.8.3-blue" alt="v0.8.3 public prerelease">
+  <img src="https://img.shields.io/badge/release-v0.8.4-blue" alt="v0.8.4 public prerelease">
   <img src="https://img.shields.io/badge/Skills-15-2563eb" alt="15 Skills">
   <img src="https://img.shields.io/badge/routes-12-0f766e" alt="12 routes">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
@@ -32,7 +32,9 @@
 
 ## 当前版本
 
-**v0.8.3 公开预发布版（非稳定版）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
+**更新日期：2026-10-19。** 本版更新 `cn-legal-research` 的完整标题/效力状态核验、司法部当前搜索表单和条文计数，并保留同一官方来源的 HTTPS 边界。查询仅核验有界候选窗口，无法保证全库召回；官方空结果、未支持的历史集合与访问限制会明确报告。
+
+**v0.8.4 公开预发布版（非稳定版）**。当前公开包包含 **15 个 Skills、12 条路由和 24 个标准 Office 模板**。版本边界、安装方式和已知限制以本仓库文件为准。
 
 ## Legal OS 是什么
 
@@ -55,7 +57,7 @@ Legal OS 不是一组零散提示词，也不是替代律师判断的无人值�
 | 把数字与文件交付稳住 | 金额/付款/日期核验、模板解析、Office 源文件检查、版本与归档 |
 | 把风险留在可控范围 | 证据回流、法律质量门、事实与策略分层、外部动作单独授权 |
 
-### v0.8.3 工作流与质量控制
+### v0.8.4 工作流与质量控制
 
 - 合同 Final 的红线技术/形式检查与法律保护复核均须通过；合同金额沿来源、付款凭证和计算基数回溯，缺少可选金额记录时 Draft 保持 `DRAFT_ONLY`，Final 仍按既有要求严格复核。
 - 适用的诉讼及重大权利主张函件先在正常对话中分析请求、证据和策略并确认实质路线，再按现有模板与质量门制作正式成果；普通咨询和非实质修改不强制重确认。
@@ -171,7 +173,7 @@ python3 -m unittest discover -s tests -v
 ./install.sh --dry-run
 ```
 
-具体命令、环境和结果见 [`TEST_REPORT_v0.8.3.md`](TEST_REPORT_v0.8.3.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
+具体命令、环境和结果见 [`TEST_REPORT_v0.8.4.md`](TEST_REPORT_v0.8.4.md)。首页与版本文案的固定更新规则见 [`docs/public-homepage-and-release-rules.md`](docs/public-homepage-and-release-rules.md)。
 
 ## 文档导航
 
@@ -179,7 +181,7 @@ python3 -m unittest discover -s tests -v
 - [能力矩阵](docs/capability-matrix.md)
 - [统一入口与路由](docs/unified-intake-routing.md)
 - [v0.8.0 现行法公开适配](docs/current-law-public-adaptation-v0.8.md)
-- [v0.8.3 版本说明](RELEASE_NOTES_v0.8.3.md)
+- [v0.8.4 版本说明](RELEASE_NOTES_v0.8.4.md)
 - [v0.8.0 发布前候选清单（历史验收记录）](PUBLIC_CANDIDATE_MANIFEST.json)
 - [v0.7.0 案例/现行法研究架构](docs/case-and-law-research-v0.7.md)
 - [诉讼工作空间](docs/litigation-workspace.md)
