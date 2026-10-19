@@ -22,8 +22,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "833de1b3ba82cc440aa09687a1836f44cd4be48e8f8d2f25a4517062988eeba8",
-      "size": 21418
+      "sha256": "145f41e49d84e8465280b8dec4b9b6b9a6367070f22cd4175762df390f5ade3d",
+      "size": 22087
     },
     {
       "mode": "0644",
@@ -694,8 +694,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-correspondence/SKILL.md",
-      "sha256": "cde442f34e84e51a032fdb5309cd28d4d0edace5cfb1c7dc296dbce687a15fae",
-      "size": 5203
+      "sha256": "ab0eca58d1962bdf4d4ecb48e997a83898d582404a49867629ff30fe2ef9cad9",
+      "size": 6223
     },
     {
       "mode": "0644",
@@ -808,8 +808,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-litigation/SKILL.md",
-      "sha256": "c40954c8a7ab2b1d21f21d730d289eb1f13c8b090ca5180397671533c0605a45",
-      "size": 8618
+      "sha256": "92b1d24c17990b332968841d123b26b299fb6869d7e9707aa28295290047937b",
+      "size": 9121
     },
     {
       "mode": "0644",
@@ -880,8 +880,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-litigation/references/pleading-drafting-rules.md",
-      "sha256": "5e18ea72132ef6b91ffb8af6853c37bba5025783511498ef696523d07ad17744",
-      "size": 12814
+      "sha256": "f435a7ff59e013ec5a2017b8bf6456f4c8ade99ce539a93410c755adc2092aa5",
+      "size": 17329
     },
     {
       "mode": "0644",
@@ -1138,8 +1138,8 @@
     {
       "mode": "0644",
       "path": "tests/test_claimant_stance_rules.py",
-      "sha256": "061ad07a4e06533988a708ed369b97acf98c570a09cedf49f0668e978d87b242",
-      "size": 1324
+      "sha256": "d9ff94e99bdfff6440914d94f5961e5562c342cc5758cccfbee13cda41ab05b6",
+      "size": 5609
     },
     {
       "mode": "0644",
