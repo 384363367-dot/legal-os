@@ -4,8 +4,8 @@
     "official_asf_license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "original_banner_git_blob": "16a43b80e86098b387a285c4afac46d7d1b47cdb"
   },
-  "package_version": "0.8.2",
-  "file_count": 205,
+  "package_version": "0.8.3",
+  "file_count": 207,
   "files": [
     {
       "mode": "0644",
@@ -22,8 +22,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "145f41e49d84e8465280b8dec4b9b6b9a6367070f22cd4175762df390f5ade3d",
-      "size": 22087
+      "sha256": "84a93c7b6e793cd47550f1fc4c2330004693f1385723adbe1eed90c7cf951746",
+      "size": 20983
     },
     {
       "mode": "0644",
@@ -52,8 +52,8 @@
     {
       "mode": "0644",
       "path": "README.md",
-      "sha256": "69fdc267f77a7a3169e039782cc3c404eca40da3497f63ff47a90e2b5c6ed185",
-      "size": 10909
+      "sha256": "017a3d06928da479c92f96f7cdef3071da3fa1a2784350e470e6fbe5a5229ac7",
+      "size": 11122
     },
     {
       "mode": "0644",
@@ -78,6 +78,12 @@
       "path": "RELEASE_NOTES_v0.8.2.md",
       "sha256": "1ac55e9b92f95912fffbf095494858dde9f07566773c1656746e61ea00ed3dbf",
       "size": 1326
+    },
+    {
+      "mode": "0644",
+      "path": "RELEASE_NOTES_v0.8.3.md",
+      "sha256": "ca0f902bfca1bd8d75b76be78ab840a7bc920c0ca4f70c71ccad5b2407ae9d60",
+      "size": 2229
     },
     {
       "mode": "0644",
@@ -111,6 +117,12 @@
     },
     {
       "mode": "0644",
+      "path": "TEST_REPORT_v0.8.3.md",
+      "sha256": "387641a480102a275b3cc078f117b658ee0ebcbd2d7195bc608e5bcefee3e920",
+      "size": 2144
+    },
+    {
+      "mode": "0644",
       "path": "UPGRADE_REPORT_v0.7.0.md",
       "sha256": "32ba01a7850425dcba870214ff33a31eb4fe66f08b6145fc85b726b63a27651f",
       "size": 13883
@@ -136,8 +148,8 @@
     {
       "mode": "0644",
       "path": "docs/capability-matrix.md",
-      "sha256": "084f77a1552590068bca2217b18be8e8b07c79e8e47332773da8a7dce68c1b85",
-      "size": 3089
+      "sha256": "1ed1cc891f655c4364f1ce4a782674605cb46596b280ea344061849e471d132e",
+      "size": 3102
     },
     {
       "mode": "0644",
@@ -244,7 +256,7 @@
     {
       "mode": "0644",
       "path": "legalos.manifest.json",
-      "sha256": "8d1991a2b1c2a1fa4f743a0bc943511f69cebf5a17259d39e1705b2ae41ca073",
+      "sha256": "0f510fb309ce5d06b58dc3491607619c6aa8ec555eaff291f23fa63eec1007d9",
       "size": 9450
     },
     {
