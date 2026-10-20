@@ -21,7 +21,7 @@
 | `python skills/cn-case-hub/scripts/check_first_party_boundary.py` | PASS |
 | `python skills/cn-law-hub/scripts/check_first_party_boundary.py` | PASS |
 | `python skills/cn-legal-research/scripts/check_first_party_boundary.py` | PASS |
-| `./install.sh --dry-run --target /private/tmp/legal-os-v083-install-dry-run` | PASS，处理 15 个 Skill |
+| `./install.sh --dry-run --target /tmp/legal-os-v083-install-dry-run` | PASS，处理 15 个 Skill |
 | `python -m pip check` | PASS，无损坏依赖 |
 | `python -m unittest discover -s tests -v` | PASS，92 项 |
 | `python -m unittest discover -s skills/legal-os-contract/tests -v` | PASS，50 项 |

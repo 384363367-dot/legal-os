@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 
+## [v0.8.6] - 2026-10-20
+
+状态：公开预发布版，非稳定版；Release ID：`legalos-v0.8.6`。
+
+- 公开包与受控私有包通过同一个 Release ID 和版本标识对齐，各自独立记录 Skills payload 树哈希与完整文件清单；不比较或公开私有 inventory/hash。
+- 新增本地 profile pair-validator，只核对 Release ID、版本和 profile id，不读取或输出私有 payload inventory、路径、哈希或内容。
+- 安装器先将目标规范化为绝对物理路径并拒绝根目录、系统保护目录、用户主目录和无效父路径，再执行套件级事务；替换中途出错时回滚本次已写入项，成功替换后保留旧 Skill 为回滚材料，并清理临时 staging。
+- 公开 banner 仅剥除 23,597 字节的非像素 C2PA/JUMBF `caBX` 元数据块；PNG 结构和 CRC 通过检查，解码后的 RGB 像素逐字节一致。
+- 移除长期活动的公开候选清单及其等待审批引用；历史候选记录留在 Git 历史，Skill/模板成熟度标签保持原状。
+
+说明见 [`RELEASE_NOTES_v0.8.6.md`](RELEASE_NOTES_v0.8.6.md)，验证见 [`TEST_REPORT_v0.8.6.md`](TEST_REPORT_v0.8.6.md)。
+
 ## [v0.8.5] - 2026-10-20
 
 状态：公开预发布版，非稳定版；实际外部发布以对应 Tag 和 GitHub Release 为准。

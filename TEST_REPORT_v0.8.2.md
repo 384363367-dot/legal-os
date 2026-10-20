@@ -24,7 +24,7 @@
 | `python3 skills/cn-law-hub/scripts/check_first_party_boundary.py` | PASS |
 | `python3 skills/cn-legal-research/scripts/check_first_party_boundary.py` | PASS |
 | `python3 -m pip check` | PASS，无损坏依赖（仅有 pip 缓存目录权限提示） |
-| `./install.sh --dry-run --target /private/tmp/legal-os-v082-install-dry-run` | PASS，15 个 Skill |
+| `./install.sh --dry-run --target /tmp/legal-os-v082-install-dry-run` | PASS，15 个 Skill |
 | `git diff --check` | PASS |
 
 包清单、校验和、manifest 与公开表面一致性均包含在全仓 `tests`、`validate_public_surface.py` 和 `validate_repo.py` 门禁中并通过。版本以 `v0.8.2` tag 和 GitHub prerelease 发布。

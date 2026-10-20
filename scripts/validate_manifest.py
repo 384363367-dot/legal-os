@@ -4,6 +4,8 @@ from __future__ import annotations
 import json,re
 from pathlib import Path
 from typing import Any
+try:from scripts.profile_inventory import profile_payload
+except ModuleNotFoundError:from profile_inventory import profile_payload
 SEMVER_RE=re.compile(r"^[0-9]+\.[0-9]+\.[0-9]+$")
 EXPECTED_ROUTES={f"T-{n:02d}" for n in range(1,13)}
 EXPECTED_PROFILES={"public-generic","private-controlled"}
@@ -16,12 +18,27 @@ def validate_manifest(root:Path,manifest:dict[str,Any]|None=None)->list[str]:
  if not sp.is_file():errors.append(f"{sp}: missing manifest schema")
  try:manifest=manifest if manifest is not None else load_json(mp)
  except (json.JSONDecodeError,OSError) as e:return [f"{mp}: invalid JSON: {e}"]
- required={"$schema","schema_version","product","authority","profiles","execution_modes","skills","routes","invocation_policy","template_runtime","quality_gates"}
+ required={"$schema","schema_version","product","release","profile","authority","profiles","execution_modes","skills","routes","invocation_policy","template_runtime","quality_gates"}
  missing=sorted(required-set(manifest));
  if missing:errors.append(f"{mp}: missing required fields {missing}")
  if not isinstance(manifest.get('schema_version'),str) or not SEMVER_RE.fullmatch(manifest['schema_version']):errors.append(f"{mp}: schema_version must be SemVer")
  product=manifest.get('product',{});version=product.get('public_version') if isinstance(product,dict) else None
  if not isinstance(version,str) or not SEMVER_RE.fullmatch(version):errors.append(f"{mp}: product.public_version must be SemVer")
+ if isinstance(product,dict) and product.get('release_status') not in {'released','superseded'}:errors.append(f"{mp}: product.release_status must be released or superseded")
+ release=manifest.get('release',{})
+ release_id=release.get('release_id') if isinstance(release,dict) else None
+ release_version=release.get('version') if isinstance(release,dict) else None
+ if not isinstance(release_version,str) or not SEMVER_RE.fullmatch(release_version):errors.append(f"{mp}: release.version must be SemVer")
+ if isinstance(version,str) and isinstance(release_version,str) and version!=release_version:errors.append(f"{mp}: release.version must match product.public_version")
+ if not isinstance(release_id,str) or not isinstance(release_version,str) or release_id!=f"legalos-v{release_version}":errors.append(f"{mp}: release.release_id must match the Legal OS release version")
+ profile=manifest.get('profile',{})
+ if not isinstance(profile,dict) or profile.get('profile_id')!='public-generic':errors.append(f"{mp}: profile.profile_id must be public-generic")
+ else:
+  payload=profile.get('payload',{})
+  try:actual_payload=profile_payload(root/'skills')
+  except (OSError,ValueError) as e:errors.append(f"{mp}: public profile payload cannot be inventoried: {e}")
+  else:
+   if payload!=actual_payload:errors.append(f"{mp}: profile.payload does not match the public Skills inventory and tree hash")
  profiles=manifest.get('profiles',[])
  if not isinstance(profiles,list):errors.append(f"{mp}: profiles must be a list");profiles=[]
  ids={x.get('id') for x in profiles if isinstance(x,dict)}

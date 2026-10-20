@@ -2,4 +2,4 @@
 
 Maintainer review is required for material architecture/scope/permission/public-private changes, rights-affecting workflow behavior, external side effects, major releases, unverifiable authority/licence, failed mandatory gates or unresolved Critical defects.
 
-Each proposed release identifies scope, verification results, limitations and rollback path. A release is eligible only after required reviews and automated checks pass and no blocking defect remains open. v0.7.0 remains `candidate` until GitHub Actions on the uploaded commit pass.
+Each synchronized release identifies scope, verification results, limitations and rollback path. The v0.7.0 candidate wording in its original release record described the then-pending CI check; v0.7.0 was later published. That historical wording does not create an active candidate package or release-wait state.

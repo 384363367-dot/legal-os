@@ -8,6 +8,8 @@
     "$schema",
     "schema_version",
     "product",
+    "release",
+    "profile",
     "authority",
     "profiles",
     "execution_modes",
@@ -44,13 +46,45 @@
         },
         "release_status": {
           "enum": [
-            "candidate",
             "released",
             "superseded"
           ]
         },
         "version_namespace": {
           "const": "public-semver"
+        }
+      }
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["release_id", "version"],
+      "properties": {
+        "release_id": {
+          "type": "string",
+          "pattern": "^legalos-v[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "payload"],
+      "properties": {
+        "profile_id": {"const": "public-generic"},
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["skill_count", "file_count", "tree_sha256"],
+          "properties": {
+            "skill_count": {"type": "integer", "minimum": 1},
+            "file_count": {"type": "integer", "minimum": 1},
+            "tree_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          }
         }
       }
     },

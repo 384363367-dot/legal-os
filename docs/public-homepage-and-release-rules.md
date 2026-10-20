@@ -66,17 +66,13 @@ README 不得反过来定义版本、包清单或发布状态。
 4. 在 CHANGELOG 和版本说明中记录变化、边界和迁移影响；
 5. 只有仓库中存在真实实现、资源和测试时，才能在首页宣称该能力。
 
-### 4.2 版本状态变化
+### 4.2 同步发布状态
 
-版本状态只在机器可读源、CHANGELOG、版本说明和 README 四处形成一致投影：
+一次更新只使用一个 Release ID 和版本号。本地私有包与公开包分别记录各自 profile 的 Skills 数量、payload 文件数和树哈希；内容范围不同，两个 profile 的哈希不要求相同，私有 inventory/hash 不进入公开包。
 
-- **本地草稿**：只在本地工作树，README 不写成已发布；
-- **公开候选**：可以在 Release Notes 说明候选性质，首页只写“公开预发布版”或明确的候选提示；
-- **已发布公开预发布版**：manifest、README、CHANGELOG 和 Release 对应同一版本；
-- **稳定版**：只有明确经过稳定版决策和发布授权后才可使用“稳定版”；
-- **撤回/阻断**：先更新机器可读状态和版本说明，再从首页删除过期宣传，不静默抹掉历史记录。
+发布 staging 只在本轮操作中临时存在，验证完成后清理；不保留活动候选包、候选 manifest 或等待审批的第二个版本。公开 `legalos.manifest.json` 只允许 `released` 或 `superseded` 状态，产品成熟度仍按各 Skill/模板自己的 maturity 字段表达。
 
-“manifest 的 `released`”表示该公开版本已经完成发布记录，不等于产品成熟度为 stable；首页必须把“发布状态”和“成熟度”分开表达。
+同一轮提交前，公开 manifest、README、CHANGELOG、Release Notes、package manifest 与私有 manifest 的 Release ID/版本必须一致。pair-validator 只读取私有 manifest 的 `release.release_id`、`release.version` 与 `profile.profile_id`；不输出私有 inventory、路径、哈希或 payload。任一 profile 未准备好或任一安装/发布阶段失败时，保持 `SYNC_INCOMPLETE`，回滚本次本地安装并修复后再完成同一 Release ID。
 
 ### 4.3 安全、隐私和边界变化
 
@@ -86,14 +82,14 @@ README 不得反过来定义版本、包清单或发布状态。
 
 按下面顺序执行，任何一步失败都不得继续发布：
 
-1. **范围确认**：写明是文案、能力、规则、模板、依赖还是版本状态变化；
+1. **范围确认**：写明是文案、能力、规则、模板、依赖还是版本身份变化；
 2. **源文件修改**：先改真实实现和 manifest，再改 README；
 3. **公开边界检查**：扫描私有路径、客户事实、秘密、内部术语和过期状态；
-4. **一致性检查**：校验版本号、Skills 数量、路由、模板数量、链接和安装入口；
-5. **行为验证**：运行仓库 validator、路由测试、安装 dry-run 和受影响测试；
+4. **一致性检查**：校验 Release ID、版本、profile inventory/hash、Skills 数量、路由、模板数量、链接和安装入口；
+5. **行为验证**：运行仓库 validator、路由测试、安装 dry-run、事务回滚测试和受影响测试；
 6. **人工首页审阅**：只问“新用户能否快速理解并开始”，不把内部验收报告复制到首页；
 7. **本地验收记录**：把命令和结果写入 TEST_REPORT 或工作记录；
-8. **外部发布**：只有得到单独明确授权后，才执行 push、tag、Release 或其他外部写入。
+8. **同步发布**：本机可用包与公开包作为同一 Release ID/版本的一次事务完成；外部 push、tag、Release 仅在明确授权后执行，任一端未验证都不得报告同步完成。
 
 推荐的最小本地门禁：
 

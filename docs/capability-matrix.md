@@ -1,6 +1,6 @@
 # Public capability matrix
 
-Legal OS v0.8.5 public prerelease (non-stable) contains fifteen installable Skills. T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory.
+Legal OS v0.8.6 public prerelease (non-stable) contains fifteen installable Skills. T-routes describe capabilities; not every route is a separate Skill directory. `legalos.manifest.json` is the machine authority for this inventory.
 
 | Route | Capability | Public implementation | Boundary |
 |---|---|---|---|

@@ -1,11 +1,23 @@
 {
   "$schema": "./schemas/legalos-manifest.schema.json",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.8.5",
+    "public_version": "0.8.6",
     "release_status": "released",
     "version_namespace": "public-semver"
+  },
+  "release": {
+    "release_id": "legalos-v0.8.6",
+    "version": "0.8.6"
+  },
+  "profile": {
+    "profile_id": "public-generic",
+    "payload": {
+      "skill_count": 15,
+      "file_count": 139,
+      "tree_sha256": "94470aba83c4055669584359e3f928f8b3a3ef383f6f4eab4f7fa77030dfe1eb"
+    }
   },
   "authority": {
     "manifest": "legalos.manifest.json",

@@ -32,6 +32,6 @@ v0.8.0 将现行法研究适配为可审计的官方来源检索层，T-05 的�
 
 - [现行法公开适配说明](docs/current-law-public-adaptation-v0.8.md)
 - [能力矩阵](docs/capability-matrix.md)
-- [v0.8.0 发布前候选清单（历史验收记录）](PUBLIC_CANDIDATE_MANIFEST.json)
+- v0.8.0 发布前候选清单的历史副本保留在 Git 历史中；它不再作为当前包文件或待审批版本使用。
 - [公开边界](OPEN_SOURCE_BOUNDARY.md)
 - [测试报告](TEST_REPORT_v0.8.0.md)

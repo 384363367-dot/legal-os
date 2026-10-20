@@ -14,16 +14,23 @@ class PublicSurfaceTests(unittest.TestCase):
     def test_current_public_surface_is_consistent(self):
         self.assertEqual(validate_public_surface(ROOT), [])
 
-    def test_candidate_manifest_matches_public_inventory(self):
+    def test_release_manifest_records_public_profile_without_candidate_package(self):
         import json
 
-        candidate = json.loads((ROOT / "PUBLIC_CANDIDATE_MANIFEST.json").read_text(encoding="utf-8"))
         manifest = json.loads((ROOT / "legalos.manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(candidate["status"], "candidate")
-        self.assertFalse(candidate["released"])
-        self.assertEqual(candidate["inventory"]["skills"], len(manifest["skills"]))
-        self.assertEqual(candidate["inventory"]["routes"], len(manifest["routes"]))
-        self.assertEqual(candidate["current_law_route"]["default_skill"], "cn-legal-research")
+        from scripts.profile_inventory import profile_payload
+
+        self.assertEqual(manifest["release"], {"release_id": "legalos-v0.8.6", "version": "0.8.6"})
+        self.assertEqual(manifest["product"]["public_version"], manifest["release"]["version"])
+        self.assertEqual(manifest["profile"]["profile_id"], "public-generic")
+        self.assertEqual(manifest["profile"]["payload"], profile_payload(ROOT / "skills"))
+        self.assertFalse((ROOT / "PUBLIC_CANDIDATE_MANIFEST.json").exists())
+
+        skills = {item["name"]: item for item in manifest["skills"]}
+        self.assertEqual(skills["legal-os-contract"]["maturity"], "stable")
+        self.assertEqual(skills["legal-os-unified-intake"]["maturity"], "candidate")
+        self.assertEqual(skills["cn-law-hub"]["status"], "compatibility")
+        self.assertEqual(skills["cn-law-hub"]["maturity"], "candidate")
 
 
 if __name__ == "__main__":

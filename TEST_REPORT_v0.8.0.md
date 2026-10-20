@@ -16,7 +16,7 @@ python3 scripts/validate_repo.py
 python3 scripts/validate_routing_scenarios.py
 python3 skills/cn-legal-research/scripts/check_first_party_boundary.py
 python3 -m unittest discover -s tests -v
-./install.sh --dry-run --target /private/tmp/legalos-public-candidate-install-dryrun-20260903
+./install.sh --dry-run --target /tmp/legalos-public-candidate-install-dryrun-20260903
 ```
 
 实测结果（2026-09-03）：
@@ -26,7 +26,7 @@ python3 -m unittest discover -s tests -v
 - `validate_routing_scenarios.py`：PASS（16 个合成场景）；
 - `cn-legal-research/scripts/check_first_party_boundary.py`：PASS；
 - `python3 -m unittest discover -s tests -v`：75 项通过；
-- `./install.sh --dry-run --target /private/tmp/legalos-public-candidate-install-dryrun-20260903`：15 个 Skill，全部列出，退出码 `0`；显式临时目标避免触碰默认已存在的用户 Skill 目录。
+- `./install.sh --dry-run --target /tmp/legalos-public-candidate-install-dryrun-20260903`：15 个 Skill，全部列出，退出码 `0`；显式临时目标避免触碰默认已存在的用户 Skill 目录。
 
 ## `cn-legal-research` 定向覆盖
 
