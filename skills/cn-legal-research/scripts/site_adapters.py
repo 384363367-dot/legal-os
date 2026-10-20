@@ -15,7 +15,7 @@ from html.parser import HTMLParser
 from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote, urljoin
+from urllib.parse import quote, urljoin, urlsplit, urlunsplit
 
 from html_parser import extract_detail, extract_records, parse_html
 from research_runtime import (
@@ -463,6 +463,84 @@ class _MojResults(HTMLParser):
         del self.stack[matching:]
 
 
+class _MojDetailFields(HTMLParser):
+    """Capture the title and legal text containers on MOJ detail pages."""
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.parts: dict[str, list[str]] = {"text-title": [], "law-chapter": []}
+        self.depths = {name: 0 for name in self.parts}
+        self.stack: list[tuple[str, tuple[str, ...]]] = []
+        self.skip_depth = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"script", "style", "noscript", "template"}:
+            self.skip_depth += 1
+        classes = set(dict(attrs).get("class", "").split())
+        captured = tuple(name for name in self.parts if name in classes)
+        self.stack.append((tag, captured))
+        for name in captured:
+            self.depths[name] += 1
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        self.handle_endtag(tag)
+
+    def handle_data(self, data):
+        if self.skip_depth:
+            return
+        for name, depth in self.depths.items():
+            if depth:
+                self.parts[name].append(data)
+
+    def handle_endtag(self, tag):
+        matching = next((i for i in range(len(self.stack) - 1, -1, -1) if self.stack[i][0] == tag), None)
+        if matching is None:
+            return
+        if tag in {"script", "style", "noscript", "template"} and self.skip_depth:
+            self.skip_depth -= 1
+        for _, captured in self.stack[matching:]:
+            for name in captured:
+                self.depths[name] -= 1
+        del self.stack[matching:]
+
+
+def _parse_moj_detail(html: str, url: str, source: OfficialSource) -> dict[str, object]:
+    document = parse_html(html)
+    fields = _MojDetailFields()
+    fields.feed(html)
+    title = clean_text(" ".join(fields.parts["text-title"]))
+    law_text = clean_text(" ".join(fields.parts["law-chapter"]))
+
+    date_pattern = r"(?:19|20)\d{2}年\d{1,2}月\d{1,2}日"
+    publish_date = None
+    publish_marker = re.search(r"(?:公布|发布)", law_text)
+    if publish_marker:
+        dates_before_publish = re.findall(date_pattern, law_text[:publish_marker.start()])
+        if dates_before_publish:
+            # MOJ preambles may list the adoption/meeting date before the
+            # separate promulgation date; the date nearest 公布/发布 is the one
+            # required for the authority record.
+            publish_date = dates_before_publish[-1]
+    effective = re.search(rf"自\s*({date_pattern})\s*起施行", law_text)
+    state_council_order = re.search(r"国务院\s*令\s*第\s*(\d+)\s*号", law_text)
+
+    return {
+        "source_id": source.id,
+        "source_name": source.name,
+        "title": title,
+        "detail_url": url,
+        "source_url": url,
+        "content": document.text,
+        "publish_date": publish_date,
+        "effective_date": effective.group(1) if effective else None,
+        "issuing_body": "国务院" if state_council_order else None,
+        "document_number": f"国务院令第{state_council_order.group(1)}号" if state_council_order else None,
+        "status": "未标注",
+        "status_basis": "司法部详情页未标注效力状态；请结合官方现行行政法规搜索结果核对",
+        "links": [{"href": link.href, "text": link.text} for link in document.links],
+    }
+
+
 def _search_moj(client, keyword, page, size, search_range, filters):
     status = str(filters.get("status") or "all")
     if status not in {"all", "effective"}:
@@ -496,6 +574,8 @@ def _search_moj(client, keyword, page, size, search_range, filters):
         url = _registered_detail_url(item["url"], response.url, source)
         if not url:
             continue
+        parts = urlsplit(url)
+        url = urlunsplit((parts.scheme, parts.netloc, parts.path, quote(parts.query, safe="=&%+"), parts.fragment))
         def date(value):
             found = re.search(r"\d{4}-\d{2}-\d{2}", value)
             return found.group() if found else ""
@@ -661,6 +741,8 @@ def fetch_detail(url: str, *, source_id: str | None = None, client: OfficialClie
         raise SourceBoundaryError(f"detail response left the {source.id} source boundary")
     if source.id == "mfa-treaty" and not _response_is_json(response):
         return _parse_treaty_detail(response.text, response.url, source)
+    if source.id == "moj-regulations" and not _response_is_json(response):
+        return _parse_moj_detail(response.text, response.url, source)
     if _response_is_json(response):
         try:
             payload = response.json()

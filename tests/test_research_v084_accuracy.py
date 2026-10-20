@@ -4,6 +4,7 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from urllib.parse import parse_qs, urlsplit
 from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'skills/cn-legal-research/scripts'))
@@ -19,9 +20,9 @@ class Client:
         body=self.html.encode() if self.html is not None else json.dumps(self.payload).encode()
         return SourceResponse(200,url,{'content-type':'text/html' if self.html is not None else 'application/json'},body)
 
-def page(query='示例条例ZVING1',title='示例条例',count=1):
+def page(query='示例条例ZVING1',title='示例条例',count=1,detail_url='/front/law/detail?LawID=42&Query=示例条例'):
     return f'''<input id="QueryAll" value="{query}"><input id="law-total" value="{count}"><input id="pageIndex" value="1">
-<div>现行有效 <span>{count}</span> 部</div><ul class="searching-results-list"><li class="list-item"><div class="title"><a href="/front/law/detail?LawID=42"><font>示例</font>条例</a></div><ul><li class="publish-date">2024-01-02公布</li><li class="implemented-date">2024-02-03施行</li></ul></li></ul>'''
+<div>现行有效 <span>{count}</span> 部</div><ul class="searching-results-list"><li class="list-item"><div class="title"><a href="{detail_url}"><font>示例</font>条例</a></div><ul><li class="publish-date">2024-01-02公布</li><li class="implemented-date">2024-02-03施行</li></ul></li></ul>'''
 
 class SearchAccuracyTests(unittest.TestCase):
     def test_official_gov_api_host_is_scoped_and_similar_hosts_stay_blocked(self):
@@ -113,6 +114,24 @@ class SearchAccuracyTests(unittest.TestCase):
         self.assertEqual(result[0]['status'],'现行有效')
         self.assertTrue(client.calls[0][1].endswith('/SearchTitleFront'))
         self.assertEqual(client.calls[0][2]['params']['QueryAll'],'示例条例ZVING1')
+        detail_url=result[0]['detail_url']
+        self.assertTrue(detail_url.isascii())
+        self.assertEqual(parse_qs(urlsplit(detail_url).query)['Query'],['示例条例'])
+
+    def test_moj_detail_extracts_legal_title_and_preamble_dates_without_inventing_status(self):
+        url='https://xzfg.moj.gov.cn/front/law/detail?LawID=42&Query=%E7%A4%BA%E4%BE%8B'
+        html='''<title>国家行政法规库</title><div class="content-text"><div class="text-bottom">
+<div class="text-title">示例行政法规</div><div class="law-chapter">
+<p><span>（2020年1月2日国务院第10次常务会议通过　2020年2月3日中华人民共和国国务院令第42号公布　自2020年4月5日起施行）</span></p>
+<p>第一条　示例条文。</p></div></div></div>'''
+        result=site_adapters.fetch_detail(url,client=Client(html=html))
+        self.assertEqual(result['title'],'示例行政法规')
+        self.assertEqual(result['publish_date'],'2020年2月3日')
+        self.assertEqual(result['effective_date'],'2020年4月5日')
+        self.assertEqual(result['issuing_body'],'国务院')
+        self.assertEqual(result['document_number'],'国务院令第42号')
+        self.assertEqual(result['status'],'未标注')
+        self.assertIn('未标注效力状态',result['status_basis'])
     def test_moj_full_text_uses_verified_searchfront(self):
         client=Client(html=page(query='示例条例ZVING2'))
         site_adapters.search_source('moj-regulations','示例条例',search_range='content',client=client)

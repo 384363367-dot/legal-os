@@ -4,8 +4,8 @@
     "official_asf_license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "original_banner_git_blob": "16a43b80e86098b387a285c4afac46d7d1b47cdb"
   },
-  "package_version": "0.8.4",
-  "file_count": 210,
+  "package_version": "0.8.5",
+  "file_count": 212,
   "files": [
     {
       "mode": "0644",
@@ -22,8 +22,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "599c9e3853194109b79307bc28e30a1eed5c34a7647fbcc8dedf1541a9b9026f",
-      "size": 22219
+      "sha256": "ba381d345e086591e7aa2a55e70922033a1a32c38e429ca4f9d76efc54660ac5",
+      "size": 23037
     },
     {
       "mode": "0644",
@@ -52,8 +52,8 @@
     {
       "mode": "0644",
       "path": "README.md",
-      "sha256": "34665c426c7aee5fc184e7fdfb9d2f8a7df34caf23956788480ca5d5ca970c40",
-      "size": 3516
+      "sha256": "7534add6eb5e9e9742c06e24b40f38015188fcc2644ee41df78373d6eff0079d",
+      "size": 3686
     },
     {
       "mode": "0644",
@@ -90,6 +90,12 @@
       "path": "RELEASE_NOTES_v0.8.4.md",
       "sha256": "93d5c46b3cb3dccfaea148700e1e3b5208b12a5744151e276e86cf5b7bd37fb6",
       "size": 1876
+    },
+    {
+      "mode": "0644",
+      "path": "RELEASE_NOTES_v0.8.5.md",
+      "sha256": "d225f82543c1f803b3184dcfcc4b4b6aff3cda50f59e3537c930174f2b2a57cd",
+      "size": 1298
     },
     {
       "mode": "0644",
@@ -135,6 +141,12 @@
     },
     {
       "mode": "0644",
+      "path": "TEST_REPORT_v0.8.5.md",
+      "sha256": "179103ecd208d94a2ac21d4cf46db47f66d1b879750fa08194879949fcdada07",
+      "size": 2773
+    },
+    {
+      "mode": "0644",
       "path": "UPGRADE_REPORT_v0.7.0.md",
       "sha256": "32ba01a7850425dcba870214ff33a31eb4fe66f08b6145fc85b726b63a27651f",
       "size": 13883
@@ -160,8 +172,8 @@
     {
       "mode": "0644",
       "path": "docs/capability-matrix.md",
-      "sha256": "6f8b8cf0a840cd591eb68525daba140fb695483d15497c18d91d016866d527f7",
-      "size": 3102
+      "sha256": "c025d7fc0eb4450175d4f78853cbe6693e7588a6b4e2e284fe7e5b8134579fe6",
+      "size": 3207
     },
     {
       "mode": "0644",
@@ -268,7 +280,7 @@
     {
       "mode": "0644",
       "path": "legalos.manifest.json",
-      "sha256": "c3e8617a25b4c2a59c25f0a56a293d891c2060d3fcddaad2bd2b41f8f5b26f15",
+      "sha256": "9a47a26219dc75fab301c76f5e1f90f272d293bed9a2d1fd05900c810d32c5b3",
       "size": 9450
     },
     {
@@ -406,8 +418,8 @@
     {
       "mode": "0644",
       "path": "skills/cn-legal-research/SKILL.md",
-      "sha256": "13b7a5f1927e6aa1354f838fc1da2a4a8d233b2b8fc7a0c27115f421cc7e0147",
-      "size": 6354
+      "sha256": "29cadc7ac525f9b48c407b817ea94a5b17ce78546513f9cfc26bf9f916bc170f",
+      "size": 6606
     },
     {
       "mode": "0644",
@@ -544,8 +556,8 @@
     {
       "mode": "0644",
       "path": "skills/cn-legal-research/scripts/site_adapters.py",
-      "sha256": "69719d4c9f6e73e11051c5a0aeb22be38de5aa1285ae45b67882552319f79b8e",
-      "size": 35609
+      "sha256": "cda493e3a373270426623c3a0447de20df0c8d6f27e5eac3733fd6e96bfcdf8e",
+      "size": 39245
     },
     {
       "mode": "0644",
@@ -1234,8 +1246,8 @@
     {
       "mode": "0644",
       "path": "tests/test_research_v084_accuracy.py",
-      "sha256": "22c1c63504893b98317953a3d615b7e2eec9c0a30b36fd3e369da0cbaf3068f1",
-      "size": 10948
+      "sha256": "963bd490475bbafd2b88d9348d062099f5e6afbb574962bbc9b9ac532c097069",
+      "size": 12339
     },
     {
       "mode": "0644",

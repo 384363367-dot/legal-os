@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/release-v0.8.4-blue" alt="v0.8.4 public prerelease">
+  <img src="https://img.shields.io/badge/release-v0.8.5-blue" alt="v0.8.5 public prerelease">
   <img src="https://img.shields.io/badge/Skills-15-2563eb" alt="15 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
@@ -30,7 +30,9 @@
 
 ## 当前版本
 
-**v0.8.4 公开预发布版。** 包含 15 个 Skills、12 条路由和 24 个标准 Office 模板。
+**v0.8.5 公开预发布版。** 包含 15 个 Skills、12 条路由和 24 个标准 Office 模板。
+
+本版修复司法部行政法规搜索的中文详情链接和详情字段解析；详情页未标注效力状态时，以官方现行行政法规搜索记录核对。
 
 ## Legal OS 能做什么
 
