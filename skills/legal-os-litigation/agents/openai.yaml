@@ -1,6 +1,6 @@
 interface:
   display_name: "Legal OS Litigation"
   short_description: "Source-locked litigation and pleading workflow"
-  default_prompt: "Use $legal-os-litigation to route a Chinese litigation matter through analysis, evidence mapping, legal research, and a quality-gated pleading plus its paired evidence catalogue."
+  default_prompt: "Use $legal-os-litigation to route a Chinese litigation matter through analysis, evidence mapping, legal research, and quality-gated litigation work with an internal evidence index and only the requested or procedurally required delivery artifacts."
 policy:
   allow_implicit_invocation: true

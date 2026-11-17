@@ -11,7 +11,7 @@ Resolve one template in this order:
 
 Verify the selected file against its registered SHA-256 before use. Copy it to the matter workspace and preserve the source as read-only. Record the template ID, scope, source, hash, selection reason and output hash in the matter manifest.
 
-For any complaint, application or answer, the selected catalog entry must declare `paired_document_type=evidence-catalog`. The resolver must return and integrity-check both templates. Absence, ambiguity or hash failure of the paired template blocks the pleading output.
+For a complaint, application or answer, resolve the requested template alone by default. When the user requests a catalogue or verified procedure requires it, pass `--with-evidence-catalog` to resolve and integrity-check that template too. An absent, ambiguous or corrupt catalogue blocks the requested combined selection. Legacy `paired_document_type` metadata does not require catalogue generation. Public litigation entries with an explicit status and any entry with an explicit approval_state must be approved. Legacy non-litigation status handling remains compatible with existing callers, without granting approval or expanding this change to their workflows. Private entries require explicit approval. Every registered selected file must match its valid registered SHA-256.
 
 ## Fixed shell, flexible body
 
@@ -40,4 +40,4 @@ Before release, compare template and output for:
 
 Structural fidelity and substantive quality are separate gates. Passing one never substitutes for the other.
 
-For pleading bundles, fidelity also requires that the pleading omit any independent evidence-source chapter and that the evidence catalogue be generated in the same run. Incomplete evidence is represented as a `待补证 / 内部草稿` catalogue, not as a missing artifact.
+For pleading bundles, apply the litigation workflow’s evidence-source chapter rule and check consistency among the actual requested artifacts. An incomplete requested catalogue remains `待补证 / 内部草稿`. Keep the internal evidence index regardless of delivery scope. A catalogue outside the requested or procedurally required scope is not a missing artifact.

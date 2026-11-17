@@ -17,7 +17,7 @@ class ReleasePairTests(unittest.TestCase):
     def setUp(self):
         self.public = json.loads((ROOT / "legalos.manifest.json").read_text(encoding="utf-8"))
         self.private = {
-            "release": {"release_id": "legalos-v0.8.6", "version": "0.8.6"},
+            "release": {"release_id": "legalos-v0.8.7", "version": "0.8.7"},
             "profile": {"profile_id": "private-controlled"},
             "inventory": {"files": ["PRIVATE_SENTINEL_PATH"]},
             "tree_sha256": "PRIVATE_SENTINEL_HASH",

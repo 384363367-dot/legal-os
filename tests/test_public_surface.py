@@ -20,7 +20,7 @@ class PublicSurfaceTests(unittest.TestCase):
         manifest = json.loads((ROOT / "legalos.manifest.json").read_text(encoding="utf-8"))
         from scripts.profile_inventory import profile_payload
 
-        self.assertEqual(manifest["release"], {"release_id": "legalos-v0.8.6", "version": "0.8.6"})
+        self.assertEqual(manifest["release"], {"release_id": "legalos-v0.8.7", "version": "0.8.7"})
         self.assertEqual(manifest["product"]["public_version"], manifest["release"]["version"])
         self.assertEqual(manifest["profile"]["profile_id"], "public-generic")
         self.assertEqual(manifest["profile"]["payload"], profile_payload(ROOT / "skills"))

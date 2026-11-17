@@ -9,7 +9,7 @@ class ManifestValidationTests(unittest.TestCase):
  def setUpClass(cls):cls.manifest=json.loads((ROOT/'legalos.manifest.json').read_text(encoding='utf-8'))
  def test_current_manifest_is_consistent(self):self.assertEqual(validate_manifest(ROOT),[])
  def test_release_identity_and_public_profile_are_current(self):
-  self.assertEqual(self.manifest['release'],{'release_id':'legalos-v0.8.6','version':'0.8.6'})
+  self.assertEqual(self.manifest['release'],{'release_id':'legalos-v0.8.7','version':'0.8.7'})
   self.assertEqual(self.manifest['profile']['profile_id'],'public-generic')
   self.assertEqual(self.manifest['profile']['payload'],profile_payload(ROOT/'skills'))
   self.assertEqual(self.manifest['product']['public_version'],self.manifest['release']['version'])
@@ -46,7 +46,7 @@ class ManifestValidationTests(unittest.TestCase):
   self.assertEqual(skills['cn-law-hub']['status'],'compatibility')
  def test_package_manifest_and_checksums_match_current_files(self):
   package=json.loads((ROOT/'PACKAGE_MANIFEST.json').read_text(encoding='utf-8'))
-  self.assertEqual(package['package_version'],'0.8.6')
+  self.assertEqual(package['package_version'],'0.8.7')
   self.assertEqual(package['release'],self.manifest['release'])
   self.assertEqual(package['profile'],self.manifest['profile'])
   files=package['files'];self.assertEqual(package['file_count'],len(files))

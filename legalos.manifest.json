@@ -3,20 +3,20 @@
   "schema_version": "1.2.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.8.6",
+    "public_version": "0.8.7",
     "release_status": "released",
     "version_namespace": "public-semver"
   },
   "release": {
-    "release_id": "legalos-v0.8.6",
-    "version": "0.8.6"
+    "release_id": "legalos-v0.8.7",
+    "version": "0.8.7"
   },
   "profile": {
     "profile_id": "public-generic",
     "payload": {
       "skill_count": 15,
-      "file_count": 139,
-      "tree_sha256": "94470aba83c4055669584359e3f928f8b3a3ef383f6f4eab4f7fa77030dfe1eb"
+      "file_count": 142,
+      "tree_sha256": "f8a353c5675333eea4db06b3f70531b0d87c701a19a0529a6325d0f9106a964b"
     }
   },
   "authority": {

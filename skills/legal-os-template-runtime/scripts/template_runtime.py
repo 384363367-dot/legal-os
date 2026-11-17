@@ -19,15 +19,6 @@ PLACEHOLDER_RE = re.compile(
     r"[【〔][^】〕\n]{0,100}(?:填写|待核|日期|名称|金额|合同|项目|期限|如有|收函方|发函方|签名|盖章|起算日|基数|人民法院|________)[^】〕\n]{0,100}[】〕]"
     r"|\[填写[^\]]*\]|模板控制提示|_{4,}"
 )
-PLEADING_DOCUMENT_TYPES = {
-    "civil-complaint",
-    "civil-answer",
-    "arbitration-application",
-    "arbitration-answer",
-    "labor-arbitration-application",
-    "labor-arbitration-answer",
-}
-
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -64,6 +55,10 @@ def resolve_template(args: argparse.Namespace) -> int:
         matches: list[tuple[dict, Path, str]] = []
         for registered in public_catalog.get("templates", []):
             if registered.get("document_type") == document_type:
+                if registered.get("approval_state", "approved") != "approved":
+                    continue
+                if registered.get("skill") == "legal-os-litigation" and registered.get("status", "approved") != "approved":
+                    continue
                 matches.append((registered, resolve_path(registered, skills_root, catalog_path, False), "bundled-generic-template"))
         if private_catalog and private_path:
             for registered in private_catalog.get("templates", []):
@@ -92,7 +87,7 @@ def resolve_template(args: argparse.Namespace) -> int:
             return None, {"status": "TEMPLATE_INTEGRITY_FAIL", "template_id": entry.get("id"), "reason": "registered file missing", "path": str(path)}, 3
         actual = sha256(path)
         expected = entry.get("sha256")
-        if expected and actual != expected:
+        if not isinstance(expected, str) or re.fullmatch(r"[0-9a-f]{64}", expected) is None or actual != expected:
             return None, {
                 "status": "TEMPLATE_INTEGRITY_FAIL",
                 "template_id": entry.get("id"),
@@ -102,12 +97,10 @@ def resolve_template(args: argparse.Namespace) -> int:
             }, 3
         return entry, path, scope
 
-    def paired_payload(document_type: str, entry: dict | None = None) -> tuple[dict, dict | None, int]:
-        paired_type = (entry or {}).get("paired_document_type")
-        if not paired_type and document_type in PLEADING_DOCUMENT_TYPES:
-            paired_type = "evidence-catalog"
-        if not paired_type:
+    def paired_payload(document_type: str) -> tuple[dict, dict | None, int]:
+        if not args.with_evidence_catalog:
             return {}, None, 0
+        paired_type = "evidence-catalog"
         selected = select_registered(paired_type)
         if selected[0] is None:
             _, error, code = selected
@@ -146,7 +139,7 @@ def resolve_template(args: argparse.Namespace) -> int:
         return emit(error, code)
     entry, path, scope = selected
     actual = sha256(path)
-    pair, error, code = paired_payload(args.document_type, entry)
+    pair, error, code = paired_payload(args.document_type)
     if error:
         return emit(error, code)
 
@@ -264,6 +257,8 @@ def build_parser() -> argparse.ArgumentParser:
     resolve.add_argument("--private-catalog", type=Path)
     resolve.add_argument("--explicit-template", type=Path)
     resolve.add_argument("--explicit-id", default="EXPLICIT-USER-TEMPLATE")
+    resolve.add_argument("--with-evidence-catalog", action="store_true",
+                         help="also resolve the evidence catalogue explicitly requested or required by the procedure")
     resolve.set_defaults(func=resolve_template)
 
     audit = sub.add_parser("audit-docx")

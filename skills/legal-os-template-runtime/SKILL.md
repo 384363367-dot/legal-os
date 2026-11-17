@@ -13,9 +13,9 @@ For DOCX and ordinary editable Excel templates, apply [the shared Office source 
 
 1. Identify one exact `document_type` from the current primary route.
 2. Read `references/template-selection-policy.md`.
-3. Resolve the template with `scripts/template_runtime.py resolve`. Supply the private overlay catalog when the controlled workspace has one; supply `--explicit-template` when the user identifies a current-task template. Pleading resolution must also return the paired evidence-catalog template.
+3. Resolve the template with `scripts/template_runtime.py resolve`. Supply the private overlay catalog when the controlled workspace has one; supply `--explicit-template` when the user identifies a current-task template. Resolve only requested artifacts. Add `--with-evidence-catalog` when an evidence catalogue is explicitly requested or required by the verified procedure. Legacy paired metadata does not itself require an additional artifact.
 4. Require `status=SELECTED`. Stop on `TEMPLATE_REQUIRED`, `TEMPLATE_AMBIGUOUS` or `TEMPLATE_INTEGRITY_FAIL`; do not create a substitute layout from a blank document.
-5. Copy the selected template to the matter workspace. For a complaint, application or answer, also copy the returned paired evidence-catalog template. Preserve the sources and record both template IDs, scopes, paths and SHA-256 values.
+5. Copy the selected template to the matter workspace. Copy a returned evidence-catalog template only when it is part of the actual delivery scope. Preserve each source and record its template ID, scope, path and SHA-256.
 6. Draft with a fixed shell and flexible body. Preserve visual identity and minimum functional sections while expanding factual, legal and risk content to the depth required by the actual matter.
 7. Run the primary workflow's substantive quality gate.
 8. Run `scripts/template_runtime.py audit-docx` for DOCX output. Allow placeholders only for an explicitly labelled internal draft.
@@ -44,7 +44,8 @@ python scripts/template_runtime.py audit-docx --template /path/to/template.docx 
 ## Boundaries
 
 - Treat the template as a format and minimum-structure authority, not a content ceiling.
-- Pleading templates require paired evidence-catalog resolution and must not contain an independent evidence-source chapter.
+- For pleadings, apply the litigation workflow’s delivery scope and evidence-source chapter rules. An optional catalogue requires its own verified template when requested.
+- Registered templates require a valid matching SHA-256. Litigation entries marked with an unapproved status and any entry with an unapproved `approval_state` are excluded. Legacy non-litigation `status=candidate` handling remains compatible in this litigation-scoped change and does not confer new approval. Private overlay entries require `approval_state=approved`. An explicit current-task user template retains its separate selection path.
 - Do not use template wording to fill missing facts, evidence or law.
 - Do not preserve placeholder brevity when the matter requires fuller chronology, claims, defences, consequences, risk warnings, calculations or attachments.
 - Do not state discretionary remedies or possible costs as certain outcomes.
