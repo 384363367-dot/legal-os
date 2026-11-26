@@ -1,6 +1,6 @@
 ---
 name: legal-os-litigation
-description: Source-locked Chinese civil and criminal litigation workflow covering litigation analysis, evidence mapping, legal research, and quality-gated pleading documents. Use when reviewing a litigation matter, organizing facts and evidence, checking current legal authority, drafting a complaint/defence/arbitration document, building an evidence catalogue, or preparing a source-traceable internal review package.
+description: Source-locked Chinese civil and criminal litigation workflow covering litigation analysis, evidence mapping, legal research, advocacy briefs, and quality-gated pleading documents. Use when reviewing a litigation matter, organizing facts and evidence, checking current legal authority, drafting a complaint/defence/arbitration or advocacy document, building an evidence catalogue, or preparing a source-traceable internal review package.
 ---
 
 # Legal OS Litigation
@@ -13,15 +13,51 @@ For external pleadings and procedural submissions, apply the public [external-ex
 
 For pleading and evidence-catalogue DOCX artifacts, apply [the shared Office source policy](../legal-os-unified-intake/references/office-source-policy.md) before loading any document helper. Source structure, tracked changes and formatting properties are primary; for a formal pleading or evidence-catalogue DOCX, use one final visual QA pass when the current Runtime has reliable visual capability, otherwise remain conditional under the shared policy. An explicit user instruction not to render is a hard stop.
 
+## Advocacy-document trigger
+
+For a task that drafts, reviews or revises an advocacy artifact, first classify
+the ordinary Litigation route and apply the following exact `document_variant`
+after R1 identifies the procedure, represented role, stage and scope. Recognize
+both named documents (代理词、庭前/庭后代理意见、补充/专项代理意见) and
+artifact-function requests such as “as counsel, submit a focused opinion on the
+payment amount”. A mere mention of “代理词” inside a complaint, answer,
+quotation or source file does not trigger the supplement.
+
+- `advocacy-brief` — complete advocacy submission;
+- `pre-hearing-advocacy-opinion` — pre-hearing opinion;
+- `post-hearing-advocacy-brief` — post-hearing brief/opinion; or
+- `supplemental-advocacy-opinion` — focused supplemental/special opinion.
+
+Load [the advocacy drafting rules](references/advocacy-drafting-rules.md) once
+for the triggered artifact. `advocacy-brief` is a complete brief;
+`post-hearing-advocacy-brief` is complete for its confirmed scope. When the
+represented party is a defendant/respondent whose answer has already been
+filed, its default post-hearing scope is a two-source supplement of that answer:
+use the answer as the baseline and cover material actual oral assertions and
+late-filed written opinions. An explicit whole-case request overrides that
+answer-based default and remains `post-hearing-advocacy-brief`; an explicit
+narrower request uses `supplemental-advocacy-opinion`. A supplement to an
+already-filed answer is not focused merely because it is a supplement. In other
+post-hearing situations, preserve the existing rule: use the post-hearing
+variant for the complete confirmed scope and use the supplemental variant only
+when the user specifically narrows the scope. The pre-hearing and supplemental
+variants are likewise limited to their declared scope. Review-only work invokes
+the substantive checks but does not invent prior approvals or silently start
+drafting. T-02 remains the single primary pleading route; these variants do not
+create a new route, Skill, template approval or quality gate. A complaint,
+answer, appeal, evidence comment or hearing outline does not load the advocacy
+supplement solely because it is litigation work. If a task contains separate
+artifacts, classify and load rules for each artifact independently.
+
 ## Workflow
 
 1. **Intake and role** — identify the procedural posture, party represented, requested outcome, deadlines, and the materials actually supplied. Scan actual service, deadline basis and backward work plan first under R1, including new procedural documents in an existing matter. Identify the current objective and requested relief or defence scope from current material; keep unresolved parts pending rather than completing them by inference. For new or materially changed work covered by R2, complete its analysis and obtain the user's strategy choice in normal dialogue before formal drafting, subject to R2’s explicit user-directed draft-first exception. Do not invent missing facts. For an existing matter, treat the latest verified procedural status, judgment, new evidence and opponent position as the current authority; preserve superseded statuses only as history. For a new matter, separate confirmed facts from facts still requiring verification before choosing a theory.
-2. **Litigation analysis** — build the issues, claims/defences, elements, disputed facts, procedural risks, and decision points. Separate facts from hypotheses and strategy.
+2. **Litigation analysis** — build the issues, claims/defences, elements, disputed facts, procedural risks, and decision points. Separate facts from hypotheses and strategy. When the advocacy trigger applies, read `references/advocacy-drafting-rules.md` once and apply its A01–A12 supplement while retaining R1–R16, the existing workspace ledgers, template controls and external-expression boundary; keep a focused supplemental opinion within its declared issue scope.
 3. **Evidence mapping** — map each material fact or proposition to an evidence item, source location, authentication/availability note, and gap status. Mark contradictions and missing originals.
 4. **Legal and case research** — send current-law questions to the T-05 default `cn-legal-research` adapter and case-comparison questions to `cn-case-hub` when those capabilities are needed. `cn-law-hub` is a compatibility path only. Current-law outputs must identify version, effect, article/pinpoint and temporal application. Case outputs must identify source verification, procedure chain, relevance/direction matrix and decision-fork variables. Do not use a remembered rule or remembered case as a citation.
 5. **Research-to-strategy handoff** — convert verified research into an action matrix before drafting: `decision-fork variable → matter fact → supporting/adverse evidence → evidence_gap → opponent attack → evidence action → argument/procedural action`. A high-relevance adverse case (`A-`) must be distinguished or expressly carried as risk; never omit it merely because it is adverse. See `references/case-research-handoff.md`.
 6. **Confirmed-section pleading assembly** — under R2, including its explicit user-directed early-drafting exception, use `legal-os-template-runtime` to resolve and hash-check the exact approved template for each requested artifact. Apply R2’s single conclusions table prerequisite, sole user-directed early-drafting exception and confirmation of the whole structure card before section drafting and separate confirmation of every section before final assembly. Apply R8 to determine requested deliverables and handle legacy paired-template metadata without automatically producing a catalogue. Preserve the fixed visual shell, but expand facts, claims/defences, legal grounds, calculations and subsections to the depth required by the matter. Maintain evidence names, numbers, page locations and proof purposes in the internal index and, when requested or procedurally required, the separate evidence catalogue. Keep the pleading free of a standalone evidence-source section. Keep internal analysis out of the external version.
-7. **Quality gate** — check fact–evidence–authority–relief/defence alignment, party identity, jurisdiction, amount, dates, case number, procedural posture, numbering, A4 layout, page numbers, evidence-table headers, cross-artifact numbering and template fidelity.
+7. **Quality gate** — check fact–evidence–authority–relief/defence alignment, party identity, jurisdiction, amount, dates, case number, procedural posture, numbering, A4 layout, page numbers, evidence-table headers, cross-artifact numbering and template fidelity. When the advocacy supplement is loaded, also perform A-Q1–A-Q4 and ART in the existing `references/pleading-quality-gate.md` review.
 8. **Release boundary** — label outputs as draft, internal review, or final clean version. Filing, service, sending, signing, or other external action requires separate user authorization.
 
 ## Stop conditions
@@ -50,6 +86,7 @@ Hold the affected claim, defence, figure or formal assertion when a material par
 - For the module contract and artifact boundaries, read `references/workspace-contract.md`.
 - For the v0.7.0 case-research-to-strategy handoff, read `references/case-research-handoff.md`.
 - For the reusable R1–R16 complaint/application/answer method, including the initial-claim stance gate, read `references/pleading-drafting-rules.md`.
+- For 代理词, 庭后代理意见 and focused supplemental advocacy opinions, read `references/advocacy-drafting-rules.md` after classifying the exact `document_variant` above.
 - For the pleading quality gate and release labels, read `references/pleading-quality-gate.md`.
 - For the verified legal basis of the labour-arbitration cost exclusion, read `references/labor-arbitration-authority.md`.
 

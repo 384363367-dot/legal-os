@@ -16,6 +16,77 @@ For a claimant's initial complaint, arbitration application, payment-order appli
 
 A conditional-language match triggers `REVIEW_REQUIRED`, not automatic deletion or automatic failure. Remove unsupported or unnecessary text from the external artifact and preserve useful analysis in the correct internal artifact.
 
+## Advocacy-specific integrated review (A-Q1–A-Q4 and ART)
+
+When the artifact-function trigger in `legal-os-litigation/SKILL.md` selects an
+advocacy `document_variant`, run this review in the same pleading gate. Do not
+create a separate advocacy gate, approval ledger or release path. A review-only
+task invokes these checks but does not invent prior section approvals or start
+formal drafting. Record the reviewer, method, source coverage, findings and
+unresolved items with the integrated review below.
+
+### A-Q1 — Dispute coverage
+
+Confirm that a complete advocacy brief covers every independent request and
+dispute in its confirmed scope and responds to material opponent positions,
+actual post-hearing developments and adjudicator concerns. A focused
+supplemental opinion passes scope coverage when it resolves its declared issue;
+it need not repeat the whole case. A named or contextual artifact request must
+not silently change from focused to complete (or the reverse). For a represented
+defendant/respondent whose answer is already filed, the default
+`post-hearing-advocacy-brief` scope is the answer-baseline two-source
+supplement: each material actual oral assertion and late-filed written opinion
+must be covered from its actual source. For duplicated positions, check that
+both opposing-source locators are retained (for example, the hearing-record
+page and the late-opinion page/section), with the answer paragraph linked
+separately when relevant. Briefly carry forward existing responses and develop
+the evidence and legal consequence. Record missing or unverified material and
+its effect rather than filling it by inference; do not PASS the affected scope
+while material source coverage remains unresolved. This default does not
+require a whole-case rewrite; an explicit whole-case request overrides it,
+while an explicit narrower request is the focused supplemental variant.
+
+### A-Q2 — Adjudicative reasoning closure
+
+For each core issue, confirm a closed chain of evidence evaluation, substantive
+legal subsumption, response to a material contrary proposition and a definite
+legal consequence tied to the request, defence, amount or procedural objective.
+Facts, evidence and provisions followed by an unsupported conclusion, or a
+generic direction to “consider comprehensively” without a real identified gap,
+fails this check. A genuine missing fact, investigation or legal condition must
+be stated precisely and held at the affected scope.
+
+### A-Q3 — Adjudicative Reasoning Test (ART)
+
+For every major dispute, assume the decision-maker accepts the supported facts
+and legal propositions. Test whether the core reasoning can be placed into the
+decision's reasons directly or after only changing voice, labels and minor
+wording. Record whether it still requires:
+
+- a missing material fact or evidence;
+- a necessary legal authority;
+- reconstruction of the fact-to-rule reasoning;
+- an answer to a material opposing view; or
+- a necessary legal evaluation or conclusion.
+
+If only perspective and minor wording need adjustment, record high adjudicative
+adoptability. If core reasoning must be rebuilt, revise the affected section
+and obtain its explicit reconfirmation under R2 before drafting the next formal
+section or assembling the full text. ART is not a victory prediction, does not
+require a simulated judgment, and does not require a paragraph-by-paragraph
+checklist.
+
+### A-Q4 — Reasoning density and expression
+
+Check for neutral-report writing, repeated facts/law/reasoning, decorative
+cases, empty length, unsupported or absolute conclusions, emotional language,
+unnecessary strategy exposure and failure to use conclusion-led headings.
+Combine this review with the existing fact, evidence, law, amount, procedure,
+format, template and release checks. Passing A-Q1–A-Q4 does not waive any
+existing quality control or human authorization. A keyword match or a checked
+box is not evidence that reasoning is substantively sound; record semantic
+review or synthetic positive/negative evaluation limits honestly.
+
 When a separate evidence catalogue is requested or required by the applicable procedure, verify that its numbering, evidence names and proof purposes match the pleading and evidence materials; the pleading itself must not contain an independent “证据和证据来源” chapter. If evidence is incomplete, label the catalogue `待补证 / 内部草稿` and keep the release state blocked or draft-only. Fail or hold for review when identity, amount, date, forum, case number, procedural posture, core evidence, cross-artifact mapping, source text, tables, numbering or required format properties conflict. Labour/personnel arbitration pleadings fail if they request arbitration costs from the other party. Keep drafting, internal review, sending, filing, and signing as separate authorization states.
 
 

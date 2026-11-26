@@ -13,11 +13,11 @@
     "profile_id": "public-generic",
     "payload": {
       "skill_count": 15,
-      "file_count": 142,
-      "tree_sha256": "f8a353c5675333eea4db06b3f70531b0d87c701a19a0529a6325d0f9106a964b"
+      "file_count": 143,
+    "tree_sha256": "129c6c01023f1e350ce32bce34a9cf998e0e2ce5ac6dc333c724415b77b80cbb"
     }
   },
-  "file_count": 221,
+  "file_count": 223,
   "files": [
     {
       "mode": "0644",
@@ -310,7 +310,7 @@
     {
       "mode": "0644",
       "path": "legalos.manifest.json",
-      "sha256": "9da947f103cc24b3e228a4d9cf9a41b3226edf50618da81e8588edee0dc4e628",
+      "sha256": "ad86fffc5ca98e37d1dfc24f9e81234ed6fa5e46c3dbcdeffda1713fe8f01380",
       "size": 9746
     },
     {
@@ -886,8 +886,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-litigation/SKILL.md",
-      "sha256": "e31ddec1bea2b5fa297d7d05f1a5674afb63d6aa053e11d72bfee45ae3540d57",
-      "size": 10058
+      "sha256": "53e78c9c795b9992c7f9f7683e8835e3c2ed34fe29e292c86bbcdb56a24d4870",
+      "size": 13066
     },
     {
       "mode": "0644",
@@ -963,6 +963,12 @@
     },
     {
       "mode": "0644",
+      "path": "skills/legal-os-litigation/references/advocacy-drafting-rules.md",
+      "sha256": "94f28836b1ad2bb7f3788349912345e2643a279ed7c395eb3f1fcb07fdac1039",
+      "size": 15523
+    },
+    {
+      "mode": "0644",
       "path": "skills/legal-os-litigation/references/case-research-handoff.md",
       "sha256": "563d476c592abc7cc717f741e1355d4660c0a9716362c2efa39d50dca34038c1",
       "size": 1167
@@ -982,8 +988,8 @@
     {
       "mode": "0644",
       "path": "skills/legal-os-litigation/references/pleading-quality-gate.md",
-      "sha256": "310e2980dab97dbe42ef4e30983e6aff0bf4c0f02a7e45cd3b127643fb086e33",
-      "size": 6565
+      "sha256": "e1619d6d6975b2b02b0d13f3c5fdaa4ca7ab327b758e1c3f24947b059a13b9e2",
+      "size": 10622
     },
     {
       "mode": "0644",
@@ -1236,6 +1242,12 @@
       "path": "tests/test_claimant_stance_rules.py",
       "sha256": "4f8c53c905961df3ca29e3df3f6ae9f31c733b9d7683588a50e5e35bc0d3f487",
       "size": 5316
+    },
+    {
+      "mode": "0644",
+      "path": "tests/test_advocacy_rules.py",
+      "sha256": "4bf158a861d074ec5ce6daa53a3d70f8c71fa7e51e3a3cbb8ed61affc7c9dfea",
+      "size": 7609
     },
     {
       "mode": "0644",
