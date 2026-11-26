@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/release-v0.8.7-blue" alt="v0.8.7 public prerelease">
+  <img src="https://img.shields.io/badge/release-v0.8.8-blue" alt="v0.8.8 public prerelease">
   <img src="https://img.shields.io/badge/Skills-15-2563eb" alt="15 Skills">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue" alt="Apache 2.0 License"></a>
 </p>
@@ -30,9 +30,9 @@
 
 ## 当前版本
 
-**v0.8.7 公开预发布版，非稳定版。** 包含 15 个 Skills、12 条路由和 26 个标准 Office 模板。
+**v0.8.8 公开预发布版，非稳定版。** 包含 15 个 Skills、12 条路由和 26 个标准 Office 模板。
 
-更新日期为 2026-11-17。本版完善诉讼分析、结论总表与分节确认，优化现有诉讼模板，增加详细证据目录和材料页模板，并支持按所需成果选择模板。刑事及特殊程序的专属正式模板仍按实际登记提供。
+更新日期为 2026-11-26。本版在既有诉讼流程基础上补充代理词专项规则，明确答辩方庭后补充意见的答辩状基线、庭审陈述与临时书面意见覆盖，并将 A-Q/ART 检查纳入既有诉讼质量门。刑事及特殊程序的专属正式模板仍按实际登记提供。
 
 ## Legal OS 能做什么
 

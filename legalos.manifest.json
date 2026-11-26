@@ -3,13 +3,13 @@
   "schema_version": "1.2.0",
   "product": {
     "name": "Legal OS",
-    "public_version": "0.8.7",
+    "public_version": "0.8.8",
     "release_status": "released",
     "version_namespace": "public-semver"
   },
   "release": {
-    "release_id": "legalos-v0.8.7",
-    "version": "0.8.7"
+    "release_id": "legalos-v0.8.8",
+    "version": "0.8.8"
   },
   "profile": {
     "profile_id": "public-generic",

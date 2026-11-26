@@ -1,23 +1,23 @@
 {
   "baseline": {
-    "github_main_commit": "14e9f9e8eac94489e0697910098453b7824e44fa",
+    "github_main_commit": "b4d8d393c871e9c8f789b30bd8d846e6931f9d2a",
     "official_asf_license_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
     "original_banner_git_blob": "16a43b80e86098b387a285c4afac46d7d1b47cdb"
   },
-  "package_version": "0.8.7",
+  "package_version": "0.8.8",
   "release": {
-    "release_id": "legalos-v0.8.7",
-    "version": "0.8.7"
+    "release_id": "legalos-v0.8.8",
+    "version": "0.8.8"
   },
   "profile": {
     "profile_id": "public-generic",
     "payload": {
       "skill_count": 15,
       "file_count": 143,
-    "tree_sha256": "129c6c01023f1e350ce32bce34a9cf998e0e2ce5ac6dc333c724415b77b80cbb"
+      "tree_sha256": "129c6c01023f1e350ce32bce34a9cf998e0e2ce5ac6dc333c724415b77b80cbb"
     }
   },
-  "file_count": 223,
+  "file_count": 225,
   "files": [
     {
       "mode": "0644",
@@ -34,8 +34,8 @@
     {
       "mode": "0644",
       "path": "CHANGELOG.md",
-      "sha256": "1a555fd488b98c8d35ea36446c7ac5a45d55cacaab1649324da763dfa3a51083",
-      "size": 24751
+      "sha256": "b13ab4ad3cf266fcc1408020d4b9242e02272523ef50c7087ceee8ca9795d138",
+      "size": 25343
     },
     {
       "mode": "0644",
@@ -58,8 +58,8 @@
     {
       "mode": "0644",
       "path": "README.md",
-      "sha256": "01b38921cdd62b7d756e87999347955bcc4d0b8f8e592b2015fabd0186d49ff9",
-      "size": 4011
+      "sha256": "148e9ddcdd3fd28c64efa058e7e6c6f5421c53cc5daf8438c820acdb0e02e0e3",
+      "size": 4056
     },
     {
       "mode": "0644",
@@ -114,6 +114,12 @@
       "path": "RELEASE_NOTES_v0.8.7.md",
       "sha256": "de7b3d97658e5741c82c16a5846b8ce3854b032d612d93ad136611e063bb1b2c",
       "size": 1230
+    },
+    {
+      "mode": "0644",
+      "path": "RELEASE_NOTES_v0.8.8.md",
+      "sha256": "3dceef3b46b89be1c8bb75410c88aaf64a993ce75fa166029ac71bf7eb30b0cb",
+      "size": 1276
     },
     {
       "mode": "0644",
@@ -177,6 +183,12 @@
     },
     {
       "mode": "0644",
+      "path": "TEST_REPORT_v0.8.8.md",
+      "sha256": "949f62e11e9d44b078602c615ee7929d682ebf189406eb67fe36837cd05d3dc6",
+      "size": 1319
+    },
+    {
+      "mode": "0644",
       "path": "UPGRADE_REPORT_v0.7.0.md",
       "sha256": "32ba01a7850425dcba870214ff33a31eb4fe66f08b6145fc85b726b63a27651f",
       "size": 13883
@@ -202,7 +214,7 @@
     {
       "mode": "0644",
       "path": "docs/capability-matrix.md",
-      "sha256": "b34ee97ca57bc78e2b9f633f5c05e70bed8b559439dcf7e786e578940b6473b7",
+      "sha256": "356bb9e907c3ec67f611c1bf93fdb7c22cc809080c30c30d8a4db8f4b33f6b93",
       "size": 3207
     },
     {
@@ -310,7 +322,7 @@
     {
       "mode": "0644",
       "path": "legalos.manifest.json",
-      "sha256": "ad86fffc5ca98e37d1dfc24f9e81234ed6fa5e46c3dbcdeffda1713fe8f01380",
+      "sha256": "51d4aef37a971cb7d57babf7116ce20989e109d600aa880791628546dd3f2b71",
       "size": 9746
     },
     {
@@ -1239,15 +1251,15 @@
     },
     {
       "mode": "0644",
-      "path": "tests/test_claimant_stance_rules.py",
-      "sha256": "4f8c53c905961df3ca29e3df3f6ae9f31c733b9d7683588a50e5e35bc0d3f487",
-      "size": 5316
-    },
-    {
-      "mode": "0644",
       "path": "tests/test_advocacy_rules.py",
       "sha256": "4bf158a861d074ec5ce6daa53a3d70f8c71fa7e51e3a3cbb8ed61affc7c9dfea",
       "size": 7609
+    },
+    {
+      "mode": "0644",
+      "path": "tests/test_claimant_stance_rules.py",
+      "sha256": "4f8c53c905961df3ca29e3df3f6ae9f31c733b9d7683588a50e5e35bc0d3f487",
+      "size": 5316
     },
     {
       "mode": "0644",
@@ -1282,7 +1294,7 @@
     {
       "mode": "0644",
       "path": "tests/test_manifest.py",
-      "sha256": "57cd8bdad68796858f6b265c7b2f53164f6253ca49ad1e162818a03f9a4151eb",
+      "sha256": "4edd0ff5c330d473a7aea3fa36b73a1cb3a87bf86b1f5534d9f680c07c838a7d",
       "size": 5653
     },
     {
@@ -1294,7 +1306,7 @@
     {
       "mode": "0644",
       "path": "tests/test_public_surface.py",
-      "sha256": "895bd4de800cbf1e606ba0b43dab11f7e0a8ab0956cabf478c6e1a4da8de3328",
+      "sha256": "8e7a49d36c9f66b728a20b7dff2836da8a8ea7c8265ad9323e9a180771465a82",
       "size": 1526
     },
     {
@@ -1306,7 +1318,7 @@
     {
       "mode": "0644",
       "path": "tests/test_release_pair.py",
-      "sha256": "7ed0506911c3a091406a0d9d6894e6817231cf6ce44a65cb31d5d10257f04996",
+      "sha256": "3cf78c4a3a0f18359eb67b9071433b85c1aea295a1ea7f972de641528c63e9d5",
       "size": 3666
     },
     {
